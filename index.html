@@ -17,15 +17,21 @@
 </head>
 
 <body>
-	<button type="button" class="btn" onClick="findRoute()">Calculate route!</button>
-
+	
 	<div>
         <input id="origin-input" class="controls" type="text"
             placeholder="Start">
 
         <input id="destination-input" class="controls" type="text"
-            placeholder="Destination">
-    </div>
+			placeholder="Destination">
+			
+		<button type="button" class="btn" onClick="findRoute()">Calculate route!</button>
+
+	</div>
+	
+	<div>
+		<table id="routes"></table>
+	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
