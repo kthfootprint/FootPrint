@@ -62,9 +62,9 @@ autoFill = () => {
     var destinationInput = document.getElementById('destination-input');
 
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-    originAutocomplete.setFields(['address_components']);
+    originAutocomplete.setFields(['place_id']);
 
     var destinationAutocomplete =
         new google.maps.places.Autocomplete(destinationInput);
-    destinationAutocomplete.setFields(['address_components']);
+    destinationAutocomplete.setFields(['place_id']);
 }

@@ -3,7 +3,7 @@
 
 <head>
 	<title>FootPrint</title>
-	<link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
+	<link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="apple-touch-icon" href="./webappicon.png" />
@@ -12,29 +12,70 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="manifest" href="manifest.json">
 	<script type='text/javascript' src='config.js'></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrB33EEgaxeE6aMMaYFlda2RpUGJa2p0c&libraries=places"></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrB33EEgaxeE6aMMaYFlda2RpUGJa2p0c&libraries=places"></script>
 	<script src="app.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
 <body>
-	
-	<div>
-        <input id="origin-input" class="controls" type="text"
-            placeholder="Start">
 
-        <input id="destination-input" class="controls" type="text"
-			placeholder="Destination">
-			
-		<button type="button" class="btn" onClick="findRoute()">Calculate route!</button>
+	<header>
 
-	</div>
-	
-	<div>
-		<table id="routes"></table>
+		<nav id="searchField">
+			<label class="inp">
+				<input id="origin-input" class="controls" type="text" placeholder="&nbsp;">
+				<span class="label">Start</span>
+			</label>
+
+			<label class="inp">
+				<input id="destination-input" type="text" placeholder="&nbsp;">
+				<span class="label">Destination</span>
+			</label>
+		</nav>
+
+		<nav id="goBtn">
+			<button type="button" class="btn" onClick="findRoute()"><i class="fas fa-shoe-prints fa-2x"></i>Go!</button>
+		</nav>
+
+	</header>
+
+	<div id="main">
+		<article id="card">
+			<div id="top">
+				<div id="travel">
+					<i class="fas fa-walking"></i>
+					<p><sub>3</sub></p>
+					<i class="fas fa-chevron-right fa-xs"></i>
+					<i class="fas fa-bus"></i>
+					<p><sub>3</sub></p>
+				</div>
+
+				<div id="emission">
+					<p>100 CO2</p>
+				</div>
+
+				<div id="time">
+					<p>10 min</p>
+				</div>
+			</div>
+			<div id="bottom">
+				<p>16.40</p>
+			</div>
+
+			<table id="routes">
+			</table>
+		</article>
+		<article>
+			<i class="fas fa-subway"></i>
+			<i class="fas fa-train"></i>
+			<table id="routes"></table>
+		</article>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+
 </body>
 
 </html>
