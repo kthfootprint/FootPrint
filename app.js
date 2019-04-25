@@ -9,7 +9,14 @@ var orig = "";
 
 document.addEventListener("DOMContentLoaded", function () {
     autoFill();
+    document.getElementById('origin-input').onclick = function () {
+        if(this.value == "My location") {
+            this.value = " ";
+        }
+    };
 });
+
+
 
 findRoute = () => {
     var dest = document.getElementById('destination-input').value;
