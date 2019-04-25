@@ -5,14 +5,18 @@ var icon = {
     "SUBWAY": '<i class="fas fa-subway"></i>',
     "TRAIN": '<i class="fas fa-train"></i>'
 };
+var orig = "";
 
 document.addEventListener("DOMContentLoaded", function () {
     autoFill();
 });
 
 findRoute = () => {
-    var orig = document.getElementById('origin-input').value;
     var dest = document.getElementById('destination-input').value;
+    var start = document.getElementById('origin-input').value;
+    if (start != 'My location') {
+        orig = document.getElementById('origin-input').value;
+    }
     var routeList = [];
 
     $(document).ready(function () {
@@ -79,8 +83,25 @@ autoFill = () => {
 
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     originAutocomplete.setFields(['place_id']);
-
+    
     var destinationAutocomplete =
         new google.maps.places.Autocomplete(destinationInput);
     destinationAutocomplete.setFields(['place_id']);
 }
+
+getLocation = () => {
+    var originInput = document.getElementById('origin-input');
+    var destinationInput = document.getElementById('destination-input');
+    originInput.value = "My location";
+    destinationInput.value = ' ';
+    destinationInput.select();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setPosition);
+      } else { 
+        document.getElementById('main').innerHTML = "Geolocation is not supported by this browser.";
+      }
+}
+
+setPosition = (position) => {
+    orig = position.coords.latitude + ', ' + position.coords.longitude;
+  }

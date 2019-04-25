@@ -137,6 +137,17 @@ button {
     transform-origin: 0 0;
     transition: all 0.2s ease;
   }
+
+  #location{
+    width: 80vw;
+    height: 10px;
+  }
+
+  .inp i{
+    position: absolute;
+    top: 5px;
+    right: 25px;
+  }
   
   .inp input {
     -webkit-appearance: none;

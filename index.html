@@ -27,6 +27,7 @@
 			<label class="inp">
 				<input id="origin-input" class="controls" type="text" placeholder="&nbsp;">
 				<span class="label">Start</span>
+				<span class="label" id="location"><i onClick="getLocation()" class="fas fa-crosshairs fa-lg"></i></span>
 			</label>
 
 			<label class="inp">
@@ -41,38 +42,7 @@
 
 	</header>
 
-	<div id="main">
-		<article id="card">
-			<div id="top">
-				<div id="travel">
-					<i class="fas fa-walking"></i>
-					<p><sub>3</sub></p>
-					<i class="fas fa-chevron-right fa-xs"></i>
-					<i class="fas fa-bus"></i>
-					<p><sub>3</sub></p>
-				</div>
-
-				<div id="emission">
-					<p>100 CO2</p>
-				</div>
-
-				<div id="time">
-					<p>10 min</p>
-				</div>
-			</div>
-			<div id="bottom">
-				<p>16.40</p>
-			</div>
-
-			<table id="routes">
-			</table>
-		</article>
-		<article>
-			
-			
-			<table id="routes"></table>
-		</article>
-	</div>
+	<div id="main"></div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
