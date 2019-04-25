@@ -38,51 +38,52 @@
     align-items: center;
   }
 
-#card {
+.card {
     background-color: white;
     border-top: 1px solid #d8d8d8;
     border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 10px;
 }
 
-#top {
+.top {
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-#bottom {
+.bottom {
     width: 100%;
     text-align: left;
     padding-top: 5px;
 }
 
-#bottom p {
+.bottom p {
     font-weight: bold;
     font-size: 11px;
 }
 
-#travel {
+.travel {
     flex: 3;
     display: flex;
     flex-direction: row;
     text-align: left;
 }
 
-#travel p {
+.travel p {
     font-size: 10px;
   }
 
-#travel i {
+.travel i {
     margin-left: 5px;
 }
 
-#emission {
+.emission {
     flex: 1;
     text-align: center;
     align-content: center;
 }
 
-#time {
+.time {
     text-align: right;
     flex: 1;
 }
