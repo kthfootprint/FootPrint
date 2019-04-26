@@ -4,7 +4,8 @@ var icon = {
     "BUS": '<i class="fas fa-bus"></i>',
     "SUBWAY": '<i class="fas fa-subway"></i>',
     "TRAIN": '<i class="fas fa-train"></i>',
-    "TRAM": '<i class="fas fa-bus-alt"></i>'
+    "TRAM": '<i class="fas fa-bus-alt"></i>',
+    "FERRY": '<i class="fas fa-ship"></i>'
 };
 var orig = "";
 
