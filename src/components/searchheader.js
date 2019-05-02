@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
+import GoogleApiWrapper from './routemap';
 /* global google */
 
 class SearchHeader extends Component {
@@ -150,6 +151,7 @@ class SearchHeader extends Component {
         </nav>
       </header>
       <div id="main"><RouteCard list={this.state.routeList}/></div>
+      <GoogleApiWrapper list={this.state.routeList}/>
       </div>
     );
   }

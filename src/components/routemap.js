@@ -5,7 +5,9 @@ import {Map, GoogleApiWrapper} from 'google-maps-react';
 
 
 export class RouteMap extends Component {
+
     render() {
+        console.log(this.props.list);
         return (
             <Map google={this.props.google} zoom={14}></Map>
         );
