@@ -71,6 +71,7 @@
 
 .travel p {
     font-size: 10px;
+    display: inline-block;
   }
 
 .travel i {
