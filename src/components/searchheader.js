@@ -1,12 +1,13 @@
 import React from 'react';
+/* global google */
 
 class SearchHeader extends React.Component {
 
   render() {
-/*     document.addEventListener("DOMContentLoaded", function () {
+     document.addEventListener("DOMContentLoaded", function () {
       autoFill();
       document.getElementById('origin-input').onclick = function () {
-        if (this.value == "My location") {
+        if (this.value === "My location") {
           this.value = " ";
         }
       };
@@ -22,7 +23,7 @@ class SearchHeader extends React.Component {
       var destinationAutocomplete =
         new google.maps.places.Autocomplete(destinationInput);
       destinationAutocomplete.setFields(['place_id']);
-    } */
+    }
 
     return (
       <header>
