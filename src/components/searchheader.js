@@ -120,26 +120,26 @@ class SearchHeader extends Component {
   render() {
     return (
       <div>
-      <header>
-        <nav id="searchField">
-          <label className="inp">
-            <input id="origin-input" className="controls" type="text" placeholder='' onClick={(e) => this.abortGeolocation(e)} onChange={(e) => this.handleInput(e, 'orig')}/>
-            <span className="label">Start</span>
-            <span className="label" id="location"><i onClick={() => this.getLocation()} className="fas fa-crosshairs fa-lg"></i></span>
-          </label>
+        <header>
+          <nav id="searchField">
+            <label className="inp">
+              <input id="origin-input" className="controls" type="text" placeholder=" " />
+              <span className="label">Start</span>
+              <span className="label" id="location"><i onClick={this.getLocation} className="fas fa-crosshairs fa-lg"></i></span>
+            </label>
 
-          <label className="inp">
-            <input id="destination-input" type="text" placeholder='' onChange={(e) => this.handleInput(e, 'dest')}/>
-            <span className="label">Destination</span>
-          </label>
-        </nav>
+            <label className="inp">
+              <input id="destination-input" type="text" placeholder=" " />
+              <span className="label">Destination</span>
+            </label>
+          </nav>
 
-        <nav id="goBtn">
-          <button type="button" className="btn" onClick={() => this.findRoute()}><i className="fas fa-shoe-prints fa-2x"></i>Go!</button>
-        </nav>
-      </header>
-      <div id="main"><RouteCard list={this.state.routeList}/></div>
-      <GoogleApiWrapper list={this.state.routeList}/>
+          <nav id="goBtn">
+            <button type="button" className="btn" onClick={this.findRoute}><i className="fas fa-shoe-prints fa-2x"></i>Go!</button>
+          </nav>
+        </header>
+        <div id="main"><RouteCard list={this.state.routeList} /></div>
+        <GoogleApiWrapper list={this.state.routeList}/>
       </div>
     );
   }
