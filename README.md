@@ -6,7 +6,7 @@ Application for emission awareness and comparison of different public transport 
 
 ## First time setup:
 ```
-git clone git@github.com:adigladi/RiksdagsViz.git
+git clone git@github.com:kthfootprint/FootPrint.git
 cd FootPrint
 yarn install
 ```
