@@ -6,7 +6,7 @@ import GoogleApiWrapper from './components/routemap.js';
 const App = () => (
   <div>
   <SearchHeader />
-  <GoogleApiWrapper />
+{/*   <GoogleApiWrapper /> */}
   </div>
 );
 
