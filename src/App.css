@@ -38,12 +38,6 @@
     align-items: center;
   }
 
-  #map {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-  }
-
 .card {
     background-color: white;
     border-top: 1px solid #d8d8d8;
@@ -201,6 +195,13 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
     z-index: 20;
+  }
+
+  #map {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
   }

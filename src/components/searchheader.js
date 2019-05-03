@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
-import RouteMap from './routemap';
 /* global google */
 
 class SearchHeader extends Component {
@@ -10,7 +9,6 @@ class SearchHeader extends Component {
       routeList: [],
       orig: '',
       dest: '',
-      map: false,
       route: []
     };
 
@@ -108,7 +106,7 @@ class SearchHeader extends Component {
           routeList.sort(function (a, b) {
             return a.transitTime - b.transitTime;
           });
-          this.setState({ routeList: routeList, map: true, route: result.routes });
+          this.setState({ routeList: routeList, route: result.routes });
         },
         (error) => {
           this.setState({
@@ -142,10 +140,6 @@ class SearchHeader extends Component {
         </header>
         <div id="main"><RouteCard list={this.state.routeList} route={this.state.route} /></div>
         {/* <GoogleApiWrapper list={this.state.routeList}/> */}
-        <div className="map">
-
-
-        </div>
       </div>
     );
   }
