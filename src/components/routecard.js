@@ -49,7 +49,9 @@ function RouteCard(props) {
                     </div>
                 </div>
                 <div className="bottom">
-                    <p>{list[i].departure} - {list[i].arrival}</p>
+                    {list[i].departure !== "" &&
+                        <p>{list[i].departure} - {list[i].arrival}</p>
+                    }
                 </div>
             </article>
         );

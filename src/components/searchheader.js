@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
+import RouteMap from './routemap';
 import GoogleApiWrapper from './routemap';
 /* global google */
 
@@ -9,7 +10,9 @@ class SearchHeader extends Component {
     this.state = {
       routeList: [],
       orig: '',
-      dest: ''
+      dest: '',
+      map: false,
+      route: []
     };
 
   }
@@ -96,8 +99,8 @@ class SearchHeader extends Component {
                 typeTime.push(step.duration.value);
               }
             }
-            var depart = result.routes[r].legs[0].departure_time.text;
-            var arrive = result.routes[r].legs[0].arrival_time.text;
+            var depart = result.routes[r].legs[0].departure_time ? result.routes[r].legs[0].departure_time.text : "";
+            var arrive = result.routes[r].legs[0].arrival_time ? result.routes[r].legs[0].arrival_time.text : "";
             var totalTime = result.routes[r].legs[0].duration.text;
 
             var route = { departure: depart, arrival: arrive, duration: totalTime, type: tType, typeLength: typeTime, transitTime: tTime };
@@ -106,7 +109,8 @@ class SearchHeader extends Component {
           routeList.sort(function (a, b) {
             return a.transitTime - b.transitTime;
           });
-          this.setState({ routeList: routeList });
+          console.log(routeList);
+          this.setState({ routeList: routeList, map: true, route: result.routes[0] });
         },
         (error) => {
           this.setState({
@@ -139,7 +143,12 @@ class SearchHeader extends Component {
           </nav>
         </header>
         <div id="main"><RouteCard list={this.state.routeList} /></div>
-        <GoogleApiWrapper list={this.state.routeList}/>
+        {/* <GoogleApiWrapper list={this.state.routeList}/> */}
+        <div className="map">
+    
+        { this.state.map &&
+        <RouteMap route={this.state.route}/> }
+        </div>
       </div>
     );
   }
