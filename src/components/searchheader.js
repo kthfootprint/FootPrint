@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
 import RouteMap from './routemap';
-import GoogleApiWrapper from './routemap';
 /* global google */
 
 class SearchHeader extends Component {
@@ -83,7 +82,7 @@ class SearchHeader extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result.routes[0]);
+          console.log(result.routes);
           for (var r in result.routes) {
             var tType = [];
             var typeTime = [];
@@ -103,14 +102,13 @@ class SearchHeader extends Component {
             var arrive = result.routes[r].legs[0].arrival_time ? result.routes[r].legs[0].arrival_time.text : "";
             var totalTime = result.routes[r].legs[0].duration.text;
 
-            var route = { departure: depart, arrival: arrive, duration: totalTime, type: tType, typeLength: typeTime, transitTime: tTime };
+            var route = { departure: depart, arrival: arrive, duration: totalTime, type: tType, typeLength: typeTime, transitTime: tTime, index: r };
             routeList.push(route);
           }
           routeList.sort(function (a, b) {
             return a.transitTime - b.transitTime;
           });
-          console.log(routeList);
-          this.setState({ routeList: routeList, map: true, route: result.routes[0] });
+          this.setState({ routeList: routeList, map: true, route: result.routes });
         },
         (error) => {
           this.setState({
@@ -142,12 +140,11 @@ class SearchHeader extends Component {
             <button type="button" className="btn" onClick={this.findRoute}><i className="fas fa-shoe-prints fa-2x"></i>Go!</button>
           </nav>
         </header>
-        <div id="main"><RouteCard list={this.state.routeList} /></div>
+        <div id="main"><RouteCard list={this.state.routeList} route={this.state.route} /></div>
         {/* <GoogleApiWrapper list={this.state.routeList}/> */}
         <div className="map">
-    
-        { this.state.map &&
-        <RouteMap route={this.state.route}/> }
+
+
         </div>
       </div>
     );
