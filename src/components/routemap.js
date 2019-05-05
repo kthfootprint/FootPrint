@@ -293,7 +293,7 @@ export class RouteMap extends Component {
     ); */
 
     return (
-      <div id="map"></div>
+      <div id="map" style={{height: "100%", width: "100%"}}></div>
     );
   }
 }

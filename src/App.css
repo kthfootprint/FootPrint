@@ -199,9 +199,7 @@ button {
   }
 
   #map {
-    display: flex;
-    height: 95vh;
-    width: 100vw;
+    
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     top: 5vh;
