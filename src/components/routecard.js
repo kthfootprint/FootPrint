@@ -20,6 +20,10 @@ export class RouteCard extends Component {
         console.log(e.target.id); */
     }
 
+    removeOverlay = () => {
+        this.setState({overlay: false});
+    }
+
     render() {
         var icon = {
             "WALKING": <i className="fas fa-walking"></i>,
@@ -77,7 +81,7 @@ export class RouteCard extends Component {
             <div style={{ width: "100%" }}>
                 {card}
                 {this.state.overlay &&
-                    <DirectionOverlay route={this.state.route} />}
+                    <DirectionOverlay route={this.state.route} unmount={this.removeOverlay} />}
             </div>
         );
     }
