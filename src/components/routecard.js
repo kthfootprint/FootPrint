@@ -10,7 +10,7 @@ export class RouteCard extends Component {
         };
     }
 
-    caclulateEmission = (routeType, ) => {
+    calculateEmission = (routeType) => {
         // Bajs
     }
 
