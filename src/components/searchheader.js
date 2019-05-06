@@ -92,12 +92,51 @@ class SearchHeader extends Component {
               var step = result.routes[r].legs[0].steps[t];
               console.log(step)
               if (step.transit_details) {
+                let line = step.transit_details.line.short_name;
+                if (!line) {
+                  line = step.transit_details.line.name;
+                  line = line.replace(/\D/g, '');
+                }
+
+                let color = step.transit_details.line.color;
+                if (!color) {
+                  if (step.transit_details.line.vehicle.type === "BUS") {
+                    //Lägg olika färger för olika nummer.
+                    color = "#f3e"
+                  }
+
+                  if (step.transit_details.line.vehicle.type === "TRAM") {
+                    if (step.transit_details.line.name) {
+                      if (step.transit_details.line.name.toLowerCase().includes('tvärbanan'))
+                        color = "#d77d00";
+                      else if (step.transit_details.line.name.toLowerCase().includes('nockebybanan'))
+                        color = "#778da7";
+                    }
+                    else if (step.transit_details.line.short_name) {
+                      if (step.transit_details.line.short_name === "7")
+                        color = "#878a83";
+                    }
+                  }
+
+                  if (step.transit_details.line.vehicle.type === "HEAVY_RAIL") {
+                    if (step.transit_details.line.name) {
+                      if (step.transit_details.line.name.toLowerCase().includes('saltsjöbanan'))
+                        color = "#008f93";
+                      else if (step.transit_details.line.name.toLowerCase().includes('roslagsbanan'))
+                        color = "#9f599a";
+                      else if (step.transit_details.line.name.toLowerCase().includes('pendeltåg'))
+                        //Denna färg är fel
+                        color = "#000"; 
+                    }
+                  }
+                }
+
                 transitInfo.push({
                   type: step.transit_details.line.vehicle.type,
                   from: step.transit_details.departure_stop,
                   to: step.transit_details.arrival_stop,
-                  line: step.transit_details.line.short_name,
-                  lineColor: step.transit_details.line.color,
+                  line: line,
+                  lineColor: color,
                   distance: step.distance
                 })
               } else {
