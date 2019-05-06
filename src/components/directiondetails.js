@@ -17,7 +17,7 @@ export class DirectionDetails extends Component {
         };
         var html = [];
         for (var i in this.props.route.steps) {
-            html.push(<div><i className={icon[this.props.route.steps[i].travel_mode]}/><p>{this.props.route.steps[i].html_instructions} ({this.props.route.steps[i].distance.value} m)</p><p>{this.props.route.departure_time.text}</p></div>);
+            html.push(<div key={"direction" + i}><i className={icon[this.props.route.steps[i].travel_mode]}/><p>{this.props.route.steps[i].html_instructions} ({this.props.route.steps[i].distance.value} m)</p><p>{this.props.route.departure_time.text}</p></div>);
         }
         return (
             <div id="directionDetails">
