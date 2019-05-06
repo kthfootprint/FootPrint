@@ -10,6 +10,10 @@ export class RouteCard extends Component {
         };
     }
 
+    caclulateEmission = (routeType, ) => {
+        // Bajs
+    }
+
     selectCard = (e) => {
         var r = this.props.list[e.target.id].index;
         this.setState({ overlay: true, route: this.props.route[r] });
@@ -36,7 +40,9 @@ export class RouteCard extends Component {
         var card = [];
         var list = this.props.list;
         for (var i in list) {
+            var calculatedEmission = 0;
             var travelSteps = [];
+            calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
             console.log(list[i])
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
