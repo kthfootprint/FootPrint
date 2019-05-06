@@ -99,23 +99,21 @@ class SearchHeader extends Component {
                   lineColor: step.transit_details.line.color
                 })
               } else {
+                var from, to;
                 if (transitInfo.length < 1) {
-                  transitInfo.push({
-                    type: step.travel_mode,
-                    from: this.state.orig,
-                    to: result.routes[r].legs[0].steps[parseInt(t)+1].transit_details.arrival_stop,
-                    line: null,
-                    lineColor: '#000000'
-                  })
+                  from = this.state.orig;
+                  to = result.routes[r].legs[0].steps[parseInt(t)+1].transit_details.arrival_stop;
                 } else {
-                  transitInfo.push({
-                    type: step.travel_mode,
-                    from: result.routes[r].legs[0].steps[parseInt(t)-1].transit_details.departure_stop,
-                    to: this.state.dest,
-                    line: null,
-                    lineColor: '#000000'
-                  })
+                  from = result.routes[r].legs[0].steps[parseInt(t)-1].transit_details.departure_stop;
+                  to = this.state.dest;
                 }
+                transitInfo.push({
+                  type: step.travel_mode,
+                  from: from,
+                  to: to,
+                  line: null,
+                  lineColor: '#000000'
+                })
               }
               typeTime.push(step.duration.value);
             }
