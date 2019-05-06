@@ -10,9 +10,9 @@ export class RouteCard extends Component {
         };
     }
 
-    caclulateEmission = (routeType, ) => {
+    // caclulateEmission = (routeType, ) => {
         // Bajs
-    }
+    // }
 
     selectCard = (e) => {
         var r = this.props.list[e.target.id].index;
@@ -42,15 +42,15 @@ export class RouteCard extends Component {
         for (var i in list) {
             var calculatedEmission = 0;
             var travelSteps = [];
-            calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
+            // calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
             console.log(list[i])
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
                     travelSteps.push(
                         <div key={t}>
-                            <i className="fas fa-chevron-right fa-xs" />
+                            <i className="fas fa-chevron-right fa-xs" style={{ color: list[i].transitInfo[t].lineColor }}/>
                             {icon[list[i].transitInfo[t].type]}
-                            <p><sub>{Math.round(list[i].typeLength[t] / 60)}</sub></p>
+                            <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
                     );
                 } else {
