@@ -42,21 +42,20 @@ export class RouteCard extends Component {
         for (var i in list) {
             var calculatedEmission = 0;
             var travelSteps = [];
-            for (var t in list[i].type) {
-                calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
+            console.log(list[i])
+            for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
                     travelSteps.push(
                         <div key={t}>
-                            <i className="fas fa-chevron-right fa-xs">
-                            </i>
-                            {icon[list[i].type[t]]}
+                            <i className="fas fa-chevron-right fa-xs" />
+                            {icon[list[i].transitInfo[t].type]}
                             <p><sub>{Math.round(list[i].typeLength[t] / 60)}</sub></p>
                         </div>
                     );
                 } else {
                     travelSteps.push(
                         <div key={t}>
-                            {icon[list[i].type[t]]}
+                            {icon[list[i].transitInfo[t].type]}
                             <p><sub>{Math.round(list[i].typeLength[t] / 60)}</sub></p>
                         </div>
                     );

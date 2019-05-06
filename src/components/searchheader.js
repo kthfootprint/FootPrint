@@ -85,27 +85,44 @@ class SearchHeader extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result.routes);
           for (var r in result.routes) {
-            var tType = [];
+            var transitInfo = [];
             var typeTime = [];
-            var tTime = 0;
             for (var t in result.routes[r].legs[0].steps) {
               var step = result.routes[r].legs[0].steps[t];
               if (step.transit_details) {
-                tTime += step.duration.value;
-                tType.push(step.transit_details.line.vehicle.type);
-                typeTime.push(step.duration.value);
+                transitInfo.push({
+                  type: step.transit_details.line.vehicle.type,
+                  from: step.transit_details.departure_stop,
+                  to: step.transit_details.arrival_stop,
+                  line: step.transit_details.line.short_name,
+                  lineColor: step.transit_details.line.color
+                })
               } else {
-                tType.push(step.travel_mode);
-                typeTime.push(step.duration.value);
+                if (transitInfo.length < 1) {
+                  transitInfo.push({
+                    type: step.travel_mode,
+                    from: this.state.orig,
+                    to: result.routes[r].legs[0].steps[parseInt(t)+1].transit_details.arrival_stop,
+                    line: null,
+                    lineColor: '#000000'
+                  })
+                } else {
+                  transitInfo.push({
+                    type: step.travel_mode,
+                    from: result.routes[r].legs[0].steps[parseInt(t)-1].transit_details.departure_stop,
+                    to: this.state.dest,
+                    line: null,
+                    lineColor: '#000000'
+                  })
+                }
               }
+              typeTime.push(step.duration.value);
             }
             var depart = result.routes[r].legs[0].departure_time ? result.routes[r].legs[0].departure_time.text : "";
             var arrive = result.routes[r].legs[0].arrival_time ? result.routes[r].legs[0].arrival_time.text : "";
-            var totalTime = result.routes[r].legs[0].duration.text;
-
-            var route = { departure: depart, arrival: arrive, duration: totalTime, type: tType, typeLength: typeTime, transitTime: tTime, index: r };
+            var totalTimeStr = result.routes[r].legs[0].duration.text;
+            var route = { departure: depart, arrival: arrive, duration: totalTimeStr, typeLength: typeTime, transitInfo: transitInfo, index: r };
             routeList.push(route);
           }
           routeList.sort(function (a, b) {
