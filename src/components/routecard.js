@@ -10,7 +10,7 @@ export class RouteCard extends Component {
         };
     }
 
-    calculateEmission = (routeType) => {
+    calculateEmission = (routeInfo) => {
         // Bajs
     }
 
@@ -29,6 +29,7 @@ export class RouteCard extends Component {
     }
 
     render() {
+        var calculatedEmission = 0;
         var icon = {
             "WALKING": "fas fa-walking",
             "BUS": "fas fa-bus",
@@ -41,10 +42,9 @@ export class RouteCard extends Component {
         var card = [];
         var list = this.props.list;
         for (var i in list) {
-            var calculatedEmission = 0;
+            calculatedEmission = this.calculateEmission(list[i].transitInfo);
             var travelSteps = [];
-            // calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
-            console.log(list[i])
+            console.log(list[i]);
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
                     travelSteps.push(
