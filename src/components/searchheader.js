@@ -90,13 +90,15 @@ class SearchHeader extends Component {
             var typeTime = [];
             for (var t in result.routes[r].legs[0].steps) {
               var step = result.routes[r].legs[0].steps[t];
+              console.log(step)
               if (step.transit_details) {
                 transitInfo.push({
                   type: step.transit_details.line.vehicle.type,
                   from: step.transit_details.departure_stop,
                   to: step.transit_details.arrival_stop,
                   line: step.transit_details.line.short_name,
-                  lineColor: step.transit_details.line.color
+                  lineColor: step.transit_details.line.color,
+                  distance: step.distance
                 })
               } else {
                 var from, to;
@@ -112,7 +114,8 @@ class SearchHeader extends Component {
                   from: from,
                   to: to,
                   line: null,
-                  lineColor: '#000000'
+                  lineColor: '#000000',
+                  distance: step.distance
                 })
               }
               typeTime.push(step.duration.value);
