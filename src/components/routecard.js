@@ -10,9 +10,9 @@ export class RouteCard extends Component {
         };
     }
 
-    // caclulateEmission = (routeType, ) => {
+    calculateEmission = (routeType) => {
         // Bajs
-    // }
+    }
 
     selectCard = (e) => {
         var r = this.props.list[e.target.id].index;
@@ -92,4 +92,5 @@ export class RouteCard extends Component {
         );
     }
 }
+
 export default RouteCard;
