@@ -31,12 +31,13 @@ export class RouteCard extends Component {
     render() {
         var calculatedEmission = 0;
         var icon = {
-            "WALKING": <i className="fas fa-walking"></i>,
-            "BUS": <i className="fas fa-bus"></i>,
-            "SUBWAY": <i className="fas fa-subway"></i>,
-            "TRAIN": <i className="fas fa-train"></i>,
-            "TRAM": <i className="fas fa-bus-alt"></i>,
-            "FERRY": <i className="fas fa-ship"></i>
+            "WALKING": "fas fa-walking",
+            "BUS": "fas fa-bus",
+            "SUBWAY": "fas fa-subway",
+            "TRAIN": "fas fa-train",
+            "HEAVY_RAIL": "fas fa-train",
+            "TRAM": "fas fa-bus-alt",
+            "FERRY": "fas fa-ship"
         };
         var card = [];
         var list = this.props.list;
@@ -48,16 +49,16 @@ export class RouteCard extends Component {
                 if (t > 0) {
                     travelSteps.push(
                         <div key={t}>
-                            <i className="fas fa-chevron-right fa-xs" style={{ color: list[i].transitInfo[t].lineColor }}/>
-                            {icon[list[i].transitInfo[t].type]}
+                            <i className="fas fa-chevron-right fa-xs"/>
+                            <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
                     );
                 } else {
                     travelSteps.push(
                         <div key={t}>
-                            {icon[list[i].transitInfo[t].type]}
-                            <p><sub>{Math.round(list[i].typeLength[t] / 60)}</sub></p>
+                            <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
+                            <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
                     );
                 }
