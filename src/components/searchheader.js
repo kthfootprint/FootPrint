@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
+import DotLoader from 'react-spinners/DotLoader';
 /* global google */
 
 class SearchHeader extends Component {
@@ -9,7 +10,8 @@ class SearchHeader extends Component {
       routeList: [],
       orig: '',
       dest: '',
-      route: []
+      route: [],
+      loading: false
     };
 
   }
@@ -59,8 +61,10 @@ class SearchHeader extends Component {
 
   getLocation = () => {
     var originInput = document.getElementById('origin-input');
+    var destinationInput = document.getElementById('destination-input');
     google.maps.event.clearInstanceListeners(originInput);
     originInput.value = 'My location';
+    destinationInput.focus();
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setPosition);
@@ -75,6 +79,7 @@ class SearchHeader extends Component {
 
   findRoute = () => {
     var routeList = [];
+    this.setState({ loading: true });
 
     fetch("https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=" + this.state.orig + "&destination=" + this.state.dest + "&mode=transit&alternatives=true&key=AIzaSyC8nThaZKU2HvY_tKlPrEIeZRtlHpHWOy0")
       .then(res => res.json())
@@ -106,11 +111,11 @@ class SearchHeader extends Component {
           routeList.sort(function (a, b) {
             return a.transitTime - b.transitTime;
           });
-          this.setState({ routeList: routeList, route: result.routes });
+          this.setState({ routeList: routeList, route: result.routes, loading: false });
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            loading: false,
             error
           });
         }
@@ -138,7 +143,10 @@ class SearchHeader extends Component {
             <button type="button" className="btn" onClick={this.findRoute}><i className="fas fa-shoe-prints fa-2x"></i>Go!</button>
           </nav>
         </header>
-        <div id="main"><RouteCard list={this.state.routeList} route={this.state.route} /></div>
+        <div id="main">
+          <DotLoader css={{flex: 1, marginTop:50, alignSelf:'center'}} loading={this.state.loading}/>
+          {!this.state.loading && <RouteCard list={this.state.routeList} route={this.state.route} />}
+        </div>
         {/* <GoogleApiWrapper list={this.state.routeList}/> */}
       </div>
     );
