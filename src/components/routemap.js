@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
 /* global google */
 
-// https://www.npmjs.com/package/google-maps-react
 
 
 export class RouteMap extends Component {
@@ -278,7 +276,7 @@ export class RouteMap extends Component {
     var directionsDisplay = new google.maps.Polyline({
       path: path,
       geodesic: true,
-      strokeColor: '#0F9D58',
+      strokeColor: '#4285F4',
       strokeOpacity: 1.0,
       strokeWeight: 5
     });
@@ -287,10 +285,6 @@ export class RouteMap extends Component {
 
 
   render() {
-    /* console.log(this.props.list);
-    return (
-        <Map google={this.props.google} zoom={14}></Map>
-    ); */
 
     return (
       <div id="map" style={{height: "100%", width: "100%"}}></div>
@@ -298,7 +292,3 @@ export class RouteMap extends Component {
   }
 }
 export default RouteMap;
-
-/* export default GoogleApiWrapper({
-    apiKey: ('AIzaSyC8nThaZKU2HvY_tKlPrEIeZRtlHpHWOy0')
-})(RouteMap); */
