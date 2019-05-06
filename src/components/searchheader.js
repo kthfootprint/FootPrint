@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
 import DotLoader from 'react-spinners/DotLoader';
+import { range } from 'rxjs';
 /* global google */
 
 class SearchHeader extends Component {
@@ -90,7 +91,6 @@ class SearchHeader extends Component {
             var typeTime = [];
             for (var t in result.routes[r].legs[0].steps) {
               var step = result.routes[r].legs[0].steps[t];
-              console.log(step)
               if (step.transit_details) {
                 let line = step.transit_details.line.short_name;
                 if (!line) {
@@ -101,8 +101,14 @@ class SearchHeader extends Component {
                 let color = step.transit_details.line.color;
                 if (!color) {
                   if (step.transit_details.line.vehicle.type === "BUS") {
-                    //Lägg olika färger för olika nummer.
-                    color = "#f3e"
+                    if (step.transit_details.line.short_name) {
+                      let blueBusses = ["1", "2", "3", "4", "6", "94", "172", "173", "176", "177", "178", "179",
+                                        "471", "474", "670", "676", "677", "873", "875"];
+                      if (blueBusses.includes(step.transit_details.line.short_name))
+                        color = "#0089ca";
+                      else
+                        color = "#d71d24";
+                    }
                   }
 
                   if (step.transit_details.line.vehicle.type === "TRAM") {
@@ -125,8 +131,7 @@ class SearchHeader extends Component {
                       else if (step.transit_details.line.name.toLowerCase().includes('roslagsbanan'))
                         color = "#9f599a";
                       else if (step.transit_details.line.name.toLowerCase().includes('pendeltåg'))
-                        //Denna färg är fel
-                        color = "#000"; 
+                        color = "#ec619f"; 
                     }
                   }
                 }
@@ -143,9 +148,9 @@ class SearchHeader extends Component {
                 var from, to;
                 if (transitInfo.length < 1) {
                   from = this.state.orig;
-                  to = result.routes[r].legs[0].steps[parseInt(t)+1].transit_details.arrival_stop;
+                  to = result.routes[r].legs[0].steps[parseInt(t)+1].transit_details.departure_stop;
                 } else {
-                  from = result.routes[r].legs[0].steps[parseInt(t)-1].transit_details.departure_stop;
+                  from = result.routes[r].legs[0].steps[parseInt(t)-1].transit_details.arrival_stop;
                   to = this.state.dest;
                 }
                 transitInfo.push({

@@ -44,12 +44,12 @@ export class RouteCard extends Component {
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
             var travelSteps = [];
-            console.log(list[i]);
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
                     travelSteps.push(
                         <div key={t}>
                             <i className="fas fa-chevron-right fa-xs"/>
+                            {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
                             <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
@@ -57,6 +57,7 @@ export class RouteCard extends Component {
                 } else {
                     travelSteps.push(
                         <div key={t}>
+                            {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
                             <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
