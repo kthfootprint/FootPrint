@@ -43,7 +43,6 @@ export class RouteCard extends Component {
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
             var travelSteps = [];
-            // calculatedEmission += this.calculateEmission(list[i].type, list[i].typeLength);
             console.log(list[i]);
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
