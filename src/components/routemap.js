@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 /* global google */
 
-
-
 export class RouteMap extends Component {
   constructor(props) {
     super(props);

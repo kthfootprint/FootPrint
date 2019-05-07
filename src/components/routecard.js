@@ -39,7 +39,7 @@ export class RouteCard extends Component {
     }
 
     removeOverlay = () => {
-        this.setState({overlay: false});
+        this.setState({ overlay: false });
     }
 
     render() {

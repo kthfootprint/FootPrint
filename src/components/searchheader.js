@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
 import DotLoader from 'react-spinners/DotLoader';
-import { range } from 'rxjs';
 /* global google */
 
 class SearchHeader extends Component {
