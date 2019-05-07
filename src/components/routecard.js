@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import DirectionOverlay from './directionoverlay';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faWalking, faBus, faBusAlt, faSubway, faTrain, faShip } from '@fortawesome/free-solid-svg-icons';
 
 export class RouteCard extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             route: [],
             overlay: false,
@@ -42,13 +45,13 @@ export class RouteCard extends Component {
     render() {
         var calculatedEmission = 0;
         var icon = {
-            "WALKING": "fas fa-walking",
-            "BUS": "fas fa-bus",
-            "SUBWAY": "fas fa-subway",
-            "TRAIN": "fas fa-train",
-            "HEAVY_RAIL": "fas fa-train",
-            "TRAM": "fas fa-bus-alt",
-            "FERRY": "fas fa-ship"
+            "WALKING": faWalking,
+            "BUS": faBus,
+            "SUBWAY": faSubway,
+            "TRAIN": faTrain,
+            "HEAVY_RAIL": faTrain,
+            "TRAM": faBusAlt,
+            "FERRY": faShip
         };
         var card = [];
         var list = this.props.list;
@@ -59,9 +62,9 @@ export class RouteCard extends Component {
                 if (t > 0) {
                     travelSteps.push(
                         <div key={t}>
-                            <i className="fas fa-chevron-right fa-xs"/>
+                            <FontAwesomeIcon icon={faChevronRight}/>
                             {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
-                            <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
+                            <FontAwesomeIcon icon={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
                     );
@@ -69,7 +72,7 @@ export class RouteCard extends Component {
                     travelSteps.push(
                         <div key={t}>
                             {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
-                            <i className={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
+                            <FontAwesomeIcon icon={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
                     );
