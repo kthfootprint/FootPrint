@@ -74,6 +74,7 @@ export class RouteCard extends Component {
     render() {
         var calculatedEmission = 0;
         var calculatedComparable = 0;
+        var emissionColorValue = 0;
         var icon = {
             "WALKING": faWalking,
             "BUS": faBus,
@@ -89,6 +90,7 @@ export class RouteCard extends Component {
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
             calculatedComparable = this.calculateComparable(list[i].transitInfo);
+            emissionColorValue = this.emissionColor(emissions, calculatedEmission);
             var travelSteps = [];
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
@@ -123,7 +125,7 @@ export class RouteCard extends Component {
                                 <p>{list[i].duration}</p>
                             </div>
                             <div className="emission">
-                                <p style={{ color: "rgb(" + this.emissionColor(emissions, calculatedEmission) + "," + (200 - (this.emissionColor(emissions, calculatedEmission) / 20)) + ",0)" }}>{calculatedEmission} g CO2</p>
+                                <p style={{ color: "rgb(" + emissionColorValue + "," + (200 - (emissionColorValue / 20)) + ",0)" }}>{calculatedEmission} g CO2</p>
                             </div>
                         </div>
                     </div>
