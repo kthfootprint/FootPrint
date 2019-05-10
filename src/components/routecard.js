@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DirectionOverlay from './directionoverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faWalking, faBus, faBusAlt, faSubway, faTrain, faShip } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faWalking, faBus, faBusAlt, faSubway, faTrain, faShip, faCar, faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
 
 export class RouteCard extends Component {
     constructor(props) {
@@ -54,6 +54,7 @@ export class RouteCard extends Component {
 
     render() {
         var calculatedEmission = 0;
+        var calculatedComparable = 0;
         var icon = {
             "WALKING": faWalking,
             "BUS": faBus,
@@ -67,7 +68,8 @@ export class RouteCard extends Component {
         var list = this.props.list;
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
-            console.log(this.calculateComparable(list[i].transitInfo));
+            calculatedComparable = this.calculateComparable(list[i].transitInfo);
+            console.log(calculatedComparable);
             var travelSteps = [];
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
@@ -75,6 +77,7 @@ export class RouteCard extends Component {
                         <div key={t}>
                             <FontAwesomeIcon icon={faChevronRight}/>
                             {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
+                            <br/>
                             <FontAwesomeIcon icon={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
@@ -83,6 +86,7 @@ export class RouteCard extends Component {
                     travelSteps.push(
                         <div key={t}>
                             {list[i].transitInfo[t].from.name && <p>{list[i].transitInfo[t].from.name}</p>}
+                            <br/>
                             <FontAwesomeIcon icon={icon[list[i].transitInfo[t].type]} style={{ color: list[i].transitInfo[t].lineColor }}/>
                             <p><sub>{list[i].transitInfo[t].line}</sub></p>
                         </div>
@@ -95,17 +99,24 @@ export class RouteCard extends Component {
                         <div className="travel">
                             {travelSteps}
                         </div>
-                        <div className="emission">
-                            <p>{calculatedEmission} g CO2</p>
-                        </div>
-                        <div className="time">
-                            <p>{list[i].duration}</p>
+                        <div className="rightCard">
+                            <div className="time">
+                                <p>{list[i].duration}</p>
+                            </div>
+                            <div className="emission">
+                                <p style={{ color: "rgb(" + (i*80) + ",200,0)" }}>{calculatedEmission} g CO2</p>
+                            </div>
                         </div>
                     </div>
                     <div className="bottom">
                         {list[i].departure !== "" &&
                             <p>{list[i].departure} - {list[i].arrival}</p>
                         }
+                        <div className="comparable">
+                            <FontAwesomeIcon icon={faCar} />
+                            <p>  {calculatedComparable} g CO2</p>
+                            <FontAwesomeIcon icon={faQuestionCircle} />
+                        </div>
                     </div>
                 </article>
             );
