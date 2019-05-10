@@ -15,7 +15,7 @@ export class RouteCard extends Component {
 
     calculateEmission = (transit) => {
         let emissionOut = 0;
-        const eBus = 0;
+        const eBus = 8 / 1000;
         const eSub = 0.16 / 1000;
         for (let i = 0; i < transit.length; i++) {
             let distance = transit[i].distance.value;
@@ -85,7 +85,7 @@ export class RouteCard extends Component {
                             {travelSteps}
                         </div>
                         <div className="emission">
-                            <p>{calculatedEmission} CO2</p>
+                            <p>{calculatedEmission} g CO2</p>
                         </div>
                         <div className="time">
                             <p>{list[i].duration}</p>
