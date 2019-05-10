@@ -38,6 +38,25 @@ export class RouteCard extends Component {
         return Math.round(comparableOut * 100) / 100;
     }
 
+    emissionList = (emList) => {
+        let unsortedEmissions = [];
+        for (let i = 0; i < emList.length; i++) {
+            unsortedEmissions.push(this.calculateEmission(emList[i].transitInfo));
+        }
+        return unsortedEmissions.sort();
+    }
+
+    emissionColor = (sortedEm, compare) => {
+        let iterator = 0;
+        for (let i = 0; i < sortedEm.length; i++) {
+            if (sortedEm[i] === compare) {
+                return iterator * 80;
+            } else {
+                iterator += 1;
+            }
+        }
+    }
+
     selectCard = (e) => {
         var r = this.props.list[e.target.id].index;
         this.setState({ overlay: true, route: this.props.route[r] });
@@ -66,10 +85,10 @@ export class RouteCard extends Component {
         };
         var card = [];
         var list = this.props.list;
+        var emissions = this.emissionList(list);
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
             calculatedComparable = this.calculateComparable(list[i].transitInfo);
-            console.log(calculatedComparable);
             var travelSteps = [];
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
@@ -104,7 +123,7 @@ export class RouteCard extends Component {
                                 <p>{list[i].duration}</p>
                             </div>
                             <div className="emission">
-                                <p style={{ color: "rgb(" + (i*80) + ",200,0)" }}>{calculatedEmission} g CO2</p>
+                                <p style={{ color: "rgb(" + this.emissionColor(emissions, calculatedEmission) + "," + (200 - (this.emissionColor(emissions, calculatedEmission) / 20)) + ",0)" }}>{calculatedEmission} g CO2</p>
                             </div>
                         </div>
                     </div>
