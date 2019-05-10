@@ -28,6 +28,16 @@ export class RouteCard extends Component {
         return Math.round(emissionOut * 100) / 100;
     }
 
+    calculateComparable = (transit) => {
+        let comparableOut = 0;
+        const eCar = 101.7 / 1000;
+        for (let i = 0; i < transit.length; i++) {
+            let distance = transit[i].distance.value;
+            comparableOut += distance * eCar;
+        }
+        return Math.round(comparableOut * 100) / 100;
+    }
+
     selectCard = (e) => {
         var r = this.props.list[e.target.id].index;
         this.setState({ overlay: true, route: this.props.route[r] });
@@ -57,6 +67,7 @@ export class RouteCard extends Component {
         var list = this.props.list;
         for (var i in list) {
             calculatedEmission = this.calculateEmission(list[i].transitInfo);
+            console.log(this.calculateComparable(list[i].transitInfo));
             var travelSteps = [];
             for (let t = 0; t < list[i].transitInfo.length; t++) {
                 if (t > 0) {
