@@ -271,6 +271,13 @@ export class RouteMap extends Component {
     map.fitBounds(bounds);
     var path = '';
     path = google.maps.geometry.encoding.decodePath(this.props.route.overview_polyline.points);
+    var directionsDisplayBorder = new google.maps.Polyline({
+      path: path,
+      geodesic: true,
+      strokeColor: 'black',
+      strokeOpacity: 1.0,
+      strokeWeight: 7
+    });
     var directionsDisplay = new google.maps.Polyline({
       path: path,
       geodesic: true,
@@ -279,6 +286,7 @@ export class RouteMap extends Component {
       strokeWeight: 5
     });
     directionsDisplay.setMap(map);
+    directionsDisplayBorder.setMap(map);
   }
 
 
