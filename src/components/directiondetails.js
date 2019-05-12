@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar, faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
 
 export class DirectionDetails extends Component {
 
     componentDidMount() {
         console.log(this.props.route);
+    }
+
+    emissionBox = () => {
+        return(
+            <div className="emissionBox" style={{backgroundColor: this.props.emissionColor}}>
+                <div className="emission">
+                    <p>Your trip emits: {this.props.emission} g CO2</p>
+                </div>
+                <div className="comparable">
+                    <FontAwesomeIcon icon={faCar} />
+                    <p>  {this.props.comparable} g CO2</p>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -22,6 +39,7 @@ export class DirectionDetails extends Component {
         return (
             <div id="directionDetails">
                {html}
+               {this.emissionBox()}
             </div>
         );
     }

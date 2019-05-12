@@ -281,7 +281,7 @@ export class RouteMap extends Component {
     var directionsDisplay = new google.maps.Polyline({
       path: path,
       geodesic: true,
-      strokeColor: '#4285F4',
+      strokeColor: this.props.emissionColor,
       strokeOpacity: 1.0,
       strokeWeight: 5
     });

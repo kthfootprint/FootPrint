@@ -13,12 +13,17 @@ export class DirectionOverlay extends Component {
         return (
             <div id="overlay" ref="overlay">
                 <div className="map" style={{flex: 2}}>
-                    <RouteMap route={this.props.route} />
+                    <RouteMap route={this.props.route} emissionColor={this.props.emissionColor} />
                 </div>
                 <div id="backBtn" onClick={this.goBack}>
                     <i className="far fa-arrow-alt-circle-left fa-3x"></i>
                 </div>
-                <DirectionDetails route={this.props.route.legs[0]}/>
+                <DirectionDetails
+                    route={this.props.route.legs[0]}
+                    emission={this.props.emission}
+                    comparable={this.props.comparable}
+                    emissionColor={this.props.emissionColor}
+                />
             </div>
         );
     }

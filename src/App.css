@@ -108,6 +108,20 @@
     align-content: center;
 }
 
+.emissionBox {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  opacity: 0.60;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.emissionBox .comparable {
+  width: 100%;
+}
+
 .time {
     text-align: right;
     flex: 1;
