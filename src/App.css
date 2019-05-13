@@ -113,12 +113,12 @@
   flex-direction: column;
   align-self: center;
   justify-content: center;
-  opacity: 0.60;
-  padding: 0.5em;
+  padding: 1em;
   border-radius: 10px;
 }
 
 .emissionBox .comparable {
+  margin-top: 1em;
   width: 100%;
 }
 
@@ -253,8 +253,10 @@ button {
     /* border-top-left-radius: 30px;
     border-top-right-radius: 30px; */
     box-shadow: 5px 0px 5px 5px rgba(0, 0, 0, 0.8);
+    padding: 1em 0px 2.5em 0px;
     background-color: white;
     flex: 1;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
