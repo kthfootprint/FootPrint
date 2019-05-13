@@ -151,6 +151,16 @@ header {
     justify-content: center;
 }
 
+#goLogo {
+  width: 80%;
+}
+
+@media (min-width: 1000px) {
+  #goLogo {
+    width: 35%;
+  }
+}
+
 button {
     background: none;
     border: none;

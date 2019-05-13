@@ -207,7 +207,7 @@ class SearchHeader extends Component {
 
           <nav id="goBtn">
             <button type="button" className="btn" onClick={this.findRoute}>
-              <img src={logo} style={{ width: '35%' }}/>
+              <img id="goLogo" src={logo} alt=""/>
               <br/>
               Go!
             </button>
