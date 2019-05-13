@@ -10,8 +10,8 @@ export class DirectionDetails extends Component {
 
     emissionBox = () => {
         return(
-            <div className="emissionBox" style={{backgroundColor: this.props.emissionColor}}>
-                <div className="emission">
+            <div className="emissionBox">
+                <div className="emission" style={{color: this.props.emissionColor}}>
                     <p>Your trip emits: {this.props.emission} g CO2</p>
                 </div>
                 <div className="comparable">
@@ -39,6 +39,7 @@ export class DirectionDetails extends Component {
         return (
             <div id="directionDetails">
                {html}
+               <hr style={{ borderWidth: "1.5px", width: "100%"}}/>
                {this.emissionBox()}
             </div>
         );
