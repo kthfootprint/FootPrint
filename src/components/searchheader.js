@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RouteCard from './routecard';
 import DotLoader from 'react-spinners/DotLoader';
+import logo from '../styles/foot.png';
 /* global google */
 
 class SearchHeader extends Component {
@@ -205,7 +206,11 @@ class SearchHeader extends Component {
           </nav>
 
           <nav id="goBtn">
-            <button type="button" className="btn" onClick={this.findRoute}><i className="fas fa-shoe-prints fa-2x"></i>Go!</button>
+            <button type="button" className="btn" onClick={this.findRoute}>
+              <img src={logo} style={{ width: '35%' }}/>
+              <br/>
+              Go!
+            </button>
           </nav>
         </header>
         <div id="main">
