@@ -3,10 +3,6 @@ import Comparison from './comparison';
 
 export class DirectionDetails extends Component {
 
-    componentDidMount() {
-        console.log(this.props.route);
-    }
-
     emissionBox = () => {
         return(
             <div className="emissionBox">
