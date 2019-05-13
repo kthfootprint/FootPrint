@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import DirectionOverlay from './directionoverlay';
+import Comparison from './comparison';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faWalking, faBus, faBusAlt, faSubway, faTrain, faShip, faCar, faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faWalking, faBus, faBusAlt, faSubway, faTrain, faShip } from '@fortawesome/free-solid-svg-icons';
 
 export class RouteCard extends Component {
     constructor(props) {
@@ -41,16 +42,6 @@ export class RouteCard extends Component {
         return Math.round(comparableOut * 100) / 100;
     }
 
-    getComparableObject = (comparableNumber) => {
-        return(
-            <div className="comparable">
-                <FontAwesomeIcon icon={faCar} />
-                <p>  {Math.round(comparableNumber * 100) / 100} g CO2</p>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-            </div>
-        );
-    }
-
     emissionList = (emList) => {
         let unsortedEmissions = [];
         for (let i = 0; i < emList.length; i++) {
@@ -78,22 +69,19 @@ export class RouteCard extends Component {
     }
 
     selectCard = (e) => {
-        var r = this.props.list[e.target.id].index;
-        let calculatedEmission = this.calculateEmission(this.props.list[e.target.id].transitInfo);
-        let calculatedComparable = this.calculateComparable(this.props.list[e.target.id].transitInfo);
-        let emissionColorValue = this.emissionColor(this.emissionList(this.props.list), calculatedEmission);
-        this.setState({ 
-            overlay: true,
-            route: this.props.route[r],
-            emission: calculatedEmission,
-            comparable: calculatedComparable,
-            emissionColor: emissionColorValue
-        });
-        /* selected.style.position = "fixed";
-        selected.style.bottom = "0px";
-        selected.style.zIndex = "10";
-        selected.style.marginBottom = "0";
-        console.log(e.target.id); */
+        if (this.props.list[e.target.id]) {
+            var r = this.props.list[e.target.id].index;
+            let calculatedEmission = this.calculateEmission(this.props.list[e.target.id].transitInfo);
+            let calculatedComparable = this.calculateComparable(this.props.list[e.target.id].transitInfo);
+            let emissionColorValue = this.emissionColor(this.emissionList(this.props.list), calculatedEmission);
+            this.setState({ 
+                overlay: true,
+                route: this.props.route[r],
+                emission: calculatedEmission,
+                comparable: calculatedComparable,
+                emissionColor: emissionColorValue
+            });
+        }
     }
 
     removeOverlay = () => {
@@ -162,7 +150,7 @@ export class RouteCard extends Component {
                         {list[i].departure !== "" &&
                             <p>{list[i].departure} - {list[i].arrival}</p>
                         }
-                        {this.getComparableObject(calculatedComparable)}
+                        <Comparison comparableNumber={calculatedComparable} />
                     </div>
                 </article>
             );

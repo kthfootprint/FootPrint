@@ -74,6 +74,7 @@
   display: flex;
   flex-direction: row;
   width: 35%;
+  pointer-events: all;
   justify-content: space-between;
 }
 
