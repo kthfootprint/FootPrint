@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCar, faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
+import Comparison from './comparison';
 
 export class DirectionDetails extends Component {
 
@@ -14,11 +13,7 @@ export class DirectionDetails extends Component {
                 <div className="emission" style={{color: this.props.emissionColor}}>
                     <p>Your trip emits: {this.props.emission} g CO2</p>
                 </div>
-                <div className="comparable">
-                    <FontAwesomeIcon icon={faCar} />
-                    <p>  {this.props.comparable} g CO2</p>
-                    <FontAwesomeIcon icon={faQuestionCircle} />
-                </div>
+                <Comparison comparableNumber={this.props.comparable} />
             </div>
         );
     }
