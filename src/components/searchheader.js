@@ -24,6 +24,8 @@ class SearchHeader extends Component {
     destinationInput.addEventListener("click", destinationInput.select);
     var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
     destinationAutocomplete.setFields(['place_id']);
+    destinationAutocomplete.setComponentRestrictions(
+      {'country': 'se'});
     destinationAutocomplete.addListener('place_changed', () => {
       this.setDestination(destinationInput.value);
       destinationInput.value = destinationInput.value.split(',')[0];
@@ -35,6 +37,8 @@ class SearchHeader extends Component {
     originInput.removeEventListener("click", this.originFill);
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     originAutocomplete.setFields(['place_id']);
+    originAutocomplete.setComponentRestrictions(
+      {'country': 'se'});
     originAutocomplete.addListener('place_changed', () => {
       this.setOrigin(originInput.value);
       originInput.value = originInput.value.split(',')[0];
