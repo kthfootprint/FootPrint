@@ -111,10 +111,10 @@
 
 .emissionBox {
   display: flex;
+  font-size: 0.7em;
   flex-direction: column;
   align-self: center;
   justify-content: center;
-  padding: 1em;
   border-radius: 10px;
 }
 
@@ -264,7 +264,7 @@ button {
     /* border-top-left-radius: 30px;
     border-top-right-radius: 30px; */
     box-shadow: 5px 0px 5px 5px rgba(0, 0, 0, 0.8);
-    padding: 1em 0px 2.5em 0px;
+    padding: 1em 0px 1.2em 0px;
     background-color: white;
     flex: 1;
     overflow: scroll;
@@ -272,3 +272,7 @@ button {
     flex-direction: column;
     justify-content: space-around;
   }
+
+.comparableNumber {
+  color: red;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Comparison from './comparison';
+import styled from 'styled-components';
 
 export class DirectionDetails extends Component {
 
@@ -15,7 +16,8 @@ export class DirectionDetails extends Component {
     }
 
     render() {
-        var icon = {
+        const steps = this.props.route.steps;
+        const icon = {
             "WALKING": <i className="fas fa-walking"></i>,
             "BUS": <i className="fas fa-bus"></i>,
             "SUBWAY": <i className="fas fa-subway"></i>,
@@ -23,17 +25,50 @@ export class DirectionDetails extends Component {
             "TRAM": <i className="fas fa-bus-alt"></i>,
             "FERRY": <i className="fas fa-ship"></i>
         };
-        var html = [];
-        for (var i in this.props.route.steps) {
-            html.push(<div key={"direction" + i}><i className={icon[this.props.route.steps[i].travel_mode]}/><p>{this.props.route.steps[i].html_instructions} ({this.props.route.steps[i].distance.value} m)</p><p>{this.props.route.departure_time.text}</p></div>);
+        let allSteps = [];
+        for (var i in steps) {
+            console.log(steps[i])
+            allSteps.push(
+                <div key={"direction" + i}>
+                    <div className="transitDetails">
+                        <div className="stepDetailTime">
+                            {icon[steps[i].transit_details ? steps[i].transit_details.line.vehicle.type : steps[i].travel_mode]}
+                            {steps[i].transit_details ? steps[i].transit_details.departure_time.text : ""}
+                        </div>
+                    </div>
+                    <p className="stepDetailInstructions">
+                        {this.props.route.steps[i].html_instructions} ({this.props.route.steps[i].distance.value} m)
+                    </p>
+                </div>);
         }
         return (
             <div id="directionDetails">
-               {html}
+                <DirectionSteps>
+                    {allSteps}
+                </DirectionSteps>
                <hr style={{ borderWidth: "1.5px", width: "100%"}}/>
                {this.emissionBox()}
             </div>
         );
     }
 }
+
+const DirectionSteps = styled.div`
+    margin: 2px 10px 0 10px;
+    overflow: scroll;
+    padding: 0 2.5px 0 2.5px;
+    font-size: 0.7em;
+    div {
+        margin: 0.5em;
+    }
+    .stepDetailTime {
+        width: 15%;
+        margin: 0em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: #5E6960;
+    }
+`
+
 export default DirectionDetails;
