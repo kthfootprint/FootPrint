@@ -27,7 +27,6 @@ export class DirectionDetails extends Component {
         };
         let allSteps = [];
         for (var i in steps) {
-            console.log(steps[i])
             allSteps.push(
                 <div key={"direction" + i}>
                     <div className="transitDetails">
