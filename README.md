@@ -21,3 +21,4 @@ Builds and deploys the application to GitHub Pages.
 Only to be run from master branch.
 
 ### Linting
+This project uses ES lint with prettier for code structure.
