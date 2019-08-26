@@ -1,6 +1,9 @@
 {
   "name": "footprint",
   "version": "1.13.0",
+  "engines": {
+    "node": "11.12.0"
+  },
   "private": true,
   "homepage": "http://kthfootprint.herokuapp.com/",
   "dependencies": {
