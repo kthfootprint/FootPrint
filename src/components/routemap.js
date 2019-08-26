@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 /* global google */
 
 export class RouteMap extends Component {
@@ -14,244 +14,245 @@ export class RouteMap extends Component {
     var styledMapType = new google.maps.StyledMapType(
       [
         {
-          "elementType": "geometry",
-          "stylers": [
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#242f3e"
+              color: "#242f3e"
             }
           ]
         },
         {
-          "elementType": "labels.text.fill",
-          "stylers": [
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#746855"
+              color: "#746855"
             }
           ]
         },
         {
-          "elementType": "labels.text.stroke",
-          "stylers": [
+          elementType: "labels.text.stroke",
+          stylers: [
             {
-              "color": "#242f3e"
+              color: "#242f3e"
             }
           ]
         },
         {
-          "featureType": "administrative.land_parcel",
-          "elementType": "labels",
-          "stylers": [
+          featureType: "administrative.land_parcel",
+          elementType: "labels",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "administrative.locality",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "administrative.locality",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#d59563"
+              color: "#d59563"
             }
           ]
         },
         {
-          "featureType": "poi",
-          "elementType": "labels.text",
-          "stylers": [
+          featureType: "poi",
+          elementType: "labels.text",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "poi",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "poi",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#d59563"
+              color: "#d59563"
             }
           ]
         },
         {
-          "featureType": "poi.business",
-          "stylers": [
+          featureType: "poi.business",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "poi.park",
-          "elementType": "geometry",
-          "stylers": [
+          featureType: "poi.park",
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#263c3f"
+              color: "#263c3f"
             }
           ]
         },
         {
-          "featureType": "poi.park",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "poi.park",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#6b9a76"
+              color: "#6b9a76"
             }
           ]
         },
         {
-          "featureType": "road",
-          "elementType": "geometry",
-          "stylers": [
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#38414e"
+              color: "#38414e"
             }
           ]
         },
         {
-          "featureType": "road",
-          "elementType": "geometry.stroke",
-          "stylers": [
+          featureType: "road",
+          elementType: "geometry.stroke",
+          stylers: [
             {
-              "color": "#212a37"
+              color: "#212a37"
             }
           ]
         },
         {
-          "featureType": "road",
-          "elementType": "labels.icon",
-          "stylers": [
+          featureType: "road",
+          elementType: "labels.icon",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "road",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "road",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#9ca5b3"
+              color: "#9ca5b3"
             }
           ]
         },
         {
-          "featureType": "road.arterial",
-          "elementType": "labels",
-          "stylers": [
+          featureType: "road.arterial",
+          elementType: "labels",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "road.highway",
-          "elementType": "geometry",
-          "stylers": [
+          featureType: "road.highway",
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#746855"
+              color: "#746855"
             }
           ]
         },
         {
-          "featureType": "road.highway",
-          "elementType": "geometry.stroke",
-          "stylers": [
+          featureType: "road.highway",
+          elementType: "geometry.stroke",
+          stylers: [
             {
-              "color": "#1f2835"
+              color: "#1f2835"
             }
           ]
         },
         {
-          "featureType": "road.highway",
-          "elementType": "labels",
-          "stylers": [
+          featureType: "road.highway",
+          elementType: "labels",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "road.highway",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "road.highway",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#f3d19c"
+              color: "#f3d19c"
             }
           ]
         },
         {
-          "featureType": "road.local",
-          "stylers": [
+          featureType: "road.local",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "road.local",
-          "elementType": "labels",
-          "stylers": [
+          featureType: "road.local",
+          elementType: "labels",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "transit",
-          "stylers": [
+          featureType: "transit",
+          stylers: [
             {
-              "visibility": "off"
+              visibility: "off"
             }
           ]
         },
         {
-          "featureType": "transit",
-          "elementType": "geometry",
-          "stylers": [
+          featureType: "transit",
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#2f3948"
+              color: "#2f3948"
             }
           ]
         },
         {
-          "featureType": "transit.station",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "transit.station",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#d59563"
+              color: "#d59563"
             }
           ]
         },
         {
-          "featureType": "water",
-          "elementType": "geometry",
-          "stylers": [
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [
             {
-              "color": "#17263c"
+              color: "#17263c"
             }
           ]
         },
         {
-          "featureType": "water",
-          "elementType": "labels.text.fill",
-          "stylers": [
+          featureType: "water",
+          elementType: "labels.text.fill",
+          stylers: [
             {
-              "color": "#515c6d"
+              color: "#515c6d"
             }
           ]
         },
         {
-          "featureType": "water",
-          "elementType": "labels.text.stroke",
-          "stylers": [
+          featureType: "water",
+          elementType: "labels.text.stroke",
+          stylers: [
             {
-              "color": "#17263c"
+              color: "#17263c"
             }
           ]
         }
       ],
-      { name: 'Styled Map' });
+      { name: "Styled Map" }
+    );
     var mapOptions = {
       zoom: 7,
       center: stockholm,
@@ -260,17 +261,19 @@ export class RouteMap extends Component {
       scaleControl: false,
       streetViewControl: false,
       fullscreenControl: false
-    }
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    map.mapTypes.set('styled_map', styledMapType);
-    map.setMapTypeId('styled_map');
+    };
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    map.mapTypes.set("styled_map", styledMapType);
+    map.setMapTypeId("styled_map");
     map.fitBounds(bounds);
-    var path = '';
-    path = google.maps.geometry.encoding.decodePath(this.props.route.overview_polyline.points);
+    var path = "";
+    path = google.maps.geometry.encoding.decodePath(
+      this.props.route.overview_polyline.points
+    );
     var directionsDisplayBorder = new google.maps.Polyline({
       path: path,
       geodesic: true,
-      strokeColor: 'black',
+      strokeColor: "black",
       strokeOpacity: 1.0,
       strokeWeight: 7
     });
@@ -283,14 +286,10 @@ export class RouteMap extends Component {
     });
     directionsDisplay.setMap(map);
     directionsDisplayBorder.setMap(map);
-  }
-
+  };
 
   render() {
-
-    return (
-      <div id="map" style={{height: "100%", width: "100%"}}></div>
-    );
+    return <div id="map" style={{ height: "100%", width: "100%" }}></div>;
   }
 }
 export default RouteMap;
