@@ -19,3 +19,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### `yarn deploy`
 Builds and deploys the application to GitHub Pages. 
 Only to be run from master branch.
+
+### Linting
