@@ -2,12 +2,11 @@
   "name": "footprint",
   "version": "1.13.0",
   "private": true,
-  "homepage": "https://kthfootprint.github.io/FootPrint",
+  "homepage": "http://kthfootprint.herokuapp.com/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "eslint": "^6.1.0",
     "google-maps-react": "^2.0.2",
     "husky": "^3.0.3",
     "lint-staged": "^9.2.1",
@@ -40,15 +39,12 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "gh-pages": "^2.0.1"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-      "*.js": "eslint"
+    "*.js": "eslint"
   }
 }
