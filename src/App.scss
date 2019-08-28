@@ -13,6 +13,24 @@ body {
   font-family: "Raleway", sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
+  // background-image: url("styles/Map.png");
+}
+
+.bgImg {
+  background-image: url("styles/Map.png");
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
+
+.blurImg {
+  background-image: url("styles/Map.png");
+  filter: blur(5px);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
 }
 
 p {
@@ -39,19 +57,27 @@ p {
 }
 
 .card {
-  background-color: white;
-  border-top: 1px solid #d8d8d8;
-  border-bottom: 1px solid #d8d8d8;
-  margin-bottom: 10px;
+  background-color: #cee9ff;
+  margin: 10px 5px 0px 5px;
   pointer-events: all;
   transition: bottom 1s ease;
+  border-radius: 15px;
+}
+
+.textContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .top {
+  background-color: white;
   width: 100%;
   display: flex;
   flex-direction: row;
   pointer-events: none;
+  padding: 1em;
+  border-radius: 15px;
 }
 
 .bottom {
@@ -59,9 +85,8 @@ p {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 0.5em;
   text-align: left;
-  padding-top: 5px;
+  padding: 0.3em 1em 0.3em 1em;
   pointer-events: none;
 }
 
@@ -138,6 +163,8 @@ header {
   margin-bottom: 10px;
   font-weight: bold;
   background-color: white;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 #searchField {
@@ -169,8 +196,7 @@ button {
 }
 
 header,
-footer,
-article {
+footer {
   padding: 1em;
 }
 
