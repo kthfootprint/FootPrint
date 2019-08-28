@@ -9,11 +9,18 @@ const InfoView = () => {
     route, press the "Choose route" button to see further details.`
   ];
 
+  const privacyText =
+    "For information on what and how data is stored, please click ";
+
   return (
     <div className="infoView">
       <h2>Welcome to FootPrint!</h2>
       <p>{infoText[0]}</p>
       <p>{infoText[1]}</p>
+      {/* The a tag below will obviously go after routing has been implemented. Should link to privacy view. */}
+      <p>
+        {privacyText} <a href="http://www.klockren.nu">Here</a>
+      </p>
     </div>
   );
 };
