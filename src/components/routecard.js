@@ -81,6 +81,10 @@ export class RouteCard extends Component {
     );
   };
 
+  getRGBA(color) {
+    return color.slice(0, 3) + "a" + color.slice(3, -1) + ",0.3)";
+  }
+
   selectCard = e => {
     if (this.props.list[e.target.id]) {
       var r = this.props.list[e.target.id].index;
@@ -176,23 +180,28 @@ export class RouteCard extends Component {
           className="card"
           id={i}
           onClick={this.selectCard}
+          style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
         >
           <div className="top">
-            <div className="travel">{travelSteps}</div>
-            <div className="rightCard">
-              <div className="time">
-                <p>{list[i].duration}</p>
+            <div className="textContainer">
+              <div className="travel">{travelSteps}</div>
+              <div className="rightCard">
+                <div className="time">
+                  <p>{list[i].duration}</p>
+                </div>
+                {emissionObject}
               </div>
-              {emissionObject}
             </div>
           </div>
           <div className="bottom">
-            {list[i].departure !== "" && (
-              <p>
-                {list[i].departure} - {list[i].arrival}
-              </p>
-            )}
-            <Comparison comparableNumber={calculatedComparable} />
+            <div className="textContainer">
+              {list[i].departure !== "" && (
+                <p>
+                  {list[i].departure} - {list[i].arrival}
+                </p>
+              )}
+              <Comparison comparableNumber={calculatedComparable} />
+            </div>
           </div>
         </article>
       );

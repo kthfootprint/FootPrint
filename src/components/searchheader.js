@@ -12,7 +12,8 @@ class SearchHeader extends Component {
       orig: "",
       dest: "",
       route: [],
-      loading: false
+      loading: false,
+      bgBlur: false
     };
   }
 
@@ -242,7 +243,8 @@ class SearchHeader extends Component {
           this.setState({
             routeList: routeList,
             route: result.routes,
-            loading: false
+            loading: false,
+            bgBlur: true
           });
         },
         error => {
@@ -257,6 +259,7 @@ class SearchHeader extends Component {
   render() {
     return (
       <div>
+        <div className={this.state.bgBlur ? "blurImg" : "bgImg"}></div>
         <header>
           <nav id="searchField">
             <label className="inp">
