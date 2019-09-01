@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const InfoView = () => {
   const infoText = [
@@ -19,7 +20,7 @@ const InfoView = () => {
       <p>{infoText[1]}</p>
       {/* The a tag below will obviously go after routing has been implemented. Should link to privacy view. */}
       <p>
-        {privacyText} <a href="http://www.klockren.nu">Here</a>
+        {privacyText} <Link to="/privacy">Here</Link>
       </p>
     </div>
   );

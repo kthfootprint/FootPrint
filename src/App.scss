@@ -13,6 +13,9 @@ body {
   font-family: "Raleway", sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
+  a {
+    color: black;
+  }
   // background-image: url("styles/Map.png");
 }
 
@@ -64,6 +67,21 @@ p {
   align-self: center;
   max-width: 85vw;
   height: 75vh;
+}
+
+.privacyView {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5vw;
+  height: 100vh;
+  .privacyTop {
+    display: flex;
+    flex-direction: column;
+    h3 {
+      align-self: center;
+    }
+  }
 }
 
 .card {
