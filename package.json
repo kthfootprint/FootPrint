@@ -27,6 +27,10 @@
     "react-tooltip": "^3.10.0",
     "styled-components": "^4.3.2"
   },
+  "resolutions": {
+    "jest": "24.7.1",
+    "babel-jest": "24.7.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
