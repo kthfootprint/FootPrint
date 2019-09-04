@@ -82,6 +82,10 @@ p {
       align-self: center;
     }
   }
+  .privacyBottom {
+    display: flex;
+    flex-flow: row-reverse;
+  }
 }
 
 .card {

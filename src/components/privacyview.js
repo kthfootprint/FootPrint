@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 const PrivacyView = () => {
   const privacyDisclaimer =
-    "Excepteur deserunt est magna aute aute duis. Excepteur reprehenderit magna et anim commodo ad cillum anim eiusmod. Magna et id enim incididunt ex elit commodo tempor voluptate fugiat nostrud commodo. Dolore mollit duis ea laboris culpa anim eiusmod exercitation deserunt ea voluptate amet. Irure aute elit do non sunt elit magna est in est esse aliquip. Nisi sunt sunt fugiat cupidatat reprehenderit enim nisi consequat aliquip deserunt occaecat. Qui consectetur laborum sit voluptate consectetur consectetur eu duis culpa adipisicing sunt reprehenderit commodo. Reprehenderit ad adipisicing nulla dolore id duis adipisicing elit cillum anim reprehenderit sunt. Sit ad amet commodo proident nisi enim in incididunt. Commodo consectetur laborum laborum id aliqua irure et esse minim qui ad ea laboris mollit. Non veniam cupidatat cupidatat excepteur ullamco eiusmod.";
-
+    "To be able to conduct our research, some data about your usage of this app is stored. This data will not be shared with anyone outside of the three of us who are working on this project. If you have any further concerns about this, please do not hesitate to contact us (see contact information at the bottom of this page).";
   return (
     <div className="privacyView">
       <div className="privacyTop">
@@ -15,7 +14,22 @@ const PrivacyView = () => {
       </div>
       <div>{privacyDisclaimer}</div>
       <div>
-        Contact: <a href="mailto:tjo@gmail.com">tjo@gmail.com</a>
+        <h4>The following data is stored</h4>
+        <ul>
+          <li>What routes you searched for</li>
+          <li>
+            What routes you selected (and what other routes were available in
+            that search)
+          </li>
+          <li>
+            The user information you registered (email, age, gender, etc.)
+          </li>
+        </ul>
+      </div>
+      <div className="privacyBottom">
+        <h4>
+          <a href="mailto:edickson@kth.se">Contact us</a>
+        </h4>
       </div>
     </div>
   );
