@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RouteCard from "./routecard";
 import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
+import InfoView from "./infoview";
 /* global google */
 
 class SearchHeader extends Component {
@@ -297,11 +298,13 @@ class SearchHeader extends Component {
             css={{ flex: 1, marginTop: 50, alignSelf: "center" }}
             loading={this.state.loading}
           />
-          {!this.state.loading && (
-            <RouteCard list={this.state.routeList} route={this.state.route} />
-          )}
+          {!this.state.loading &&
+            (this.state.routeList.length === 0 ? (
+              <InfoView />
+            ) : (
+              <RouteCard list={this.state.routeList} route={this.state.route} />
+            ))}
         </div>
-        {/* <GoogleApiWrapper list={this.state.routeList}/> */}
       </div>
     );
   }
