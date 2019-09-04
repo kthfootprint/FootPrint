@@ -29,10 +29,13 @@ export class RouteCard extends Component {
     let emissionOut = 0;
     const eBus = 8 / 1000;
     const eSub = 0.16 / 1000;
+    const eFerry = 396 / 1000;
     for (let i = 0; i < transit.length; i++) {
       let distance = transit[i].distance.value;
-      if (transit[i].type === "BUS" || transit[i].type === "FERRY") {
+      if (transit[i].type === "BUS") {
         emissionOut += distance * eBus;
+      } else if (transit[i].type === "FERRY") {
+        emissionOut += distance * eFerry;
       } else if (
         transit[i].type === "SUBWAY" ||
         transit[i].type === "TRAIN" ||
