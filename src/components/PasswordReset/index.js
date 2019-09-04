@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
 
 const INITIAL_STATE = {
-  email: '',
-  error: null,
+  email: "",
+  error: null
 };
 
 class PasswordReset extends Component {
@@ -21,7 +21,9 @@ class PasswordReset extends Component {
       .resetPassword(this.state.email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        this.setState({ error: { code: 'succes', message: 'An email has been sent' } });
+        this.setState({
+          error: { code: "succes", message: "An email has been sent" }
+        });
       })
       .catch(error => {
         this.setState({ error });
@@ -37,17 +39,30 @@ class PasswordReset extends Component {
       <div>
         <h3>PasswordForget</h3>
         <form onSubmit={this.onSubmit}>
-          <input name="email" value={this.state.email} onChange={this.onChange}
-            type="text" placeholder="Email Address"/>
+          <input
+            name="email"
+            value={this.state.email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
 
-          <button variant="primary" disabled={this.state.email === ''} type="submit">
+          <button
+            variant="primary"
+            disabled={this.state.email === ""}
+            type="submit"
+          >
             Reset My Password
           </button>
 
-          {this.state.error && <p className="error">{this.state.error.message}</p>}
+          {this.state.error && (
+            <p className="error">{this.state.error.message}</p>
+          )}
         </form>
 
-        <a href='/login' onClick={(e) => this.props.forgotPassword(e, false)}>Tillbaka</a>
+        <a href="/login" onClick={e => this.props.forgotPassword(e, false)}>
+          Tillbaka
+        </a>
       </div>
     );
   }

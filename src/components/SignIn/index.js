@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
-  error: null,
+  email: "",
+  password: "",
+  error: null
 };
 
 class SignIn extends Component {
@@ -16,7 +16,7 @@ class SignIn extends Component {
   }
 
   onSubmit = event => {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
 
     this.props.firebase
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -39,20 +39,39 @@ class SignIn extends Component {
       <div>
         <h3>Logga in</h3>
         <form onSubmit={this.onSubmit} autoComplete="off">
-          <input name="email" value={this.state.email} onChange={this.onChange}
-            type="text" placeholder="Mailadress"/>
-          <br/>
-          <input name="password" value={this.state.passwordOne} onChange={this.onChange}
-            type="password" placeholder="Lösenord"/>
-          <br/>
+          <input
+            name="email"
+            value={this.state.email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Mailadress"
+          />
+          <br />
+          <input
+            name="password"
+            value={this.state.passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Lösenord"
+          />
+          <br />
           <button type="submit">Logga in</button>
 
-          {this.state.error && <p className="error">{this.state.error.message}</p>}
+          {this.state.error && (
+            <p className="error">{this.state.error.message}</p>
+          )}
 
-          <button onClick={(e) => this.props.createNewUser(e, true)}>Skapa ett konto</button>
+          <button onClick={e => this.props.createNewUser(e, true)}>
+            Skapa ett konto
+          </button>
         </form>
 
-        <a href='/resetPassword' onClick={(e) => this.props.forgotPassword(e, true)}>Glömt lösenordet?</a>
+        <a
+          href="/resetPassword"
+          onClick={e => this.props.forgotPassword(e, true)}
+        >
+          Glömt lösenordet?
+        </a>
       </div>
     );
   }

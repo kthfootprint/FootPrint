@@ -1,8 +1,8 @@
-import app from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import app from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
-import config from './config.js'
+import config from "./config.js";
 
 class Firebase {
   constructor() {
@@ -15,14 +15,13 @@ class Firebase {
   // Auth
   // ------------------------------------------------------------
   createUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password)
-    .then(authUser => {
-      var newUser = this.db.collection('users').doc(authUser.user.uid);
+    this.auth.createUserWithEmailAndPassword(email, password).then(authUser => {
+      var newUser = this.db.collection("users").doc(authUser.user.uid);
 
       newUser.set({
         email: authUser.user.email
-      })
-    })
+      });
+    });
 
   signInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
@@ -33,11 +32,9 @@ class Firebase {
 
   // Get
   // ------------------------------------------------------------
-  
 
   // Set
   // ------------------------------------------------------------
-
-};
+}
 
 export default Firebase;
