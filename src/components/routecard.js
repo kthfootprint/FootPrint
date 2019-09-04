@@ -3,10 +3,8 @@ import DirectionOverlay from "./directionoverlay";
 import Comparison from "./comparison";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChevronRight,
   faWalking,
   faBus,
-  faBusAlt,
   faSubway,
   faTrain,
   faShip
@@ -15,7 +13,6 @@ import {
 export class RouteCard extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       route: [],
       overlay: false,
@@ -29,13 +26,10 @@ export class RouteCard extends Component {
     let emissionOut = 0;
     const eBus = 8 / 1000;
     const eSub = 0.16 / 1000;
-    const eFerry = 396 / 1000;
     for (let i = 0; i < transit.length; i++) {
       let distance = transit[i].distance.value;
-      if (transit[i].type === "BUS") {
+      if (transit[i].type === "BUS" || transit[i].type === "FERRY") {
         emissionOut += distance * eBus;
-      } else if (transit[i].type === "FERRY") {
-        emissionOut += distance * eFerry;
       } else if (
         transit[i].type === "SUBWAY" ||
         transit[i].type === "TRAIN" ||
@@ -115,20 +109,51 @@ export class RouteCard extends Component {
     this.setState({ overlay: false });
   };
 
-  render() {
-    var calculatedEmission = 0;
-    var calculatedComparable = "";
-    var emissionColorValue = 0;
-    var emissionObject = "";
+  getIcon = transport => {
+    var subway = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.0"
+        width="16"
+        height="16"
+        viewBox="0 0 500 500"
+      >
+        <circle
+          cx="250"
+          cy="250"
+          r="239"
+          stroke="#000"
+          strokeWidth="22"
+          fill="#fff"
+        />
+        <path d="M92,138.5h316v79.5h-118.25v194h-79.5v-194h-118.25z" />
+      </svg>
+    );
     var icon = {
       WALKING: faWalking,
       BUS: faBus,
       SUBWAY: faSubway,
       TRAIN: faTrain,
       HEAVY_RAIL: faTrain,
-      TRAM: faBusAlt,
+      LONG_DISTANCE_TRAIN: faTrain,
+      TRAM: faSubway,
       FERRY: faShip
     };
+    return transport.type === "SUBWAY" ? (
+      subway
+    ) : (
+      <FontAwesomeIcon
+        icon={icon[transport.type]}
+        style={{ color: transport.lineColor }}
+      />
+    );
+  };
+
+  render() {
+    var calculatedEmission = 0;
+    var calculatedComparable = "";
+    var emissionColorValue = 0;
+    var emissionObject = "";
     var card = [];
     var list = this.props.list;
     var emissions = this.emissionList(list);
@@ -142,40 +167,24 @@ export class RouteCard extends Component {
       );
       var travelSteps = [];
       for (let t = 0; t < list[i].transitInfo.length; t++) {
-        if (t > 0) {
-          travelSteps.push(
-            <div key={t}>
-              <FontAwesomeIcon icon={faChevronRight} />
-              {list[i].transitInfo[t].from.name && (
-                <p>{list[i].transitInfo[t].from.name}</p>
-              )}
-              <br />
-              <FontAwesomeIcon
-                icon={icon[list[i].transitInfo[t].type]}
-                style={{ color: list[i].transitInfo[t].lineColor }}
-              />
-              <p>
-                <sub>{list[i].transitInfo[t].line}</sub>
-              </p>
-            </div>
-          );
-        } else {
-          travelSteps.push(
-            <div key={t}>
-              {list[i].transitInfo[t].from.name && (
-                <p>{list[i].transitInfo[t].from.name}</p>
-              )}
-              <br />
-              <FontAwesomeIcon
-                icon={icon[list[i].transitInfo[t].type]}
-                style={{ color: list[i].transitInfo[t].lineColor }}
-              />
-              <p>
-                <sub>{list[i].transitInfo[t].line}</sub>
-              </p>
-            </div>
-          );
-        }
+        var routeNr =
+          list[i].transitInfo[t].type === "TRAM"
+            ? "Tvärbanan " + list[i].transitInfo[t].line
+            : list[i].transitInfo[t].type === "WALKING"
+            ? list[i].transitInfo[t].distance.text
+            : list[i].transitInfo[t].line;
+        var routeColor =
+          list[i].transitInfo[t].type === "WALKING"
+            ? null
+            : list[i].transitInfo[t].lineColor;
+        travelSteps.push(
+          <div className="routeSteps" key={t}>
+            {this.getIcon(list[i].transitInfo[t])}
+            <p className="routeId" style={{ backgroundColor: routeColor }}>
+              {routeNr}
+            </p>
+          </div>
+        );
       }
       card.push(
         <article
@@ -186,7 +195,7 @@ export class RouteCard extends Component {
           style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
         >
           <div className="top">
-            <div className="textContainer">
+            <div className="routeContainer">
               <div className="travel">{travelSteps}</div>
               <div className="rightCard">
                 <div className="time">
@@ -197,7 +206,7 @@ export class RouteCard extends Component {
             </div>
           </div>
           <div className="bottom">
-            <div className="textContainer">
+            <div className="timeContainer">
               {list[i].departure !== "" && (
                 <p>
                   {list[i].departure} - {list[i].arrival}

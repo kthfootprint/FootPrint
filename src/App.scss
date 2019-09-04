@@ -16,11 +16,10 @@ body {
   a {
     color: black;
   }
-  // background-image: url("styles/Map.png");
 }
 
 .bgImg {
-  background-image: url("styles/Map.png");
+  background-image: url("styles/map.png");
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -28,7 +27,7 @@ body {
 }
 
 .blurImg {
-  background-image: url("styles/Map.png");
+  background-image: url("styles/map.png");
   filter: blur(5px);
   position: absolute;
   height: 100vh;
@@ -82,10 +81,6 @@ p {
       align-self: center;
     }
   }
-  .privacyBottom {
-    display: flex;
-    flex-flow: row-reverse;
-  }
 }
 
 .card {
@@ -96,7 +91,13 @@ p {
   border-radius: 15px;
 }
 
-.textContainer {
+.routeContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.timeContainer {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -108,7 +109,6 @@ p {
   display: flex;
   flex-direction: row;
   pointer-events: none;
-  padding: 1em;
   border-radius: 15px;
 }
 
@@ -136,12 +136,23 @@ p {
 }
 
 .travel {
-  flex: 3;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   max-width: 75%;
   text-align: left;
+}
+
+.routeSteps {
+  flex-grow: 1;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 20px 30px 25px -22px rgba(0, 0, 0, 0.5);
+}
+
+.routeId {
+  padding: 2px;
+  border-radius: 3px;
+
 }
 
 .travel p {
@@ -158,6 +169,7 @@ p {
   flex-direction: column;
   justify-content: space-between;
   font-size: 80%;
+  padding: 1em;
 }
 
 .emission {
