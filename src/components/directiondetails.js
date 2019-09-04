@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Comparison from "./comparison";
 import styled from "styled-components";
+import { Button } from "semantic-ui-react";
 
 export class DirectionDetails extends Component {
   emissionBox = () => {
@@ -55,6 +56,9 @@ export class DirectionDetails extends Component {
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
         {this.emissionBox()}
+        <Button basic color="green">
+          Select route
+        </Button>
       </div>
     );
   }
