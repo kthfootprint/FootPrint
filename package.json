@@ -30,7 +30,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
     "prettier": "prettier \"**/*.{js,jsx,css,json}\"",
     "format": "yarn prettier -- --write",
     "lint": "eslint src",
