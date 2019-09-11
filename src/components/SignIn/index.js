@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+
 const INITIAL_STATE = {
   email: "",
   password: "",
@@ -28,6 +31,19 @@ class SignIn extends Component {
       });
 
     event.preventDefault();
+  };
+
+  facebookSubmit = e => {
+    this.props.firebase
+      .signInWithFacebook()
+      .then(socialAuthUser => {
+        this.setState({ error: null });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+
+    e.preventDefault();
   };
 
   onChange = e => {
@@ -63,6 +79,11 @@ class SignIn extends Component {
 
           <button onClick={e => this.props.createNewUser(e, true)}>
             Skapa ett konto
+          </button>
+
+          <button onClick={(e) => this.facebookSubmit(e)}>
+            <FontAwesomeIcon size="1x" icon={faFacebookF}/>
+            Logga in med Facebook
           </button>
         </form>
 
