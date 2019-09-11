@@ -17,7 +17,7 @@ class DirectionOverlay extends Component {
           />
         </div>
         <div id="backBtn" onClick={this.goBack}>
-          <i className="far fa-arrow-alt-circle-left fa-3x"></i>
+          <i className="fas fa-arrow-down fa-2x"></i>
         </div>
         <DirectionDetails
           route={this.props.route.legs[0]}

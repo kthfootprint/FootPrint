@@ -6,6 +6,7 @@ import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
 import { withAuthorization } from './Auth';
 import * as ROLES from '../constants/roles';
+import { CSSTransition } from "react-transition-group";
 /* global google */
 
 class SearchView extends Component {
@@ -17,8 +18,10 @@ class SearchView extends Component {
       dest: "",
       route: [],
       loading: false,
-      bgBlur: false
+      bgBlur: false,
+      showHeader: true
     };
+    this.toggleHeader = this.toggleHeader.bind(this);
   }
 
   autoFill = () => {
@@ -121,42 +124,53 @@ class SearchView extends Component {
       );
   };
 
+  toggleHeader(value) {
+    this.setState({ showHeader: value });
+  }
+
   render() {
     return (
       <div>
         <div className={this.state.bgBlur ? "blurImg" : "bgImg"}></div>
-        <header>
-          <nav id="searchField">
-            <label className="inp">
-              <input
-                id="origin-input"
-                className="controls"
-                type="text"
-                placeholder=" "
-              />
-              <span className="label">Start</span>
-              <span className="label" id="location">
-                <i
-                  onClick={this.getLocation}
-                  className="fas fa-crosshairs fa-lg"
-                ></i>
-              </span>
-            </label>
+        <CSSTransition
+          in={this.state.showHeader}
+          timeout={300}
+          classNames="slideDown"
+          unmountOnExit
+        >
+          <header>
+            <nav id="searchField">
+              <label className="inp">
+                <input
+                  id="origin-input"
+                  className="controls"
+                  type="text"
+                  placeholder=" "
+                />
+                <span className="label">Start</span>
+                <span className="label" id="location">
+                  <i
+                    onClick={this.getLocation}
+                    className="fas fa-crosshairs fa-lg"
+                  ></i>
+                </span>
+              </label>
 
-            <label className="inp">
-              <input id="destination-input" type="text" placeholder=" " />
-              <span className="label">Destination</span>
-            </label>
-          </nav>
+              <label className="inp">
+                <input id="destination-input" type="text" placeholder=" " />
+                <span className="label">Destination</span>
+              </label>
+            </nav>
 
-          <nav id="goBtn">
-            <button type="button" className="btn" onClick={this.findRoute}>
-              <img id="goLogo" src={logo} alt="" />
-              <br />
-              Go!
-            </button>
-          </nav>
-        </header>
+            <nav id="goBtn">
+              <button type="button" className="btn" onClick={this.findRoute}>
+                <img id="goLogo" src={logo} alt="" />
+                <br />
+                Go!
+              </button>
+            </nav>
+          </header>
+        </CSSTransition>
         <div id="main">
           <DotLoader
             css={{ flex: 1, marginTop: 50, alignSelf: "center" }}
@@ -166,7 +180,11 @@ class SearchView extends Component {
             (this.state.routeList.length === 0 ? (
               <InfoView />
             ) : (
-              <RouteCard list={this.state.routeList} route={this.state.route} />
+              <RouteCard
+                list={this.state.routeList}
+                route={this.state.route}
+                toggle={this.toggleHeader}
+              />
             ))}
         </div>
       </div>
