@@ -17,10 +17,15 @@
     padding-top: 10px;
     align-self: flex-end;
     text-align: center;
+    overflow: hidden;
       
     .container-fluid {
       height: 100%;
       padding: 0px;
+
+      div div {
+        transition: all 250ms ease;
+      }
     }
 
     .logotype {
@@ -31,7 +36,7 @@
     .media {
       text-align: left;
     }
-    
+
     .signInPage input {
       margin-bottom: -15px;
     }
@@ -52,13 +57,10 @@
       width: 100%;
       height: 100%;
       background: #fff;
-      overflow: scroll;
 
       form {
         margin-bottom: 20px;
       }
-
-      padding-bottom: calc(550px - 100vh);
     }
   }
 

@@ -50,7 +50,7 @@ class LoginPage extends Component {
           <div className="LoginPageInner">
             <Container fluid>
               <Row className="justify-content-center">
-                <Col xl={6} lg={8} md={12} xs={12}>
+                <Col xl={6} lg={8} md={10} xs={12}>
                   <Media>
                     <Image className="logotype" src={footPrintPng} />
                     <Media.Body className="align-self-center mr-3">
@@ -61,7 +61,7 @@ class LoginPage extends Component {
               </Row>
 
               <Row className="content justify-content-center">
-                <Col xl={6} lg={8} md={12} xs={12}>
+                <Col xl={6} lg={8} md={10} xs={12}>
                   {!this.state.newUser ? (
                     [
                       !this.state.forgotPassword ? (
