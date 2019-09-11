@@ -4,11 +4,11 @@
   flex-direction: column-reverse;
   background-image: url('../styles/Map.png');
   background-repeat: no-repeat;
-  // background-position-y: -400px;
+  overflow: hidden;
 
   .LoginPageInner {
     width: 100%;
-    min-height: 75%;
+    min-height: 80%;
     background-image: url('../styles/wave.png');
     background-repeat: no-repeat;
     background-size: 100%;
