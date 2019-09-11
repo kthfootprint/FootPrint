@@ -1,6 +1,6 @@
 .LoginPage,
 .FirstLoginPage {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column-reverse;
   background-image: url('../styles/Map.png');
@@ -10,7 +10,7 @@
   .LoginPageInner,
   .RequestUserData {
     width: 100%;
-    min-height: 80%;
+    height: 85%;
     background-image: url('../styles/wave.png');
     background-repeat: no-repeat;
     background-size: 100%;
