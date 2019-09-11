@@ -52,10 +52,13 @@
       width: 100%;
       height: 100%;
       background: #fff;
+      overflow: scroll;
 
       form {
         margin-bottom: 20px;
       }
+
+      padding-bottom: calc(550px - 100vh);
     }
   }
 
