@@ -51,6 +51,7 @@ export class DirectionDetails extends Component {
     }
     return (
       <div id="directionDetails">
+        <div id="slider"></div>
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
         {this.emissionBox()}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DirectionOverlay from "./directionoverlay";
 import Comparison from "./comparison";
+import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWalking,
@@ -18,8 +19,13 @@ export class RouteCard extends Component {
       overlay: false,
       emission: 0,
       comparable: 0,
-      emissionColor: "rgb(0,200,0)"
+      emissionColor: "rgb(0,200,0)",
+      showCard: false
     };
+  }
+
+  componentDidMount() {
+    this.toggleCard(true);
   }
 
   calculateEmission = transit => {
@@ -83,6 +89,8 @@ export class RouteCard extends Component {
   }
 
   selectCard = e => {
+    this.props.toggle(false);
+    this.toggleCard(false);
     if (this.props.list[e.target.id]) {
       var r = this.props.list[e.target.id].index;
       let calculatedEmission = this.calculateEmission(
@@ -107,6 +115,8 @@ export class RouteCard extends Component {
 
   removeOverlay = () => {
     this.setState({ overlay: false });
+    this.props.toggle(true);
+    this.toggleCard(true);
   };
 
   getIcon = transport => {
@@ -149,6 +159,10 @@ export class RouteCard extends Component {
     );
   };
 
+  toggleCard(value) {
+    this.setState({ showCard: value });
+  }
+
   render() {
     var calculatedEmission = 0;
     var calculatedComparable = "";
@@ -158,6 +172,7 @@ export class RouteCard extends Component {
     var list = this.props.list;
     var emissions = this.emissionList(list);
     for (var i in list) {
+      var rand = Math.random() * 100 + 50;
       calculatedEmission = this.calculateEmission(list[i].transitInfo);
       calculatedComparable = this.calculateComparable(list[i].transitInfo);
       emissionColorValue = this.emissionColor(emissions, calculatedEmission);
@@ -187,41 +202,55 @@ export class RouteCard extends Component {
         );
       }
       card.push(
-        <article
+        <CSSTransition
+          in={this.state.showCard}
+          timeout={rand}
+          classNames="fade"
+          unmountOnExit
           key={list[i].index}
-          className="card"
-          id={i}
-          onClick={this.selectCard}
-          style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
         >
-          <div className="top">
-            <div className="routeContainer">
-              <div className="travel">{travelSteps}</div>
-              <div className="rightCard">
-                <div className="time">
-                  <p>{list[i].duration}</p>
+          <article
+            key={list[i].index}
+            className="card"
+            id={i}
+            onClick={this.selectCard}
+            style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
+          >
+            <div className="top">
+              <div className="routeContainer">
+                <div className="travel">{travelSteps}</div>
+                <div className="rightCard">
+                  <div className="time">
+                    <p>{list[i].duration}</p>
+                  </div>
+                  {emissionObject}
                 </div>
-                {emissionObject}
               </div>
             </div>
-          </div>
-          <div className="bottom">
-            <div className="timeContainer">
-              {list[i].departure !== "" && (
-                <p>
-                  {list[i].departure} - {list[i].arrival}
-                </p>
-              )}
-              <Comparison comparableNumber={calculatedComparable} />
+            <div className="bottom">
+              <div className="timeContainer">
+                {list[i].departure !== "" && (
+                  <p>
+                    {list[i].departure} - {list[i].arrival}
+                  </p>
+                )}
+                <Comparison comparableNumber={calculatedComparable} />
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </CSSTransition>
       );
     }
+    // this.toggleCard()
     return (
       <div style={{ width: "100%" }}>
         {card}
-        {this.state.overlay && (
+        <CSSTransition
+          in={this.state.overlay}
+          timeout={300}
+          classNames="slideUp"
+          unmountOnExit
+        >
           <DirectionOverlay
             route={this.state.route}
             emission={this.state.emission}
@@ -229,7 +258,7 @@ export class RouteCard extends Component {
             emissionColor={this.state.emissionColor}
             unmount={this.removeOverlay}
           />
-        )}
+        </CSSTransition>
       </div>
     );
   }
