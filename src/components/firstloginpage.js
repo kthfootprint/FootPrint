@@ -81,7 +81,7 @@ class FirstLoginPage extends Component {
           : <div className="RequestUserData">
               <Container fluid>
                 <Row className="justify-content-center">
-                  <Col xl={6} lg={8} md={12} xs={12}>
+                  <Col xl={6} lg={8} md={10} xs={12}>
                     <Media>
                       <Image className="logotype" src={footPrintPng} />
                       <Media.Body className="align-self-center mr-3">
@@ -92,7 +92,7 @@ class FirstLoginPage extends Component {
                 </Row>
 
                 <Row className="content justify-content-center">
-                  <Col xl={6} lg={8} md={12} xs={12}>
+                  <Col xl={6} lg={8} md={10} xs={12}>
                     <h3>Bara lite mer info...</h3>
                     <Form className="userDataForm" onSubmit={this.onSubmit}>
                       <Form.Control name="age" value={this.state.age} onChange={this.onChange}
