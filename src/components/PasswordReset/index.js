@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
 const INITIAL_STATE = {
   email: "",
   error: null
@@ -36,10 +39,10 @@ class PasswordReset extends Component {
 
   render() {
     return (
-      <div>
-        <h3>PasswordForget</h3>
-        <form onSubmit={this.onSubmit}>
-          <input
+      <div className="passwordResetPage">
+        <h3>Återställ lösenord</h3>
+        <Form onSubmit={this.onSubmit}>
+          <Form.Control
             name="email"
             value={this.state.email}
             onChange={this.onChange}
@@ -47,18 +50,19 @@ class PasswordReset extends Component {
             placeholder="Email Address"
           />
 
-          <button
+          <Button
             variant="primary"
             disabled={this.state.email === ""}
             type="submit"
+            block
           >
             Reset My Password
-          </button>
+          </Button>
 
           {this.state.error && (
             <p className="error">{this.state.error.message}</p>
           )}
-        </form>
+        </Form>
 
         <a href="/login" onClick={e => this.props.forgotPassword(e, false)}>
           Tillbaka

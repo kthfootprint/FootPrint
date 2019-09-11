@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+
 import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
@@ -58,10 +61,10 @@ class SignUp extends Component {
       this.state.passwordTwo === "";
 
     return (
-      <div>
+      <div className="signUpPage">
         <h3>Skapa nytt konto</h3>
         <form onSubmit={this.onSubmit} autoComplete="off">
-          <input
+          <Form.Control
             name="email"
             value={this.state.email}
             onChange={this.onChange}
@@ -69,7 +72,7 @@ class SignUp extends Component {
             placeholder="Mailadress"
           />
 
-          <input
+          <Form.Control
             name="passwordOne"
             value={this.state.passwordOne}
             onChange={this.onChange}
@@ -77,7 +80,7 @@ class SignUp extends Component {
             placeholder="Lösenord"
           />
 
-          <input
+          <Form.Control
             name="passwordTwo"
             value={this.state.passwordTwo}
             onChange={this.onChange}
@@ -85,9 +88,9 @@ class SignUp extends Component {
             placeholder="Bekräfta lösenord"
           />
 
-          <button disabled={isInvalid} type="submit">
+          <Button disabled={isInvalid} type="submit" block>
             Sign Up
-          </button>
+          </Button>
 
           {this.state.error && (
             <p className="error">{this.state.error.message}</p>
