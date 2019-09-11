@@ -322,22 +322,20 @@ footer {
 
 #backBtn {
   position: fixed;
-  top: 20px;
-  left: 10px;
+  bottom: 25px;
+  right: 15px;
   height: 6vh;
   width: 11vw;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #directionDetails {
-  /* border-top-left-radius: 30px;
-    border-top-right-radius: 30px; */
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   box-shadow: 5px 0px 5px 5px rgba(0, 0, 0, 0.8);
-  padding: 1em 0px 1.2em 0px;
+  padding: 0em 0px 1.2em 0px;
   background-color: white;
   flex: 1;
   overflow: scroll;
@@ -346,6 +344,95 @@ footer {
   justify-content: space-around;
 }
 
+#slider {
+  background-color: gray;
+  width: 35px;
+  align-self: center;
+  padding: 2px;
+  border-radius: 5px;
+}
+
 .comparableNumber {
   color: red;
+}
+
+.slideUp-enter {
+  opacity: 0;
+  transform: translateY(400px);
+}
+
+.slideUp-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: ease 200ms all;
+}
+
+.slideUp-exit {
+  opacity: 1;
+}
+
+.slideUp-exit-active {
+  opacity: 0;
+  transform: translateY(400px);
+  transition: ease 200ms all;
+}
+
+.slideDown-enter {
+  opacity: 0;
+  transform: translateY(-400px);
+}
+
+.slideDown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: ease 200ms all;
+}
+
+.slideDown-exit {
+  opacity: 1;
+}
+
+.slideDown-exit-active {
+  opacity: 0;
+  transform: translateY(-400px);
+  transition: ease 200ms all;
+}
+
+.slideRight-enter {
+  opacity: 0;
+  transform: translateX(400px);
+}
+
+.slideRight-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: ease 200ms all;
+}
+
+.slideRight-exit {
+  opacity: 1;
+}
+
+.slideRight-exit-active {
+  opacity: 0;
+  transform: translateX(400px);
+  transition: ease 200ms all;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: ease 200ms all;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: ease 200ms all;
 }
