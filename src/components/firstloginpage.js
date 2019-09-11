@@ -99,10 +99,10 @@ class FirstLoginPage extends Component {
                         type="number" placeholder="Ålder" min="1" max="125"/>
 
                       <Form.Control as="select" name="gender" value={this.state.gender} onChange={this.onChange}>
-                        <option value="" disabled>Select gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other/Do not want to disclose</option>
+                        <option value="" disabled>Kön</option>
+                        <option value="male">Man</option>
+                        <option value="female">Kvinna</option>
+                        <option value="other">Annat/Vill ej ange</option>
                       </Form.Control>
 
                       <Form.Check name="termsOfService" onChange={this.onChange}
