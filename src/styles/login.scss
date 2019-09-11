@@ -1,8 +1,59 @@
 .LoginPage {
-  text-align: center;
-  align-content: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+  background-image: url('../styles/Map.png');
+  background-repeat: no-repeat;
+  // background-position-y: -400px;
+
+  .LoginPageInner {
+    width: 100%;
+    min-height: 75%;
+    background-image: url('../styles/wave.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-top: 10px;
+    align-self: flex-end;
+    text-align: center;
+      
+    .container-fluid {
+      height: 100%;
+      padding: 0px;
+    }
+
+    .logotype {
+      max-width: 20%;
+      padding: 0px 0px 0px 0px;
+    }
+
+    .media {
+      text-align: left;
+    }
+    
+    .signInPage input {
+      margin-bottom: -15px;
+    }
+
+    .signUpPage input,
+    .passwordResetPage input {
+      margin-bottom: 10px;
+    }
+
+    .content {
+      margin: 0px;
+      padding-top: 25px;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+
+      form {
+        margin-bottom: 20px;
+      }
+    }
+  }
 
   p.error {
     color: #ff0000;
+    padding-top: 10px;
   }
 }

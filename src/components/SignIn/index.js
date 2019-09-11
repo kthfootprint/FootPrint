@@ -2,8 +2,12 @@ import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+
 
 const INITIAL_STATE = {
   email: "",
@@ -52,10 +56,10 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div>
+      <div className="signInPage">
         <h3>Logga in</h3>
-        <form onSubmit={this.onSubmit} autoComplete="off">
-          <input
+        <Form onSubmit={this.onSubmit} autoComplete="off">
+          <Form.Control
             name="email"
             value={this.state.email}
             onChange={this.onChange}
@@ -63,7 +67,7 @@ class SignIn extends Component {
             placeholder="Mailadress"
           />
           <br />
-          <input
+          <Form.Control
             name="password"
             value={this.state.passwordOne}
             onChange={this.onChange}
@@ -71,28 +75,30 @@ class SignIn extends Component {
             placeholder="Lösenord"
           />
           <br />
-          <button type="submit">Logga in</button>
+          <Button type="submit" block>Logga in</Button>
+
+          <Button onClick={(e) => this.facebookSubmit(e)} style={{ backgroundColor: '#3b5998' }} block>
+            <FontAwesomeIcon size="1x" icon={faFacebookF} />&emsp;Logga in med Facebook
+                </Button>
 
           {this.state.error && (
             <p className="error">{this.state.error.message}</p>
           )}
 
-          <button onClick={e => this.props.createNewUser(e, true)}>
-            Skapa ett konto
-          </button>
+          <hr />
 
-          <button onClick={(e) => this.facebookSubmit(e)}>
-            <FontAwesomeIcon size="1x" icon={faFacebookF}/>
-            Logga in med Facebook
-          </button>
-        </form>
+          <Button variant="secondary" onClick={e => this.props.createNewUser(e, true)} block>
+            Skapa ett konto
+                </Button>
+
+        </Form>
 
         <a
           href="/resetPassword"
           onClick={e => this.props.forgotPassword(e, true)}
         >
           Glömt lösenordet?
-        </a>
+              </a>
       </div>
     );
   }
