@@ -2,18 +2,31 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
-import AuthUserContext from "./context";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
 const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        authUser: null
+      }
+    }
+
     componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-        if (!condition(authUser)) {
-          this.props.history.push(ROUTES.LOGIN);
-        }
-      });
+      this.listener = this.props.firebase.authUserListener(
+        authUser => {
+          if (!condition(authUser)) {
+            this.props.history.push(ROUTES.LOGIN);
+          }
+          else {
+            this.setState({ authUser })
+          }
+        },
+        () => this.props.history.push(ROUTES.LOGIN),
+      );
     }
 
     componentWillUnmount() {
@@ -22,11 +35,11 @@ const withAuthorization = condition => Component => {
 
     render() {
       return (
-        <AuthUserContext.Consumer>
-          {authUser =>
-            condition(authUser) ? <Component {...this.props} /> : null
+        <div>
+          {this.state.authUser && 
+            condition(this.state.authUser) ? <Component {...this.props} /> : null
           }
-        </AuthUserContext.Consumer>
+        </div>
       );
     }
   }

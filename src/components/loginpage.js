@@ -15,7 +15,8 @@ class LoginPage extends Component {
     super(props);
 
     this.state = {
-      newUser: false
+      newUser: false,
+      loading: true
     };
   }
 
@@ -29,12 +30,15 @@ class LoginPage extends Component {
     this.setState({ forgotPassword: bool });
   };
 
+  componentDidMount() {
+    this.setState({ loading: false })
+  }
+
   render() {
     return (
+      !this.state.loading && (
       <div className="LoginPage">
-        {this.props.firebase.auth.currentUser && (
-          <Redirect to={ROUTES.LANDING} />
-        )}
+        {this.props.firebase.auth.currentUser && <Redirect to={`${ROUTES.FIRSTLOGIN}/${this.props.firebase.auth.currentUser.uid}`}/>}
 
         {!this.state.newUser ? (
           [
@@ -51,7 +55,7 @@ class LoginPage extends Component {
         ) : (
           <SignUp key="signup" createNewUser={this.createNewUser} />
         )}
-      </div>
+      </div>)
     );
   }
 }
