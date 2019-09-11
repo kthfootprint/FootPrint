@@ -4,6 +4,16 @@ import { compose } from 'recompose';
 import { withAuthorization } from './Auth';
 import { withFirebase } from "./Firebase";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Media from 'react-bootstrap/Media';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
+import footPrintPng from '../styles/foot.png';
+
 import * as ROUTES from "../constants/routes";
 import * as ROLES from "../constants/roles";
 
@@ -69,25 +79,42 @@ class FirstLoginPage extends Component {
         {!this.state.requestUserData
           ? <Redirect to={ROUTES.LANDING}/>
           : <div className="RequestUserData">
-              <h1>Fyll i data här</h1>
-              <form onSubmit={this.onSubmit}>
-                <input name="age" value={this.state.age} onChange={this.onChange}
-                  type="number" placeholder="Ålder" min="1" max="125"/>
+              <Container fluid>
+                <Row className="justify-content-center">
+                  <Col xl={6} lg={8} md={12} xs={12}>
+                    <Media>
+                      <Image className="logotype" src={footPrintPng} />
+                      <Media.Body className="align-self-center mr-3">
+                        <h2>FootPrint</h2>
+                      </Media.Body>
+                    </Media>
+                  </Col>
+                </Row>
 
-                <select name="gender" value={this.state.gender} onChange={this.onChange}>
-                    <option value="" disabled>Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other/Do not want to disclose</option>
-                  </select>
+                <Row className="content justify-content-center">
+                  <Col xl={6} lg={8} md={12} xs={12}>
+                    <h3>Bara lite mer info...</h3>
+                    <Form className="userDataForm" onSubmit={this.onSubmit}>
+                      <Form.Control name="age" value={this.state.age} onChange={this.onChange}
+                        type="number" placeholder="Ålder" min="1" max="125"/>
 
-                <input name="termsOfService" onChange={this.onChange}
-                  type="checkbox" label="Jag godkänner användarvillkoren." />
+                      <Form.Control as="select" name="gender" value={this.state.gender} onChange={this.onChange}>
+                        <option value="" disabled>Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other/Do not want to disclose</option>
+                      </Form.Control>
 
-                <button disabled={isInvalid} type="submit">Sign Up</button>
+                      <Form.Check name="termsOfService" onChange={this.onChange}
+                        type="checkbox" label="Jag godkänner användarvillkoren." />
 
-                {this.state.error && <p className="error">{this.state.error.message}</p>}
-              </form>
+                      <Button disabled={isInvalid} type="submit" block>Börja använd FootPrint</Button>
+
+                      {this.state.error && <p className="error">{this.state.error.message}</p>}
+                    </Form>
+                  </Col>
+                </Row>
+              </Container>
             </div>
         }
       </div>
