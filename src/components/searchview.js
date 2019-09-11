@@ -4,6 +4,8 @@ import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
+import { withAuthorization } from './Auth';
+import * as ROLES from '../constants/roles';
 /* global google */
 
 class SearchView extends Component {
@@ -172,4 +174,7 @@ class SearchView extends Component {
   }
 }
 
-export default SearchView;
+const condition = authUser =>
+  authUser && ((authUser.roles && !!authUser.roles[ROLES.USER]) || (authUser.authUser && authUser.authUser.roles && !!authUser.authUser.roles[ROLES.USER]));
+
+export default withAuthorization(condition)(SearchView);
