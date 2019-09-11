@@ -1,4 +1,5 @@
-.LoginPage {
+.LoginPage,
+.FirstLoginPage {
   height: 100vh;
   display: flex;
   flex-direction: column-reverse;
@@ -6,7 +7,8 @@
   background-repeat: no-repeat;
   overflow: hidden;
 
-  .LoginPageInner {
+  .LoginPageInner,
+  .RequestUserData {
     width: 100%;
     min-height: 80%;
     background-image: url('../styles/wave.png');
@@ -35,8 +37,13 @@
     }
 
     .signUpPage input,
-    .passwordResetPage input {
+    .passwordResetPage input,
+    .userDataForm input {
       margin-bottom: 10px;
+    }
+
+    .userDataForm .form-check {
+      margin: 10px;
     }
 
     .content {
