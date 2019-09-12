@@ -9,20 +9,20 @@ const withAuthentication = Component => {
       super(props);
 
       this.state = {
-        authUser: JSON.parse(localStorage.getItem('authUser')),
+        authUser: JSON.parse(localStorage.getItem("authUser"))
       };
     }
 
     componentDidMount() {
       this.listener = this.props.firebase.authUserListener(
         authUser => {
-          localStorage.setItem('authUser', JSON.stringify(authUser));
+          localStorage.setItem("authUser", JSON.stringify(authUser));
           this.setState({ authUser });
         },
         () => {
-          localStorage.removeItem('authUser');
+          localStorage.removeItem("authUser");
           this.setState({ authUser: null });
-        },
+        }
       );
     }
 

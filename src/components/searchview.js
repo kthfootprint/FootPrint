@@ -4,8 +4,8 @@ import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
-import { withAuthorization } from './Auth';
-import * as ROLES from '../constants/roles';
+import { withAuthorization } from "./Auth";
+import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
 /* global google */
 
@@ -165,7 +165,6 @@ class SearchView extends Component {
             <nav id="goBtn">
               <button type="button" className="btn" onClick={this.findRoute}>
                 <img id="goLogo" src={logo} alt="" />
-                <br />
                 Go!
               </button>
             </nav>
@@ -193,6 +192,10 @@ class SearchView extends Component {
 }
 
 const condition = authUser =>
-  authUser && ((authUser.roles && !!authUser.roles[ROLES.USER]) || (authUser.authUser && authUser.authUser.roles && !!authUser.authUser.roles[ROLES.USER]));
+  authUser &&
+  ((authUser.roles && !!authUser.roles[ROLES.USER]) ||
+    (authUser.authUser &&
+      authUser.authUser.roles &&
+      !!authUser.authUser.roles[ROLES.USER]));
 
 export default withAuthorization(condition)(SearchView);
