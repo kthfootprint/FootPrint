@@ -217,10 +217,14 @@ header {
 }
 
 #goBtn {
-  display: flex;
   flex: 1;
-  height: 60px;
-  justify-content: center;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
 }
 
 #goLogo {
@@ -332,8 +336,8 @@ footer {
 #map {
   flex: 2;
   height: 35vh;
-  position: fixed;
-  top: 0;
+  //position: fixed;
+  top: 60vh;
 }
 
 #backBtn {
