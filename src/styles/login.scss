@@ -37,6 +37,12 @@
       text-align: left;
     }
 
+    .signInPage form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .signInPage input {
       margin-bottom: -15px;
     }
