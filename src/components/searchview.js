@@ -44,8 +44,18 @@ class SearchView extends Component {
   originFill = () => {
     var originInput = document.getElementById("origin-input");
     originInput.removeEventListener("click", this.originFill);
+    var geolocation = {
+      lat: 59.334591,
+      lng: 18.06324
+    };
+    var circle = new google.maps.Circle({
+      center: geolocation,
+      radius: 150000
+    });
+
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     originAutocomplete.setFields(["place_id"]);
+    originAutocomplete.setBounds(circle.getBounds());
     originAutocomplete.setComponentRestrictions({ country: "se" });
     originAutocomplete.addListener("place_changed", () => {
       this.setOrigin(originInput.value);
