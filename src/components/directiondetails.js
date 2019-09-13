@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Comparison from "./comparison";
 import styled from "styled-components";
+import Button from "react-bootstrap/Button";
 
 export class DirectionDetails extends Component {
   emissionBox = () => {
@@ -55,6 +56,15 @@ export class DirectionDetails extends Component {
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
         {this.emissionBox()}
+        <Button
+          onClick={() => {
+            alert("SAAAAAAVED");
+          }}
+          variant="success"
+          className="saveButton"
+        >
+          Save route
+        </Button>
       </div>
     );
   }

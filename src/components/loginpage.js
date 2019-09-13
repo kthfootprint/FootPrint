@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
-import Media from 'react-bootstrap/Media';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import Media from "react-bootstrap/Media";
 
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import PasswordReset from "./PasswordReset";
-import footPrintPng from '../styles/foot.png';
+import footPrintPng from "../styles/foot.png";
 
 import * as ROUTES from "../constants/routes";
 
@@ -38,14 +38,18 @@ class LoginPage extends Component {
   };
 
   componentDidMount() {
-    this.setState({ loading: false })
+    this.setState({ loading: false });
   }
 
   render() {
     return (
       !this.state.loading && (
         <div className="LoginPage">
-          {this.props.firebase.auth.currentUser && <Redirect to={`${ROUTES.FIRSTLOGIN}/${this.props.firebase.auth.currentUser.uid}`} />}
+          {this.props.firebase.auth.currentUser && (
+            <Redirect
+              to={`${ROUTES.FIRSTLOGIN}/${this.props.firebase.auth.currentUser.uid}`}
+            />
+          )}
 
           <div className="LoginPageInner">
             <Container fluid>
@@ -71,17 +75,21 @@ class LoginPage extends Component {
                           forgotPassword={this.forgotPassword}
                         />
                       ) : (
-                          <PasswordReset key="reset" forgotPassword={this.forgotPassword} />
-                        )
+                        <PasswordReset
+                          key="reset"
+                          forgotPassword={this.forgotPassword}
+                        />
+                      )
                     ]
                   ) : (
-                      <SignUp key="signup" createNewUser={this.createNewUser} />
-                    )}
+                    <SignUp key="signup" createNewUser={this.createNewUser} />
+                  )}
                 </Col>
               </Row>
             </Container>
           </div>
-        </div>)
+        </div>
+      )
     );
   }
 }

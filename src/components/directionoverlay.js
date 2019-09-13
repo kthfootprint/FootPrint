@@ -10,7 +10,7 @@ class DirectionOverlay extends Component {
   render() {
     return (
       <div id="overlay">
-        <div className="map" style={{ flex: 2 }}>
+        <div className="map">
           <RouteMap
             route={this.props.route}
             emissionColor={this.props.emissionColor}

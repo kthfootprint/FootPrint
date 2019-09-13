@@ -12,7 +12,7 @@ const withAuthorization = condition => Component => {
 
       this.state = {
         authUser: null
-      }
+      };
     }
 
     componentDidMount() {
@@ -20,12 +20,11 @@ const withAuthorization = condition => Component => {
         authUser => {
           if (!condition(authUser)) {
             this.props.history.push(ROUTES.LOGIN);
-          }
-          else {
-            this.setState({ authUser })
+          } else {
+            this.setState({ authUser });
           }
         },
-        () => this.props.history.push(ROUTES.LOGIN),
+        () => this.props.history.push(ROUTES.LOGIN)
       );
     }
 
@@ -36,9 +35,9 @@ const withAuthorization = condition => Component => {
     render() {
       return (
         <div>
-          {this.state.authUser && 
-            condition(this.state.authUser) ? <Component {...this.props} /> : null
-          }
+          {this.state.authUser && condition(this.state.authUser) ? (
+            <Component {...this.props} />
+          ) : null}
         </div>
       );
     }
