@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { compose } from "recompose";
+import { withFirebase } from "./Firebase";
 import RouteCard from "./routecard";
 import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
@@ -135,6 +137,10 @@ class SearchView extends Component {
             loading: false,
             bgBlur: true
           });
+
+          this.props.firebase.orig = this.state.orig;
+          this.props.firebase.dest = this.state.dest;
+          this.props.firebase.routeList = routeList;
         },
         error => {
           this.setState({
@@ -219,4 +225,4 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.USER]));
 
-export default withAuthorization(condition)(SearchView);
+export default compose(withAuthorization(condition),withFirebase)(SearchView);

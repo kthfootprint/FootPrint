@@ -13,6 +13,10 @@ class Firebase {
     this.auth = app.auth();
     this.db = app.firestore();
     this.facebookProvider = new app.auth.FacebookAuthProvider();
+
+    this.orig = null;
+    this.dest = null;
+    this.routeList = null;
   }
 
   // Auth
@@ -110,18 +114,19 @@ class Firebase {
     );
   };
 
-  setSelectedRoute = async (orig, dest, routeList, route) => {
-    var routeListNoUndefined = this.undefinedToNullInObject(routeList);
+  setSelectedRoute = async (route) => {
+    var routeListNoUndefined = this.undefinedToNullInObject(this.routeList);
     var routeNoUndefined = this.undefinedToNullInObject(route);
 
-    if (!this.auth.currentUser.uid) {
+    if (!!this.auth.currentUser.uid) {
       this.db
         .collection("chosenRoutes")
         .doc()
         .set({
           author: this.auth.currentUser.uid,
-          orig,
-          dest,
+          orig: this.orig,
+          dest: this.dest,
+          savedAt: new Date(),
           selectedRoute: routeNoUndefined,
           routeOptions: routeListNoUndefined
         });

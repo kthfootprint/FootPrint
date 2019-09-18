@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withFirebase } from "./Firebase";
 import Comparison from "./comparison";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
@@ -58,7 +59,10 @@ export class DirectionDetails extends Component {
         {this.emissionBox()}
         <Button
           onClick={() => {
-            alert("SAAAAAAVED");
+            this.props.firebase.setSelectedRoute(this.props.route)
+              .then(() => {
+                alert("SAAAAAAVED");
+              }) 
           }}
           variant="success"
           className="saveButton"
@@ -88,4 +92,4 @@ const DirectionSteps = styled.div`
   }
 `;
 
-export default DirectionDetails;
+export default withFirebase(DirectionDetails);
