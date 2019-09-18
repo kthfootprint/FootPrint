@@ -33,7 +33,16 @@ class SearchView extends Component {
     var destinationAutocomplete = new google.maps.places.Autocomplete(
       destinationInput
     );
+    var geolocation = {
+      lat: 59.334591,
+      lng: 18.06324
+    };
+    var circle = new google.maps.Circle({
+      center: geolocation,
+      radius: 150000
+    });
     destinationAutocomplete.setFields(["place_id"]);
+    destinationAutocomplete.setBounds(circle.getBounds());
     destinationAutocomplete.setComponentRestrictions({ country: "se" });
     destinationAutocomplete.addListener("place_changed", () => {
       this.setDestination(destinationInput.value);
