@@ -1,4 +1,5 @@
 .searchView {
+  overflow: hidden;
 
   header {
     display: flex;
@@ -111,9 +112,9 @@
   #main {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    align-items: flex-start;
-    
+    align-items: center;
+    overflow: scroll;
+
     p {
       font-weight: bold;
     }
