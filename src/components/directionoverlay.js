@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import RouteMap from "./routemap";
 import DirectionDetails from "./directiondetails";
 
+import "../styles/directionoverlay.scss";
+
 class DirectionOverlay extends Component {
   goBack = () => {
     this.props.unmount();

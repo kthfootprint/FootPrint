@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import "../styles/infoview.scss";
+
 const InfoView = () => {
   const infoText = [
     `This is a public transportation planning tool that calculates carbon emissions.

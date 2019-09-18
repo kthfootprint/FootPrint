@@ -3,6 +3,8 @@ import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
+import "../styles/comparison.scss"
+
 export class Comparison extends Component {
   render() {
     return (

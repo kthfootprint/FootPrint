@@ -39,7 +39,6 @@ class SignUp extends Component {
         )
         .then(() => {
           this.setState({ ...INITIAL_STATE });
-          this.props.history.push(ROUTES.LANDING);
         })
         .catch(error => {
           this.setState({ error });
@@ -89,7 +88,7 @@ class SignUp extends Component {
           />
 
           <Button disabled={isInvalid} type="submit" block>
-            Sign Up
+            Skapa konto
           </Button>
 
           {this.state.error && (

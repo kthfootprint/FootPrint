@@ -25,7 +25,7 @@ class PasswordReset extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.setState({
-          error: { code: "succes", message: "An email has been sent" }
+          error: { code: "success", message: "An email has been sent" }
         });
       })
       .catch(error => {
@@ -56,11 +56,11 @@ class PasswordReset extends Component {
             type="submit"
             block
           >
-            Reset My Password
+            Skicka återställningslänk
           </Button>
 
           {this.state.error && (
-            <p className="error">{this.state.error.message}</p>
+            <p className={`error ${this.state.error.code === 'success' && 'text-success'}`}>{this.state.error.message}</p>
           )}
         </Form>
 
