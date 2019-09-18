@@ -53,11 +53,11 @@ class Firebase {
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         this.getProfile(authUser.uid).then(dbUser => {
-          if (!dbUser.roles) {
+          if (dbUser && !dbUser.roles) {
             dbUser.roles = {};
           }
 
-          if (dbUser.email) {
+          if (dbUser && dbUser.email) {
             dbUser.dbEmail = dbUser.email;
             delete dbUser.email;
           }
