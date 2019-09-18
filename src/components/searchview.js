@@ -4,8 +4,8 @@ import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
-import { withAuthorization } from './Auth';
-import * as ROLES from '../constants/roles';
+import { withAuthorization } from "./Auth";
+import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
 /* global google */
 
@@ -33,7 +33,16 @@ class SearchView extends Component {
     var destinationAutocomplete = new google.maps.places.Autocomplete(
       destinationInput
     );
+    var geolocation = {
+      lat: 59.334591,
+      lng: 18.06324
+    };
+    var circle = new google.maps.Circle({
+      center: geolocation,
+      radius: 150000
+    });
     destinationAutocomplete.setFields(["place_id"]);
+    destinationAutocomplete.setBounds(circle.getBounds());
     destinationAutocomplete.setComponentRestrictions({ country: "se" });
     destinationAutocomplete.addListener("place_changed", () => {
       this.setDestination(destinationInput.value);
@@ -44,8 +53,18 @@ class SearchView extends Component {
   originFill = () => {
     var originInput = document.getElementById("origin-input");
     originInput.removeEventListener("click", this.originFill);
+    var geolocation = {
+      lat: 59.334591,
+      lng: 18.06324
+    };
+    var circle = new google.maps.Circle({
+      center: geolocation,
+      radius: 150000
+    });
+
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     originAutocomplete.setFields(["place_id"]);
+    originAutocomplete.setBounds(circle.getBounds());
     originAutocomplete.setComponentRestrictions({ country: "se" });
     originAutocomplete.addListener("place_changed", () => {
       this.setOrigin(originInput.value);
@@ -165,7 +184,6 @@ class SearchView extends Component {
             <nav id="goBtn">
               <button type="button" className="btn" onClick={this.findRoute}>
                 <img id="goLogo" src={logo} alt="" />
-                <br />
                 Go!
               </button>
             </nav>
@@ -193,6 +211,10 @@ class SearchView extends Component {
 }
 
 const condition = authUser =>
-  authUser && ((authUser.roles && !!authUser.roles[ROLES.USER]) || (authUser.authUser && authUser.authUser.roles && !!authUser.authUser.roles[ROLES.USER]));
+  authUser &&
+  ((authUser.roles && !!authUser.roles[ROLES.USER]) ||
+    (authUser.authUser &&
+      authUser.authUser.roles &&
+      !!authUser.authUser.roles[ROLES.USER]));
 
 export default withAuthorization(condition)(SearchView);

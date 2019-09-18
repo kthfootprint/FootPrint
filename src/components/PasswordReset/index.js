@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const INITIAL_STATE = {
   email: "",
