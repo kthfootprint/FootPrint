@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import "../styles/privacyview.scss";
+
 const PrivacyView = () => {
   const privacyDisclaimer =
     "To be able to conduct our research, some data about your usage of this app is stored. This data will not be shared with anyone outside of the three of us who are working on this project. If you have any further concerns about this, please do not hesitate to contact us (see contact information at the bottom of this page).";

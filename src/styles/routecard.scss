@@ -1,0 +1,94 @@
+.routeCards {
+
+  article {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.card {
+      background-color: #cee9ff;
+      margin: 10px 5px 0px 5px;
+      pointer-events: all;
+      transition: bottom 1s ease;
+      border-radius: 15px;
+    }
+
+    .top {
+      background-color: white;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      pointer-events: none;
+      border-radius: 15px;
+
+      .routeContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .travel {
+          display: flex;
+          flex-direction: row;
+          max-width: 75%;
+          text-align: left;
+
+          p {
+            font-size: 10px;
+            display: inline-block;
+          }
+          
+          i {
+            margin-left: 5px;
+          }
+
+          .routeSteps {
+            flex-grow: 1;
+            padding: 1em;
+            border-radius: 5px;
+            box-shadow: 20px 30px 25px -22px rgba(0, 0, 0, 0.5);
+          }
+
+          .routeId {
+            padding: 2px;
+            border-radius: 3px;
+          }
+        }
+
+        .rightCard {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          font-size: 80%;
+          padding: 1em;
+
+          .time {
+            text-align: right;
+            flex: 1;
+          }
+        }
+      }
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      text-align: left;
+      padding: 0.3em 1em 0.3em 1em;
+      pointer-events: none;
+    
+      p {
+        font-weight: bold;
+        font-size: 11px;
+      }
+
+      .timeContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+}

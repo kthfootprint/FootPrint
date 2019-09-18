@@ -9,6 +9,8 @@ import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
 /* global google */
 
+import "../styles/searchview.scss";
+
 class SearchView extends Component {
   constructor(props) {
     super(props);
@@ -149,7 +151,7 @@ class SearchView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="searchView">
         <div className={this.state.bgBlur ? "blurImg" : "bgImg"}></div>
         <CSSTransition
           in={this.state.showHeader}

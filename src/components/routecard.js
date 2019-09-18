@@ -11,6 +11,8 @@ import {
   faShip
 } from "@fortawesome/free-solid-svg-icons";
 
+import "../styles/routecard.scss";
+
 export class RouteCard extends Component {
   constructor(props) {
     super(props);
@@ -243,7 +245,7 @@ export class RouteCard extends Component {
     }
     // this.toggleCard()
     return (
-      <div style={{ width: "100%" }}>
+      <div className="routeCards" style={{ width: "100%" }}>
         {card}
         <CSSTransition
           in={this.state.overlay}
