@@ -28,7 +28,7 @@ class SearchView extends Component {
     this.toggleHeader = this.toggleHeader.bind(this);
   }
 
-  initAutocomplete = (inputField, type) => {
+  initAutocomplete = inputField => {
     var geolocation = {
       lat: 59.334591,
       lng: 18.06324
@@ -38,34 +38,20 @@ class SearchView extends Component {
       radius: 150000
     });
     var autocomplete = new google.maps.places.Autocomplete(inputField);
-    
     autocomplete.setFields(["place_id"]);
     autocomplete.setBounds(circle.getBounds());
     autocomplete.setComponentRestrictions({ country: "se" });
-
-
-    autocomplete.addListener('place_changed', () => {
-      if (type === "orig") {
-        this.setOriginTest(inputField)
-      } else {
-        this.setDestTest(inputField)
-      }
-  });
-    // return autocomplete;
-  };
-
-  setOriginTest = event => {
-    console.log(event.value)
-    /* this.setState({ orig: event.value });
-    event.value = event.value.split(",")[0]; */
+    autocomplete.addListener("place_changed", () => {
+      inputField.id === "origin-input"
+        ? this.setOrigin(inputField)
+        : this.setDestination(inputField);
+    });
   };
 
   setPosition = position => {
-    var originInput = document.getElementById("origin-input");
     var destinationInput = document.getElementById("destination-input");
     let pos = position.coords.latitude + ", " + position.coords.longitude;
     this.setState({ orig: pos }, () => {
-      // originInput.addEventListener("click", this.originFill);
       destinationInput.select();
     });
   };
@@ -133,13 +119,13 @@ class SearchView extends Component {
   };
 
   setDestination = event => {
-    this.setState({ dest: event.target.value });
-    event.target.value = event.target.value.split(",")[0];
+    this.setState({ dest: event.value });
+    event.value = event.value.split(",")[0];
   };
 
   setOrigin = event => {
-    this.setState({ orig: event.target.value });
-    event.target.value = event.target.value.split(",")[0];
+    this.setState({ orig: event.value });
+    event.value = event.value.split(",")[0];
   };
 
   render() {
@@ -161,7 +147,6 @@ class SearchView extends Component {
                   type="text"
                   placeholder=" "
                   onFocus={this.inputFocus}
-                  onBlur={this.setOrigin}
                 />
                 <span className="label">Start</span>
                 <span className="label" id="location">
@@ -178,7 +163,6 @@ class SearchView extends Component {
                   type="text"
                   placeholder=" "
                   onFocus={this.inputFocus}
-                  onBlur={this.setDestination}
                 />
                 <span className="label">Destination</span>
               </label>
