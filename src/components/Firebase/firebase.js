@@ -94,6 +94,21 @@ class Firebase {
     if (this.auth.currentUser) this.getProfile(this.auth.currentUser.uid);
   };
 
+  getSelectedRoutes = async () =>
+    this.db
+    .collection("chosenRoutes")
+    .get()
+    .then(snapshot => {
+      let userActions = []
+      snapshot.forEach(doc => {
+        let action = doc.data()
+        action.id = doc.id;
+
+        userActions.push(action)
+      })
+      return userActions;
+    })
+
   // Set
   // ------------------------------------------------------------
   setMyUserData = async (age, gender, roles) => {
