@@ -91,9 +91,9 @@ export class RouteCard extends Component {
   }
 
   selectCard = e => {
-    this.props.toggle(false);
-    this.toggleCard(false);
     if (this.props.list[e.target.id]) {
+      this.props.toggle(false);
+      this.toggleCard(false);
       var r = this.props.list[e.target.id].index;
       let calculatedEmission = this.calculateEmission(
         this.props.list[e.target.id].transitInfo
