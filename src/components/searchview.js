@@ -28,15 +28,7 @@ class SearchView extends Component {
     this.toggleHeader = this.toggleHeader.bind(this);
   }
 
-  autoFill = () => {
-    this.originFill();
-    var originInput = document.getElementById("origin-input");
-    var destinationInput = document.getElementById("destination-input");
-    originInput.addEventListener("click", originInput.select);
-    destinationInput.addEventListener("click", destinationInput.select);
-    var destinationAutocomplete = new google.maps.places.Autocomplete(
-      destinationInput
-    );
+  initAutocomplete = inputField => {
     var geolocation = {
       lat: 59.334591,
       lng: 18.06324
@@ -45,51 +37,21 @@ class SearchView extends Component {
       center: geolocation,
       radius: 150000
     });
-    destinationAutocomplete.setFields(["place_id"]);
-    destinationAutocomplete.setBounds(circle.getBounds());
-    destinationAutocomplete.setComponentRestrictions({ country: "se" });
-    destinationAutocomplete.addListener("place_changed", () => {
-      this.setDestination(destinationInput.value);
-      destinationInput.value = destinationInput.value.split(",")[0];
+    var autocomplete = new google.maps.places.Autocomplete(inputField);
+    autocomplete.setFields(["place_id"]);
+    autocomplete.setBounds(circle.getBounds());
+    autocomplete.setComponentRestrictions({ country: "se" });
+    autocomplete.addListener("place_changed", () => {
+      inputField.id === "origin-input"
+        ? this.setOrigin(inputField)
+        : this.setDestination(inputField);
     });
-  };
-
-  originFill = () => {
-    var originInput = document.getElementById("origin-input");
-    originInput.removeEventListener("click", this.originFill);
-    var geolocation = {
-      lat: 59.334591,
-      lng: 18.06324
-    };
-    var circle = new google.maps.Circle({
-      center: geolocation,
-      radius: 150000
-    });
-
-    var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-    originAutocomplete.setFields(["place_id"]);
-    originAutocomplete.setBounds(circle.getBounds());
-    originAutocomplete.setComponentRestrictions({ country: "se" });
-    originAutocomplete.addListener("place_changed", () => {
-      this.setOrigin(originInput.value);
-      originInput.value = originInput.value.split(",")[0];
-    });
-  };
-
-  setOrigin = e => {
-    this.setState({ orig: e });
-  };
-
-  setDestination = e => {
-    this.setState({ dest: e });
   };
 
   setPosition = position => {
-    var originInput = document.getElementById("origin-input");
     var destinationInput = document.getElementById("destination-input");
     let pos = position.coords.latitude + ", " + position.coords.longitude;
     this.setState({ orig: pos }, () => {
-      originInput.addEventListener("click", this.originFill);
       destinationInput.select();
     });
   };
@@ -108,10 +70,6 @@ class SearchView extends Component {
         "Geolocation is not supported by this browser.";
     }
   };
-
-  componentDidMount() {
-    this.autoFill();
-  }
 
   findRoute = () => {
     var routeList = [];
@@ -155,6 +113,21 @@ class SearchView extends Component {
     this.setState({ showHeader: value });
   }
 
+  inputFocus = event => {
+    event.target.select();
+    this.initAutocomplete(event.target);
+  };
+
+  setDestination = event => {
+    this.setState({ dest: event.value });
+    event.value = event.value.split(",")[0];
+  };
+
+  setOrigin = event => {
+    this.setState({ orig: event.value });
+    event.value = event.value.split(",")[0];
+  };
+
   render() {
     return (
       <div className="searchView">
@@ -173,6 +146,7 @@ class SearchView extends Component {
                   className="controls"
                   type="text"
                   placeholder=" "
+                  onFocus={this.inputFocus}
                 />
                 <span className="label">Start</span>
                 <span className="label" id="location">
@@ -184,7 +158,12 @@ class SearchView extends Component {
               </label>
 
               <label className="inp">
-                <input id="destination-input" type="text" placeholder=" " />
+                <input
+                  id="destination-input"
+                  type="text"
+                  placeholder=" "
+                  onFocus={this.inputFocus}
+                />
                 <span className="label">Destination</span>
               </label>
             </nav>
