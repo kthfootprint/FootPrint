@@ -1,0 +1,29 @@
+.adminView {
+
+
+  .card {
+    margin-bottom: 10px;
+
+    .card-body {
+      padding: 0px;
+      
+      table {
+        margin: 0px;
+      }
+    }
+
+    .card-footer {
+      display: flex;
+      flex-direction: row;
+
+      p {
+        display: inline-block;
+        margin: 0;
+
+        &.author {
+          margin-left: auto !important;
+        }
+      }
+    }
+  }
+}

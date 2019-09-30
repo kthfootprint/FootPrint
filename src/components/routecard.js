@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DirectionOverlay from "./directionoverlay";
 import Comparison from "./comparison";
+import { withFirebase } from "./Firebase";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,25 +31,6 @@ export class RouteCard extends Component {
     this.toggleCard(true);
   }
 
-  calculateEmission = transit => {
-    let emissionOut = 0;
-    const eBus = 8 / 1000;
-    const eSub = 0.16 / 1000;
-    for (let i = 0; i < transit.length; i++) {
-      let distance = transit[i].distance.value;
-      if (transit[i].type === "BUS" || transit[i].type === "FERRY") {
-        emissionOut += distance * eBus;
-      } else if (
-        transit[i].type === "SUBWAY" ||
-        transit[i].type === "TRAIN" ||
-        transit[i].type === "TRAM"
-      ) {
-        emissionOut += distance * eSub;
-      }
-    }
-    return Math.round(emissionOut * 100) / 100;
-  };
-
   calculateComparable = transit => {
     let comparableOut = 0;
     const eCar = 101.7 / 1000;
@@ -62,7 +44,7 @@ export class RouteCard extends Component {
   emissionList = emList => {
     let unsortedEmissions = [];
     for (let i = 0; i < emList.length; i++) {
-      unsortedEmissions.push(this.calculateEmission(emList[i].transitInfo));
+      unsortedEmissions.push(this.props.firebase.calculateEmission(emList[i].transitInfo));
     }
     return unsortedEmissions.sort();
   };
@@ -95,7 +77,7 @@ export class RouteCard extends Component {
     this.toggleCard(false);
     if (this.props.list[e.target.id]) {
       var r = this.props.list[e.target.id].index;
-      let calculatedEmission = this.calculateEmission(
+      let calculatedEmission = this.props.firebase.calculateEmission(
         this.props.list[e.target.id].transitInfo
       );
       let calculatedComparable = this.calculateComparable(
@@ -105,6 +87,7 @@ export class RouteCard extends Component {
         this.emissionList(this.props.list),
         calculatedEmission
       );
+      this.props.firebase.selectedIndex = e.target.id;
       this.setState({
         overlay: true,
         route: this.props.route[r],
@@ -175,7 +158,7 @@ export class RouteCard extends Component {
     var emissions = this.emissionList(list);
     for (var i in list) {
       var rand = Math.random() * 100 + 50;
-      calculatedEmission = this.calculateEmission(list[i].transitInfo);
+      calculatedEmission = this.props.firebase.calculateEmission(list[i].transitInfo);
       calculatedComparable = this.calculateComparable(list[i].transitInfo);
       emissionColorValue = this.emissionColor(emissions, calculatedEmission);
       emissionObject = this.getEmissionObject(
@@ -266,4 +249,4 @@ export class RouteCard extends Component {
   }
 }
 
-export default RouteCard;
+export default withFirebase(RouteCard);

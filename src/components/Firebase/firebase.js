@@ -17,6 +17,7 @@ class Firebase {
     this.orig = null;
     this.dest = null;
     this.routeList = null;
+    this.selectedIndex = null;
   }
 
   // Auth
@@ -104,6 +105,12 @@ class Firebase {
         let action = doc.data()
         action.id = doc.id;
 
+        action.routeEmissions = [];
+        {action.routeOptions.map((option, k) => {
+          action.routeEmissions[k] = this.calculateEmission(option.transitInfo)
+        })}
+        action.chosenRouteEmission = this.calculateEmission(action.routeOptions[action.selectedIndex].transitInfo)
+
         userActions.push(action)
       })
       return userActions;
@@ -142,6 +149,7 @@ class Firebase {
           orig: this.orig,
           dest: this.dest,
           savedAt: new Date(),
+          selectedIndex: this.selectedIndex,
           selectedRoute: routeNoUndefined,
           routeOptions: routeListNoUndefined
         });
@@ -150,6 +158,25 @@ class Firebase {
 
   // Helpers
   // ------------------------------------------------------------
+  calculateEmission = transit => {
+    let emissionOut = 0;
+    const eBus = 8 / 1000;
+    const eSub = 0.16 / 1000;
+    for (let i = 0; i < transit.length; i++) {
+      let distance = transit[i].distance.value;
+      if (transit[i].type === "BUS" || transit[i].type === "FERRY") {
+        emissionOut += distance * eBus;
+      } else if (
+        transit[i].type === "SUBWAY" ||
+        transit[i].type === "TRAIN" ||
+        transit[i].type === "TRAM"
+      ) {
+        emissionOut += distance * eSub;
+      }
+    }
+    return Math.round(emissionOut * 100) / 100;
+  };
+  
   birthdateToAge = birthdate => {
     var diff_ms = Date.now() - birthdate.getTime();
     var age_dt = new Date(diff_ms);
