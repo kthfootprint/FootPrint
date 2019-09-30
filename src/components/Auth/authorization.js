@@ -33,13 +33,11 @@ const withAuthorization = condition => Component => {
     }
 
     render() {
-      var renderElements = null
+      var renderElements = null;
       if (this.state.authUser && condition(this.state.authUser))
-        renderElements = <Component {...this.props} />
+        renderElements = <Component {...this.props} />;
 
-      return (
-        renderElements
-      );
+      return renderElements;
     }
   }
 

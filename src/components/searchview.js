@@ -204,4 +204,7 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.USER]));
 
-export default compose(withAuthorization(condition),withFirebase)(SearchView);
+export default compose(
+  withAuthorization(condition),
+  withFirebase
+)(SearchView);

@@ -60,7 +60,12 @@ class PasswordReset extends Component {
           </Button>
 
           {this.state.error && (
-            <p className={`error ${this.state.error.code === 'success' && 'text-success'}`}>{this.state.error.message}</p>
+            <p
+              className={`error ${this.state.error.code === "success" &&
+                "text-success"}`}
+            >
+              {this.state.error.message}
+            </p>
           )}
         </Form>
 

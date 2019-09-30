@@ -40,7 +40,7 @@ class SignIn extends Component {
   };
 
   facebookSubmit = e => {
-    this.setState({ fbOAuthLoading: true })
+    this.setState({ fbOAuthLoading: true });
 
     this.props.firebase
       .signInWithFacebook()
@@ -62,8 +62,7 @@ class SignIn extends Component {
     return (
       <div className="signInPage">
         <h3>Logga in</h3>
-        {!this.state.loading && !this.state.fbOAuthLoading
-          ?
+        {!this.state.loading && !this.state.fbOAuthLoading ? (
           <Form onSubmit={this.onSubmit} autoComplete="off">
             <Form.Control
               name="email"
@@ -106,27 +105,29 @@ class SignIn extends Component {
               block
             >
               Skapa ett konto
-          </Button>
+            </Button>
           </Form>
-
-          : <div className="loadingIndication">
+        ) : (
+          <div className="loadingIndication">
             <DotLoader
-              css={{ flex: 1, margin: '50px 0px', alignSelf: "center" }}
+              css={{ flex: 1, margin: "50px 0px", alignSelf: "center" }}
               loading={this.state.loading || this.state.fbOAuthLoading}
             />
-            <p>{this.state.loading && 'Väntar på svar från FootPrints server'}</p>
-            <p>{this.state.fbOAuthLoading && 'Väntar på svar från Facebook'}</p>
+            <p>
+              {this.state.loading && "Väntar på svar från FootPrints server"}
+            </p>
+            <p>{this.state.fbOAuthLoading && "Väntar på svar från Facebook"}</p>
           </div>
-        }
+        )}
 
-        {!this.state.loading && !this.state.fbOAuthLoading &&
+        {!this.state.loading && !this.state.fbOAuthLoading && (
           <a
             href="/resetPassword"
             onClick={e => this.props.forgotPassword(e, true)}
           >
             Glömt lösenordet?
-        </a>
-        }
+          </a>
+        )}
       </div>
     );
   }

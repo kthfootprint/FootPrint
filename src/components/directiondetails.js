@@ -59,10 +59,9 @@ export class DirectionDetails extends Component {
         {this.emissionBox()}
         <Button
           onClick={() => {
-            this.props.firebase.setSelectedRoute(this.props.route)
-              .then(() => {
-                alert("SAAAAAAVED");
-              }) 
+            this.props.firebase.setSelectedRoute(this.props.route).then(() => {
+              alert("SAAAAAAVED");
+            });
           }}
           variant="success"
           className="saveButton"

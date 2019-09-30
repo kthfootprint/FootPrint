@@ -114,11 +114,11 @@ class Firebase {
     );
   };
 
-  setSelectedRoute = async (route) => {
+  setSelectedRoute = async route => {
     var routeListNoUndefined = this.undefinedToNullInObject(this.routeList);
     var routeNoUndefined = this.undefinedToNullInObject(route);
 
-    if (!!this.auth.currentUser.uid) {
+    if (this.auth.currentUser.uid) {
       this.db
         .collection("chosenRoutes")
         .doc()
