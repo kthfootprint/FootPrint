@@ -148,7 +148,7 @@ class SearchView extends Component {
                   placeholder=" "
                   onFocus={this.inputFocus}
                 />
-                <span className="label">Start</span>
+                <span className="label">From</span>
                 <span className="label" id="location">
                   <i
                     onClick={this.getLocation}
@@ -164,7 +164,7 @@ class SearchView extends Component {
                   placeholder=" "
                   onFocus={this.inputFocus}
                 />
-                <span className="label">Destination</span>
+                <span className="label">To</span>
               </label>
             </nav>
 
