@@ -152,7 +152,7 @@ class SearchView extends Component {
                 <span className="label" id="location">
                   <i
                     onClick={this.getLocation}
-                    className="fas fa-crosshairs fa-lg"
+                    className="fas fa-location-arrow"
                   ></i>
                 </span>
               </label>
