@@ -16,17 +16,25 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
   @media only screen and (orientation: landscape) {
-    // Here be rules for landscape!
-    header {
-      height: 30vh;
+    // Special css rules to account for landscape mode.
+    .label {
+      top: 7vh !important;
     }
     #main {
       height: 70vh;
+      width: 100%;
+      overflow: scroll;
     }
-    #infoView {
+    .searchView {
+      height: 100vh;
+    }
+    .infoView {
       height: auto;
+      padding: 2vw 8vw 0 8vw;
     }
-    //color: rgb(79,184,47) !important;
+    .bgImg {
+      height: 550px;
+    }
   }
 
   a {
