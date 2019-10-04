@@ -20,9 +20,11 @@ const InfoView = () => {
       <h2>Welcome to FootPrint!</h2>
       <p>{infoText[0]}</p>
       <p>{infoText[1]}</p>
-      {/* The a tag below will obviously go after routing has been implemented. Should link to privacy view. */}
       <p>
-        {privacyText} <Link to="/privacy">Here</Link>
+        {privacyText}{" "}
+        <Link to="/privacy" tabIndex="-1">
+          Here
+        </Link>
       </p>
     </div>
   );
