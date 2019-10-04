@@ -57,6 +57,7 @@ export class DirectionDetails extends Component {
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
         {this.emissionBox()}
+        {console.log(this.props)}
         <Button
           onClick={() => {
             this.props.firebase.setSelectedRoute(this.props.route).then(() => {

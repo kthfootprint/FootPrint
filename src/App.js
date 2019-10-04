@@ -8,6 +8,7 @@ import SearchView from "./components/searchview.js";
 import LoginPage from "./components/loginpage.js";
 import FirstLoginPage from "./components/firstloginpage.js";
 import PrivacyView from "./components/privacyview";
+import AdminView from "./components/adminview";
 //import GoogleApiWrapper from './components/routemap.js';
 
 import * as ROUTES from "./constants/routes";
@@ -23,6 +24,7 @@ const App = () => (
         component={FirstLoginPage}
       />
       <Route exact path={ROUTES.PRIVACY} component={PrivacyView} />
+      <Route exact path={ROUTES.ADMIN} component={AdminView} />
       {/* <Route component={NoMatch} /> */}
     </Switch>
   </Router>
