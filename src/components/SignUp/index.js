@@ -5,8 +5,6 @@ import { withFirebase } from "../Firebase";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import * as ROUTES from "../../constants/routes";
-
 const INITIAL_STATE = {
   email: "",
   passwordOne: "",

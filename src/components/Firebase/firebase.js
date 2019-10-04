@@ -106,9 +106,9 @@ class Firebase {
         action.id = doc.id;
 
         action.routeEmissions = [];
-        {action.routeOptions.map((option, k) => {
-          action.routeEmissions[k] = this.calculateEmission(option.transitInfo)
-        })}
+        action.routeOptions.map((option, k) => {
+          return action.routeEmissions[k] = this.calculateEmission(option.transitInfo)
+        })
         action.chosenRouteEmission = this.calculateEmission(action.routeOptions[action.selectedIndex].transitInfo)
 
         userActions.push(action)
@@ -153,7 +153,7 @@ class Firebase {
           selectedRoute: routeNoUndefined,
           routeOptions: routeListNoUndefined
         });
-    } else throw "No signed in user, cannot save data";
+    } else throw Error("No signed in user, cannot save data");
   };
 
   // Helpers
