@@ -34,44 +34,59 @@ class AdminView extends Component {
           <h1>Admin page to review user data</h1>
 
           {!this.state.loading && (this.state.userRoutes.length !== 0) &&
-            this.state.userRoutes.map((userData, k) => (
-              <Card key={k}>
-                {console.log(userData)}
-                <Card.Header>
-                  <p>{userData.orig.split(',')[0]} - {userData.dest.split(',')[0]}</p>
-                </Card.Header>
-                <Card.Body>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <th>Duration</th>
-                        <th>Emission</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {userData.routeOptions.map((option, k) => (
-                        <tr key={k}>
-                          <td>{parseInt(userData.selectedIndex) === k ? 'Selected' : k}</td>
-                          <td>{option.departure}</td>
-                          <td>{option.arrival}</td>
-                          <td>{option.duration}</td>
-                          <td>{userData.routeEmissions[k]}</td>
+            this.state.userRoutes.map((userData, k) => {
+              const lowestEmission = Math.min(...userData.routeEmissions)
+              let durations = userData.routeOptions.map(option => option.duration.replace(' mins', '').split(' hours '))
+              durations = durations.map(duration => {
+                if (duration.length > 1)
+                  return duration[0]*60 + duration[1]
+                return duration[0]
+              })
+              const shortestDuration = Math.min(...durations)
+              const shortestDurationIndex = durations.indexOf(String(shortestDuration))
+
+              return (
+                <Card key={k}>
+                  <Card.Header>
+                    <p>{userData.orig.split(',')[0]} - {userData.dest.split(',')[0]}</p>
+                  </Card.Header>
+                  <Card.Body>
+                    <Table bordered hover>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Departure</th>
+                          <th>Arrival</th>
+                          <th>Duration</th>
+                          <th>Emission</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </Card.Body>
-                <Card.Footer>
-                  <p>{new Date(userData.savedAt.seconds * 1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</p>
-                  <p className="author">Author: {userData.author}</p>
-                </Card.Footer>
-              </Card>
-            )
-            )
-          }
+                      </thead>
+                      <tbody>
+                        {userData.routeOptions.map((option, k) => (
+                          <tr key={k} className={parseInt(userData.selectedIndex) === k ? 'selected' : ''}>
+                            <td>{parseInt(userData.selectedIndex) === k ? 'Selected' : k}</td>
+                            <td>{option.departure}</td>
+                            <td>{option.arrival}</td>
+                            <td style={{ color: shortestDurationIndex === k ? 'green' : null,
+                              fontWeight: shortestDurationIndex === k ? 'bold' : null}}>
+                              {option.duration}
+                            </td>
+                            <td style={{ color: lowestEmission === userData.routeEmissions[k] ? 'green' : null,
+                              fontWeight: lowestEmission === userData.routeEmissions[k] ? 'bold' : null}}>
+                              {userData.routeEmissions[k]}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                  <Card.Footer>
+                    <p>{new Date(userData.savedAt.seconds * 1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</p>
+                    <p className="author">Author: {userData.author}</p>
+                  </Card.Footer>
+                </Card>
+              )
+            })}
         </Col>
       </div>
     )

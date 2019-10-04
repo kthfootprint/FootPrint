@@ -9,6 +9,10 @@
       
       table {
         margin: 0px;
+
+        tr.selected {
+          background-color: #eee;
+        }
       }
     }
 
