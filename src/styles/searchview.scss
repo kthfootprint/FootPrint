@@ -119,20 +119,21 @@
     bottom: 0;
     background-color: #ff3a3a;
     right: 0;
-    width: 14vw;
-    height: 10vh;
+    width: 60px;
+    height: 60px;
     border-top-left-radius: 50px;
     transition: ease 0.2s all;
+    outline-color: transparent;
 
     &.open {
-      width: 40vw;
+      width: 150px;
     }
   }
 
   .optionIcon {
     position: absolute;
     top: 30%;
-    left: 15px;
+    left: 20px;
   }
 
   .signOut {

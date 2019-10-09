@@ -3,9 +3,14 @@
 * {
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   width: 100vw;
   height: 100%;
   margin: 0px;
@@ -41,15 +46,17 @@ html, body, #root {
 }
 
 .bgImg {
-  background-image: url("styles/Map.png");
+  background-image: url("styles/map_stockholm.png");
   position: absolute;
+  top: 125px;
   height: 100%;
   width: 100vw;
   z-index: -1;
+  background-repeat: repeat-y;
 }
 
 .blurImg {
-  background-image: url("styles/Map.png");
+  background-image: url("styles/map_stockholm.png");
   filter: blur(5px);
   position: absolute;
   height: 100%;
@@ -154,16 +161,15 @@ p {
 }
 /* -------------------- */
 
-
 /* BOOTSTRAP OVERWRITE */
 .btn-success {
-  background-color: rgb(89,194,57);
-  border-color: rgb(79,184,47);
+  background-color: rgb(89, 194, 57);
+  border-color: rgb(79, 184, 47);
   width: 55vw;
 }
 
 .btn-success:hover {
-  background-color: rgb(69,174,37);
-  border-color: rgb(59,164,27);
+  background-color: rgb(69, 174, 37);
+  border-color: rgb(59, 164, 27);
 }
 /* -------------------- */
