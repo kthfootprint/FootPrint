@@ -33,9 +33,6 @@ class SignUp extends Component {
           this.state.email,
           this.state.passwordOne
         )
-        .then(() => {
-          this.setState({ ...INITIAL_STATE });
-        })
         .catch(error => {
           this.setState({ error });
         });

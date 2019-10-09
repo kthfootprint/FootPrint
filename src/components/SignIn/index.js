@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 
 import Form from "react-bootstrap/Form";
@@ -8,6 +9,7 @@ import DotLoader from "react-spinners/DotLoader";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
+import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
   email: "",
@@ -29,8 +31,10 @@ class SignIn extends Component {
 
     this.props.firebase
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
+      .then(user => {
+        if (!user.additionalUserInfo.isNewUser) {
+          this.props.history.push(ROUTES.LANDING);
+        }
       })
       .catch(error => {
         this.setState({ loading: false, error });
@@ -44,8 +48,10 @@ class SignIn extends Component {
 
     this.props.firebase
       .signInWithFacebook()
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
+      .then(user => {
+        if (!user.additionalUserInfo.isNewUser) {
+          this.props.history.push(ROUTES.LANDING);
+        }
       })
       .catch(error => {
         this.setState({ fbOAuthLoading: false, error });
@@ -133,4 +139,7 @@ class SignIn extends Component {
   }
 }
 
-export default withFirebase(SignIn);
+export default compose(
+  withRouter,
+  withFirebase
+)(SignIn);

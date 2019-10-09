@@ -229,9 +229,9 @@ class SearchView extends Component {
         </CSSTransition>
         <div id="main">
           <DotLoader
-            css={{ 
-              marginTop: 50, 
-              alignSelf: "center" 
+            css={{
+              marginTop: 50,
+              alignSelf: "center"
             }}
             loading={this.state.loading}
           />
