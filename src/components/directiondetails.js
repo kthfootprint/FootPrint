@@ -33,7 +33,10 @@ export class DirectionDetails extends Component {
       BUS: <FontAwesomeIcon icon={faBus} />,
       SUBWAY: <FontAwesomeIcon icon={faSubway} />,
       TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      TRAM: <FontAwesomeIcon icon={faBusAlt} />,
+      HEAVY_RAIL: <FontAwesomeIcon icon={faTrain} />,
+      LONG_DISTANCE_TRAIN: <FontAwesomeIcon icon={faTrain} />,
+      HIGH_SPEED_TRAIN: <FontAwesomeIcon icon={faTrain} />,
+      TRAM: <FontAwesomeIcon icon={faSubway} />,
       FERRY: <FontAwesomeIcon icon={faShip} />
     };
     let allSteps = [];
