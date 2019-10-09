@@ -3,6 +3,9 @@ import RouteMap from "./routemap";
 import DirectionDetails from "./directiondetails";
 import Swipe from "react-easy-swipe";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+
 import "../styles/directionoverlay.scss";
 
 class DirectionOverlay extends Component {
@@ -21,7 +24,7 @@ class DirectionOverlay extends Component {
         </div>
         <Swipe onSwipeDown={this.goBack}>
           <div id="backBtn" onClick={this.goBack}>
-            <i className="fas fa-arrow-down fa-2x"></i>
+            <FontAwesomeIcon size="2x" icon={faArrowDown} />
           </div>
           <DirectionDetails
             route={this.props.route.legs[0]}

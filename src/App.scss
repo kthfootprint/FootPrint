@@ -21,7 +21,7 @@ html, body, #root {
       top: 8vh !important;
     }
     #main {
-      height: 70vh;
+      height: 70%;
       width: 100%;
       overflow: scroll;
     }
@@ -29,7 +29,8 @@ html, body, #root {
       height: 100vh;
     }
     .infoView {
-      height: auto;
+      height: 70%;
+      width: 90%;
       padding: 2vw 8vw 0 8vw;
     }
   }

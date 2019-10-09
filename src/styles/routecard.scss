@@ -1,9 +1,12 @@
 .routeCards {
   height: 100%;
   padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
 
   article {
+    display: block;
     width: 98%;
     height: 120px;
     flex-direction: column;

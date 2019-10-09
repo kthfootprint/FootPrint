@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "./Firebase";
 import RouteCard from "./routecard";
+import Logout from "./logout";
 import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
@@ -9,6 +10,8 @@ import handleRoute from "./RouteTools/handleRoute";
 import { withAuthorization } from "./Auth";
 import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
 /* global google */
 
 import "../styles/searchview.scss";
@@ -20,12 +23,18 @@ class SearchView extends Component {
       routeList: [],
       orig: "",
       dest: "",
+      origName: "",
+      destName: "",
       route: [],
       loading: false,
       bgBlur: false,
       showHeader: true
     };
     this.toggleHeader = this.toggleHeader.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLocation();
   }
 
   initAutocomplete = inputField => {
@@ -57,10 +66,8 @@ class SearchView extends Component {
   };
 
   getLocation = () => {
-    var originInput = document.getElementById("origin-input");
     var destinationInput = document.getElementById("destination-input");
-    google.maps.event.clearInstanceListeners(originInput);
-    originInput.value = "My location";
+    this.setState({ origName: "My location" });
     destinationInput.focus();
 
     if (navigator.geolocation) {
@@ -120,12 +127,31 @@ class SearchView extends Component {
 
   setDestination = event => {
     this.setState({ dest: event.value });
-    event.value = event.value.split(",")[0];
+    this.setState({ destName: this.state.dest.split(",")[0] });
+  };
+
+  inputDestination = event => {
+    this.setState({ dest: event.target.value });
+    this.setState({ destName: event.target.value });
   };
 
   setOrigin = event => {
     this.setState({ orig: event.value });
-    event.value = event.value.split(",")[0];
+    this.setState({ origName: this.state.orig.split(",")[0] });
+  };
+
+  inputOrig = event => {
+    this.setState({ orig: event.target.value });
+    this.setState({ origName: event.target.value });
+  };
+
+  flipRoute = () => {
+    this.setState(prevState => ({
+      orig: prevState.dest,
+      dest: prevState.orig,
+      origName: prevState.destName,
+      destName: prevState.origName
+    }));
   };
 
   render() {
@@ -147,6 +173,8 @@ class SearchView extends Component {
                   type="text"
                   placeholder=" "
                   onFocus={this.inputFocus}
+                  value={this.state.origName}
+                  onChange={this.inputOrig}
                 />
                 <span className="label">From</span>
                 <span className="label" id="location">
@@ -163,13 +191,31 @@ class SearchView extends Component {
                   type="text"
                   placeholder=" "
                   onFocus={this.inputFocus}
+                  value={this.state.destName}
+                  onChange={this.inputDestination}
                 />
                 <span className="label">To</span>
               </label>
             </nav>
 
+            <nav id="switchRoute">
+              <button
+                type="button"
+                className="btn"
+                onClick={this.flipRoute}
+                tabIndex="-1"
+              >
+                <FontAwesomeIcon icon={faExchangeAlt} rotation={90} />
+              </button>
+            </nav>
+
             <nav id="goBtn">
-              <button type="button" className="btn" onClick={this.findRoute}>
+              <button
+                type="button"
+                className="btn"
+                onClick={this.findRoute}
+                disabled={this.state.orig === this.state.dest}
+              >
                 <img id="goLogo" src={logo} alt="" />
                 Go!
               </button>
@@ -178,7 +224,10 @@ class SearchView extends Component {
         </CSSTransition>
         <div id="main">
           <DotLoader
-            css={{ marginTop: 50, alignSelf: "center" }}
+            css={{ 
+              marginTop: 50, 
+              alignSelf: "center" 
+            }}
             loading={this.state.loading}
           />
           {!this.state.loading &&
@@ -191,6 +240,7 @@ class SearchView extends Component {
                 toggle={this.toggleHeader}
               />
             ))}
+          <Logout />
         </div>
       </div>
     );

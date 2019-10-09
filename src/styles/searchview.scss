@@ -103,7 +103,6 @@
     height: calc(100% - 150px);
     flex-direction: column;
     align-items: center;
-
     @media only screen and (min-width: 500px) {
       align-self: center;
       width: 55vw;
@@ -113,6 +112,42 @@
       font-weight: bold;
     }
   }
+
+  /* Logout styling */
+  .logout {
+    position: absolute;
+    bottom: 0;
+    background-color: #ff3a3a;
+    right: 0;
+    width: 14vw;
+    height: 10vh;
+    border-top-left-radius: 50px;
+    transition: ease 0.2s all;
+
+    &.open {
+      width: 40vw;
+    }
+
+    svg {
+      transition: ease 0.3s all;
+    }
+  }
+
+  .optionIcon {
+    position: absolute;
+    top: 30%;
+    left: 15px;
+  }
+
+  .signOut {
+    position: absolute;
+    top: 30%;
+    right: 15px;
+    color: white;
+    font-size: large;
+    white-space: nowrap;
+  }
+  /* -------------------- */
 }
 
 /* AUTOCOMPLETE STYLING */
