@@ -28,7 +28,8 @@ class SearchView extends Component {
       route: [],
       loading: false,
       bgBlur: false,
-      showHeader: true
+      showHeader: true,
+      flipped: 90
     };
     this.toggleHeader = this.toggleHeader.bind(this);
   }
@@ -150,7 +151,8 @@ class SearchView extends Component {
       orig: prevState.dest,
       dest: prevState.orig,
       origName: prevState.destName,
-      destName: prevState.origName
+      destName: prevState.origName,
+      flipped: this.state.flipped === 90 ? 270 : 90
     }));
   };
 
@@ -205,7 +207,10 @@ class SearchView extends Component {
                 onClick={this.flipRoute}
                 tabIndex="-1"
               >
-                <FontAwesomeIcon icon={faExchangeAlt} rotation={90} />
+                <FontAwesomeIcon
+                  icon={faExchangeAlt}
+                  rotation={this.state.flipped}
+                />
               </button>
             </nav>
 
@@ -237,7 +242,14 @@ class SearchView extends Component {
                 toggle={this.toggleHeader}
               />
             ))}
-          <Logout />
+          <CSSTransition
+            in={this.state.showHeader}
+            timeout={300}
+            classNames="slideUp"
+            unmountOnExit
+          >
+            <Logout />
+          </CSSTransition>
         </div>
       </div>
     );
