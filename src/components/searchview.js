@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "./Firebase";
 import RouteCard from "./routecard";
+import Logout from "./logout";
 import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
@@ -234,6 +235,7 @@ class SearchView extends Component {
                 toggle={this.toggleHeader}
               />
             ))}
+          <Logout />
         </div>
       </div>
     );
