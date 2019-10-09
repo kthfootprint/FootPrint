@@ -1,11 +1,17 @@
 .routeCards {
-  overflow: visible;
+  height: 100%;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 
   article {
-    width: 100%;
-    display: flex;
+    display: block;
+    width: 98%;
+    height: 120px;
     flex-direction: column;
     align-items: center;
+    align-self: center;
 
     &.card {
       background-color: #cee9ff;
@@ -18,6 +24,7 @@
     .top {
       background-color: white;
       width: 100%;
+      flex: 4;
       display: flex;
       flex-direction: row;
       pointer-events: none;
@@ -25,6 +32,7 @@
 
       .routeContainer {
         display: flex;
+        height: auto;
         justify-content: space-between;
         width: 100%;
 
@@ -73,6 +81,7 @@
 
     .bottom {
       display: flex;
+      flex: 1;
       flex-direction: row;
       justify-content: space-between;
       width: 100%;

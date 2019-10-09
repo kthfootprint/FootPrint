@@ -91,6 +91,7 @@ const DirectionSteps = styled.div`
   overflow: scroll;
   padding: 0 2.5px 0 2.5px;
   font-size: 0.7em;
+  height: 40%;
   div {
     margin: 0.5em;
   }
