@@ -4,6 +4,9 @@ import Comparison from "./comparison";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWalking, faBus, faSubway, faTrain, faBusAlt, faShip } from "@fortawesome/free-solid-svg-icons";
+
 export class DirectionDetails extends Component {
   emissionBox = () => {
     return (
@@ -19,12 +22,12 @@ export class DirectionDetails extends Component {
   render() {
     const steps = this.props.route.steps;
     const icon = {
-      WALKING: <i className="fas fa-walking"></i>,
-      BUS: <i className="fas fa-bus"></i>,
-      SUBWAY: <i className="fas fa-subway"></i>,
-      TRAIN: <i className="fas fa-train"></i>,
-      TRAM: <i className="fas fa-bus-alt"></i>,
-      FERRY: <i className="fas fa-ship"></i>
+      WALKING: <FontAwesomeIcon icon={faWalking} />,
+      BUS: <FontAwesomeIcon icon={faBus} />,
+      SUBWAY: <FontAwesomeIcon icon={faSubway} />,
+      TRAIN: <FontAwesomeIcon icon={faTrain} />,
+      TRAM: <FontAwesomeIcon icon={faBusAlt} />,
+      FERRY: <FontAwesomeIcon icon={faShip} />,
     };
     let allSteps = [];
     for (var i in steps) {
@@ -34,9 +37,9 @@ export class DirectionDetails extends Component {
             <div className="stepDetailTime">
               {
                 icon[
-                  steps[i].transit_details
-                    ? steps[i].transit_details.line.vehicle.type
-                    : steps[i].travel_mode
+                steps[i].transit_details
+                  ? steps[i].transit_details.line.vehicle.type
+                  : steps[i].travel_mode
                 ]
               }
               {steps[i].transit_details

@@ -9,6 +9,8 @@ import handleRoute from "./RouteTools/handleRoute";
 import { withAuthorization } from "./Auth";
 import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
 /* global google */
 
 import "../styles/searchview.scss";
@@ -202,7 +204,7 @@ class SearchView extends Component {
                 onClick={this.flipRoute}
                 tabIndex="-1"
               >
-                <i className="fas fa-exchange-alt fa-rotate-90"></i>
+                <FontAwesomeIcon icon={faExchangeAlt} rotation={90} />
               </button>
             </nav>
 
