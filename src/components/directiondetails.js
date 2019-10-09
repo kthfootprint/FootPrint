@@ -5,7 +5,14 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWalking, faBus, faSubway, faTrain, faBusAlt, faShip } from "@fortawesome/free-solid-svg-icons";
+import {
+  faWalking,
+  faBus,
+  faSubway,
+  faTrain,
+  faBusAlt,
+  faShip
+} from "@fortawesome/free-solid-svg-icons";
 
 export class DirectionDetails extends Component {
   emissionBox = () => {
@@ -27,7 +34,7 @@ export class DirectionDetails extends Component {
       SUBWAY: <FontAwesomeIcon icon={faSubway} />,
       TRAIN: <FontAwesomeIcon icon={faTrain} />,
       TRAM: <FontAwesomeIcon icon={faBusAlt} />,
-      FERRY: <FontAwesomeIcon icon={faShip} />,
+      FERRY: <FontAwesomeIcon icon={faShip} />
     };
     let allSteps = [];
     for (var i in steps) {
@@ -37,9 +44,9 @@ export class DirectionDetails extends Component {
             <div className="stepDetailTime">
               {
                 icon[
-                steps[i].transit_details
-                  ? steps[i].transit_details.line.vehicle.type
-                  : steps[i].travel_mode
+                  steps[i].transit_details
+                    ? steps[i].transit_details.line.vehicle.type
+                    : steps[i].travel_mode
                 ]
               }
               {steps[i].transit_details
@@ -60,7 +67,6 @@ export class DirectionDetails extends Component {
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
         {this.emissionBox()}
-        {console.log(this.props)}
         <Button
           onClick={() => {
             this.props.firebase.setSelectedRoute(this.props.route).then(() => {
