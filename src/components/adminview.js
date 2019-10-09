@@ -9,22 +9,22 @@ import Table from "react-bootstrap/Table";
 
 import * as ROLES from "../constants/roles";
 
-import '../styles/adminview.scss'
+import "../styles/adminview.scss";
 
 class AdminView extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       userRoutes: [],
       loading: true
-    }
+    };
   }
 
   componentDidMount() {
     this.props.firebase.getSelectedRoutes().then(userRoutes => {
-      this.setState({ userRoutes, loading: false })
-    })
+      this.setState({ userRoutes, loading: false });
+    });
   }
 
   render() {
@@ -33,22 +33,29 @@ class AdminView extends Component {
         <Col xs={{ span: 10, offset: 1 }}>
           <h1>Admin page to review user data</h1>
 
-          {!this.state.loading && (this.state.userRoutes.length !== 0) &&
+          {!this.state.loading &&
+            this.state.userRoutes.length !== 0 &&
             this.state.userRoutes.map((userData, k) => {
-              const lowestEmission = Math.min(...userData.routeEmissions)
-              let durations = userData.routeOptions.map(option => option.duration.replace(' mins', '').split(' hours '))
+              const lowestEmission = Math.min(...userData.routeEmissions);
+              let durations = userData.routeOptions.map(option =>
+                option.duration.replace(" mins", "").split(" hours ")
+              );
               durations = durations.map(duration => {
-                if (duration.length > 1)
-                  return duration[0]*60 + duration[1]
-                return duration[0]
-              })
-              const shortestDuration = Math.min(...durations)
-              const shortestDurationIndex = durations.indexOf(String(shortestDuration))
+                if (duration.length > 1) return duration[0] * 60 + duration[1];
+                return duration[0];
+              });
+              const shortestDuration = Math.min(...durations);
+              const shortestDurationIndex = durations.indexOf(
+                String(shortestDuration)
+              );
 
               return (
                 <Card key={k}>
                   <Card.Header>
-                    <p>{userData.orig.split(',')[0]} - {userData.dest.split(',')[0]}</p>
+                    <p>
+                      {userData.orig.split(",")[0]} -{" "}
+                      {userData.dest.split(",")[0]}
+                    </p>
                   </Card.Header>
                   <Card.Body>
                     <Table bordered hover>
@@ -63,16 +70,43 @@ class AdminView extends Component {
                       </thead>
                       <tbody>
                         {userData.routeOptions.map((option, k) => (
-                          <tr key={k} className={parseInt(userData.selectedIndex) === k ? 'selected' : ''}>
-                            <td>{parseInt(userData.selectedIndex) === k ? 'Selected' : k}</td>
+                          <tr
+                            key={k}
+                            className={
+                              parseInt(userData.selectedIndex) === k
+                                ? "selected"
+                                : ""
+                            }
+                          >
+                            <td>
+                              {parseInt(userData.selectedIndex) === k
+                                ? "Selected"
+                                : k}
+                            </td>
                             <td>{option.departure}</td>
                             <td>{option.arrival}</td>
-                            <td style={{ color: shortestDurationIndex === k ? 'green' : null,
-                              fontWeight: shortestDurationIndex === k ? 'bold' : null}}>
+                            <td
+                              style={{
+                                color:
+                                  shortestDurationIndex === k ? "green" : null,
+                                fontWeight:
+                                  shortestDurationIndex === k ? "bold" : null
+                              }}
+                            >
                               {option.duration}
                             </td>
-                            <td style={{ color: lowestEmission === userData.routeEmissions[k] ? 'green' : null,
-                              fontWeight: lowestEmission === userData.routeEmissions[k] ? 'bold' : null}}>
+                            <td
+                              style={{
+                                color:
+                                  lowestEmission === userData.routeEmissions[k]
+                                    ? "green"
+                                    : null,
+                                fontWeight:
+                                  lowestEmission === userData.routeEmissions[k]
+                                    ? "bold"
+                                    : null
+                              }}
+                            >
                               {userData.routeEmissions[k]}
                             </td>
                           </tr>
@@ -81,15 +115,20 @@ class AdminView extends Component {
                     </Table>
                   </Card.Body>
                   <Card.Footer>
-                    <p>{new Date(userData.savedAt.seconds * 1000).toLocaleString('en-GB', { timeZone: 'UTC' })}</p>
+                    <p>
+                      {new Date(userData.savedAt.seconds * 1000).toLocaleString(
+                        "en-GB",
+                        { timeZone: "UTC" }
+                      )}
+                    </p>
                     <p className="author">Author: {userData.author}</p>
                   </Card.Footer>
                 </Card>
-              )
+              );
             })}
         </Col>
       </div>
-    )
+    );
   }
 }
 
@@ -100,4 +139,7 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.ADMIN]));
 
-export default compose(withFirebase, withAuthorization(condition))(AdminView)
+export default compose(
+  withFirebase,
+  withAuthorization(condition)
+)(AdminView);
