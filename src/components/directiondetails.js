@@ -10,7 +10,6 @@ import {
   faBus,
   faSubway,
   faTrain,
-  faBusAlt,
   faShip
 } from "@fortawesome/free-solid-svg-icons";
 
