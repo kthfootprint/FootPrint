@@ -127,6 +127,10 @@
     &.open {
       width: 40vw;
     }
+
+    svg {
+      transition: ease 0.3s all;
+    }
   }
 
   .optionIcon {
