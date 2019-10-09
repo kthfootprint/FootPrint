@@ -20,7 +20,7 @@
     padding: 1em 0px 1.2em 0px;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
-    background-color: #EEF0EB;
+    background-color: #eef0eb;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -38,7 +38,7 @@
       padding: 2px;
       border-radius: 5px;
     }
-  
+
     .emissionBox {
       display: flex;
       font-size: 0.7em;
@@ -46,7 +46,7 @@
       align-self: center;
       justify-content: center;
       border-radius: 10px;
-      
+
       .comparable {
         margin-top: 1em;
         width: 100%;
@@ -55,6 +55,16 @@
 
     .saveButton {
       margin-top: 1.5vh;
+    }
+
+    .instructionText {
+      text-align: end;
+    }
+
+    .timeText {
+      font-weight: bold;
+      font-variant: lining-nums;
+      color: black;
     }
   }
 

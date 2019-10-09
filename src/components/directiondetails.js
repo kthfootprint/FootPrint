@@ -3,6 +3,7 @@ import { withFirebase } from "./Firebase";
 import Comparison from "./comparison";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -52,22 +53,28 @@ export class DirectionDetails extends Component {
         <div key={"direction" + i}>
           <div className="transitDetails">
             <div className="stepDetailTime">
-              {
-                icon[
-                  steps[i].transit_details
-                    ? steps[i].transit_details.line.vehicle.type
-                    : steps[i].travel_mode
-                ]
-              }
-              {steps[i].transit_details
-                ? steps[i].transit_details.departure_time.text
-                : ""}
+              <Col xs={1} className="timeText">
+                {steps[i].transit_details
+                  ? steps[i].transit_details.departure_time.text
+                  : ""}
+              </Col>
+              <Col xs={1}>
+                {
+                  icon[
+                    steps[i].transit_details
+                      ? steps[i].transit_details.line.vehicle.type
+                      : steps[i].travel_mode
+                  ]
+                }
+              </Col>
+              <Col className="instructionText">
+                <p className="stepDetailInstructions">
+                  {this.props.route.steps[i].html_instructions} (
+                  {this.props.route.steps[i].distance.value} m)
+                </p>
+              </Col>
             </div>
           </div>
-          <p className="stepDetailInstructions">
-            {this.props.route.steps[i].html_instructions} (
-            {this.props.route.steps[i].distance.value} m)
-          </p>
         </div>
       );
     }
@@ -107,11 +114,11 @@ const DirectionSteps = styled.div`
   padding: 0 2.5px 0 2.5px;
   font-size: 0.7em;
   height: 40%;
+  width: 90%;
   div {
     margin: 0.5em;
   }
   .stepDetailTime {
-    width: 15%;
     margin: 0em;
     display: flex;
     flex-direction: row;
