@@ -99,9 +99,8 @@ const handleRoute = (result, inList, orig, dest) => {
         var from, to;
         if (transitInfo.length < 1) {
           from = orig;
-          to =
-            result.routes[r].legs[0].steps[parseInt(t) + 1].transit_details
-              .departure_stop;
+          var stop = result.routes[r].legs[0].steps[parseInt(t) + 1];
+          to = stop ? stop.transit_details.departure_stop : dest;
         } else {
           from =
             result.routes[r].legs[0].steps[parseInt(t) - 1].transit_details

@@ -97,24 +97,28 @@ class Firebase {
 
   getSelectedRoutes = async () =>
     this.db
-    .collection("chosenRoutes")
-    .get()
-    .then(snapshot => {
-      let userActions = []
-      snapshot.forEach(doc => {
-        let action = doc.data()
-        action.id = doc.id;
+      .collection("chosenRoutes")
+      .get()
+      .then(snapshot => {
+        let userActions = [];
+        snapshot.forEach(doc => {
+          let action = doc.data();
+          action.id = doc.id;
 
-        action.routeEmissions = [];
-        action.routeOptions.map((option, k) => {
-          return action.routeEmissions[k] = this.calculateEmission(option.transitInfo)
-        })
-        action.chosenRouteEmission = this.calculateEmission(action.routeOptions[action.selectedIndex].transitInfo)
+          action.routeEmissions = [];
+          action.routeOptions.map((option, k) => {
+            return (action.routeEmissions[k] = this.calculateEmission(
+              option.transitInfo
+            ));
+          });
+          action.chosenRouteEmission = this.calculateEmission(
+            action.routeOptions[action.selectedIndex].transitInfo
+          );
 
-        userActions.push(action)
-      })
-      return userActions;
-    })
+          userActions.push(action);
+        });
+        return userActions;
+      });
 
   // Set
   // ------------------------------------------------------------
@@ -176,7 +180,7 @@ class Firebase {
     }
     return Math.round(emissionOut * 100) / 100;
   };
-  
+
   birthdateToAge = birthdate => {
     var diff_ms = Date.now() - birthdate.getTime();
     var age_dt = new Date(diff_ms);

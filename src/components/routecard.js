@@ -44,7 +44,9 @@ export class RouteCard extends Component {
   emissionList = emList => {
     let unsortedEmissions = [];
     for (let i = 0; i < emList.length; i++) {
-      unsortedEmissions.push(this.props.firebase.calculateEmission(emList[i].transitInfo));
+      unsortedEmissions.push(
+        this.props.firebase.calculateEmission(emList[i].transitInfo)
+      );
     }
     return unsortedEmissions.sort();
   };
@@ -159,7 +161,9 @@ export class RouteCard extends Component {
     var emissions = this.emissionList(list);
     for (var i in list) {
       var rand = Math.random() * 100 + 50;
-      calculatedEmission = this.props.firebase.calculateEmission(list[i].transitInfo);
+      calculatedEmission = this.props.firebase.calculateEmission(
+        list[i].transitInfo
+      );
       calculatedComparable = this.calculateComparable(list[i].transitInfo);
       emissionColorValue = this.emissionColor(emissions, calculatedEmission);
       emissionObject = this.getEmissionObject(
@@ -215,10 +219,12 @@ export class RouteCard extends Component {
             </div>
             <div className="bottom">
               <div className="timeContainer">
-                {list[i].departure !== "" && (
+                {list[i].departure !== "" ? (
                   <p>
                     {list[i].departure} - {list[i].arrival}
                   </p>
+                ) : (
+                  <p>{list[i].duration}</p>
                 )}
                 <Comparison comparableNumber={calculatedComparable} />
               </div>
@@ -227,7 +233,6 @@ export class RouteCard extends Component {
         </CSSTransition>
       );
     }
-    // this.toggleCard()
     return (
       <div className="routeCards" style={{ width: "100%" }}>
         {card}
