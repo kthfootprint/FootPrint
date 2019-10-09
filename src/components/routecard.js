@@ -133,6 +133,7 @@ export class RouteCard extends Component {
       TRAIN: faTrain,
       HEAVY_RAIL: faTrain,
       LONG_DISTANCE_TRAIN: faTrain,
+      HIGH_SPEED_TRAIN: faTrain,
       TRAM: faSubway,
       FERRY: faShip
     };
