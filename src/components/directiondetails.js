@@ -15,6 +15,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export class DirectionDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      saveButtonVariant: "success",
+      saveButtonText: "Save route"
+    };
+  }
   emissionBox = () => {
     return (
       <div className="emissionBox">
@@ -72,14 +80,22 @@ export class DirectionDetails extends Component {
         {this.emissionBox()}
         <Button
           onClick={() => {
+            this.setState({
+              saveButtonVariant: "info",
+              saveButtonText: "Saving..."
+            });
             this.props.firebase.setSelectedRoute(this.props.route).then(() => {
-              alert("SAAAAAAVED");
+              this.setState({
+                saveButtonVariant: "secondary",
+                saveButtonText: "Route saved!"
+              });
             });
           }}
-          variant="success"
+          variant={this.state.saveButtonVariant}
           className="saveButton"
+          disabled={this.state.saveButtonVariant === "secondary" ? true : false}
         >
-          Save route
+          {this.state.saveButtonText}
         </Button>
       </div>
     );
