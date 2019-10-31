@@ -117,9 +117,8 @@ class FirstLoginPage extends Component {
                       </option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
-                      <option value="other">
-                        Other/Do not want to disclose
-                      </option>
+                      <option value="other">Other</option>
+                      <option value="notDisclosing">Do not want to disclose</option>
                     </Form.Control>
 
                     <Form.Check
