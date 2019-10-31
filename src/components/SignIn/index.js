@@ -46,6 +46,8 @@ class SignIn extends Component {
   facebookSubmit = e => {
     this.setState({ fbOAuthLoading: true });
 
+    localStorage.setItem("fbOathExpires", new Date().valueOf() + 20000)
+
     this.props.firebase
       .signInWithFacebook()
       .then(user => {
@@ -63,6 +65,13 @@ class SignIn extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  componentDidMount() {
+    if (localStorage.getItem("fbOathExpires") >= new Date().valueOf()) {
+      localStorage.removeItem("fbOathExpires")
+      this.setState({ fbOAuthLoading: true })
+    }
+  }
 
   render() {
     return (

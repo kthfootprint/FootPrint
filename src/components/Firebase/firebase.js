@@ -1,4 +1,5 @@
 import app from "firebase/app";
+import { isMobile } from "react-device-detect";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -35,18 +36,37 @@ class Firebase {
   signInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-  signInWithFacebook = () =>
-    this.auth.signInWithRedirect(this.facebookProvider).then(socialAuthUser => {
-      if (socialAuthUser.additionalUserInfo.isNewUser) {
-        var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
+  signInWithFacebook = () => {
+    if (isMobile) {
+      return this.auth.signInWithRedirect(this.facebookProvider).then(socialAuthUser => {
+        if (socialAuthUser.additionalUserInfo.isNewUser) {
+          var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
 
-        newUser.set({
-          email: socialAuthUser.additionalUserInfo.profile.email,
-          roles: {}
-        });
-      }
-      return socialAuthUser;
-    });
+          newUser.set({
+            email: socialAuthUser.additionalUserInfo.profile.email,
+            roles: {}
+          });
+        }
+
+        localStorage.removeItem("fbOathExpires")
+        return socialAuthUser;
+      });
+    } else {
+      return this.auth.signInWithPopup(this.facebookProvider).then(socialAuthUser => {
+        if (socialAuthUser.additionalUserInfo.isNewUser) {
+          var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
+
+          newUser.set({
+            email: socialAuthUser.additionalUserInfo.profile.email,
+            roles: {}
+          });
+        }
+
+        localStorage.removeItem("fbOathExpires")
+        return socialAuthUser;
+      });
+    }
+  }
 
   signOut = () => this.auth.signOut();
 
