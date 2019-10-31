@@ -7,7 +7,7 @@ const InfoView = () => {
   const infoText = [
     `Public transportation planning with carbon emissions!`,
     `You will get different options along with their carbon emissions. When you have found a suitable
-    route, press the Choose button.`
+    route, press the Save button.`
   ];
 
   const privacyText =

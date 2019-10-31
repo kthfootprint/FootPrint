@@ -36,7 +36,7 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
 
   signInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider).then(socialAuthUser => {
+    this.auth.signInWithRedirect(this.facebookProvider).then(socialAuthUser => {
       if (socialAuthUser.additionalUserInfo.isNewUser) {
         var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
 
