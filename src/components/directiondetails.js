@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "./Firebase";
 import Comparison from "./comparison";
+import { filterOutShortWalks } from "./RouteTools/handleRoute";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -35,7 +36,10 @@ export class DirectionDetails extends Component {
   };
 
   render() {
-    const steps = this.props.route.steps;
+    let steps = this.props.route.steps;
+    if (filterOutShortWalks(this.props.route)) {
+      steps.pop();
+    }
     const icon = {
       WALKING: <FontAwesomeIcon icon={faWalking} />,
       BUS: <FontAwesomeIcon icon={faBus} />,

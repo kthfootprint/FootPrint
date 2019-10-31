@@ -1,6 +1,19 @@
+const filterOutShortWalks = routeIn => {
+  const lastElement = routeIn.steps[routeIn.steps.length - 1];
+  if (
+    lastElement.travel_mode === "WALKING" &&
+    lastElement.distance.value < 100
+  ) {
+    return true;
+  }
+  return false;
+};
+
 const handleRoute = (result, inList, orig, dest) => {
   let routeList = inList;
+  let unnecessaryWalking = false;
   for (var r in result.routes) {
+    unnecessaryWalking = filterOutShortWalks(result.routes[r].legs[0]);
     var transitInfo = [];
     var typeTime = [];
     for (var t in result.routes[r].legs[0].steps) {
@@ -118,6 +131,9 @@ const handleRoute = (result, inList, orig, dest) => {
       }
       typeTime.push(step.duration.value);
     }
+    if (unnecessaryWalking) {
+      transitInfo.pop();
+    }
     var depart = result.routes[r].legs[0].departure_time
       ? result.routes[r].legs[0].departure_time.text
       : "";
@@ -139,3 +155,5 @@ const handleRoute = (result, inList, orig, dest) => {
 };
 
 export default handleRoute;
+
+export { filterOutShortWalks };
