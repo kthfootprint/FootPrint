@@ -13,6 +13,15 @@ class DirectionOverlay extends Component {
     this.props.unmount();
   };
 
+  checkSwipe = (pos, event) => {
+    if (
+      event.target.id === "directionDetails" ||
+      event.target.id === "slider"
+    ) {
+      this.goBack();
+    }
+  };
+
   render() {
     return (
       <div id="overlay">
@@ -22,7 +31,7 @@ class DirectionOverlay extends Component {
             emissionColor={this.props.emissionColor}
           />
         </div>
-        <Swipe onSwipeDown={this.goBack}>
+        <Swipe onSwipeDown={this.checkSwipe}>
           <div id="backBtn" onClick={this.goBack}>
             <FontAwesomeIcon size="2x" icon={faArrowDown} />
           </div>
