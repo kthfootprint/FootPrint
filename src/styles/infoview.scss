@@ -12,5 +12,10 @@
 .infoViewLink {
   font-size: 1.1em;
   font-style: bold;
+  text-decoration: underline;
   color: green !important;
+}
+
+.infoViewLink:hover {
+  text-decoration: none;
 }
