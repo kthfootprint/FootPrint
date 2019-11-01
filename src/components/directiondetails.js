@@ -12,7 +12,8 @@ import {
   faBus,
   faSubway,
   faTrain,
-  faShip
+  faShip,
+  faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 
 export class DirectionDetails extends Component {
@@ -82,6 +83,23 @@ export class DirectionDetails extends Component {
         </div>
       );
     }
+    allSteps.push(
+      <div key="arrivalTime">
+        <div className="transitDetails">
+          <div className="stepDetailTime">
+            <Col xs={1} className="timeText">
+              {this.props.route.arrival_time.text}
+            </Col>
+            <Col xs={1}>
+              <FontAwesomeIcon icon={faThumbsUp} />
+            </Col>
+            <Col className="instructionText">
+              <p className="stepDetailInstructions">Du är framme!</p>
+            </Col>
+          </div>
+        </div>
+      </div>
+    );
     return (
       <div id="directionDetails">
         <div id="slider"></div>

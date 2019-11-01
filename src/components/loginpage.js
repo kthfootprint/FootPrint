@@ -40,15 +40,15 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="LoginPage">
-        {this.props.firebase.auth.currentUser && (
-          localStorage.getItem("authUser") && JSON.parse(localStorage.getItem("authUser")).roles[ROLES.USER]
-          ? <Redirect 
-              to={ROUTES.LANDING} 
-            />
-          : <Redirect
+        {this.props.firebase.auth.currentUser &&
+          (localStorage.getItem("authUser") &&
+          JSON.parse(localStorage.getItem("authUser")).roles[ROLES.USER] ? (
+            <Redirect to={ROUTES.LANDING} />
+          ) : (
+            <Redirect
               to={`${ROUTES.FIRSTLOGIN}/${this.props.firebase.auth.currentUser.uid}`}
             />
-        )}
+          ))}
 
         <div className="LoginPageInner">
           <Container fluid>

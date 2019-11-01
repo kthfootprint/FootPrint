@@ -38,35 +38,43 @@ class Firebase {
 
   signInWithFacebook = () => {
     if (isMobile) {
-      return this.auth.signInWithRedirect(this.facebookProvider).then(socialAuthUser => {
-        if (socialAuthUser.additionalUserInfo.isNewUser) {
-          var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
+      return this.auth
+        .signInWithRedirect(this.facebookProvider)
+        .then(socialAuthUser => {
+          if (socialAuthUser.additionalUserInfo.isNewUser) {
+            var newUser = this.db
+              .collection("users")
+              .doc(socialAuthUser.user.uid);
 
-          newUser.set({
-            email: socialAuthUser.additionalUserInfo.profile.email,
-            roles: {}
-          });
-        }
+            newUser.set({
+              email: socialAuthUser.additionalUserInfo.profile.email,
+              roles: {}
+            });
+          }
 
-        localStorage.removeItem("fbOathExpires")
-        return socialAuthUser;
-      });
+          localStorage.removeItem("fbOathExpires");
+          return socialAuthUser;
+        });
     } else {
-      return this.auth.signInWithPopup(this.facebookProvider).then(socialAuthUser => {
-        if (socialAuthUser.additionalUserInfo.isNewUser) {
-          var newUser = this.db.collection("users").doc(socialAuthUser.user.uid);
+      return this.auth
+        .signInWithPopup(this.facebookProvider)
+        .then(socialAuthUser => {
+          if (socialAuthUser.additionalUserInfo.isNewUser) {
+            var newUser = this.db
+              .collection("users")
+              .doc(socialAuthUser.user.uid);
 
-          newUser.set({
-            email: socialAuthUser.additionalUserInfo.profile.email,
-            roles: {}
-          });
-        }
+            newUser.set({
+              email: socialAuthUser.additionalUserInfo.profile.email,
+              roles: {}
+            });
+          }
 
-        localStorage.removeItem("fbOathExpires")
-        return socialAuthUser;
-      });
+          localStorage.removeItem("fbOathExpires");
+          return socialAuthUser;
+        });
     }
-  }
+  };
 
   signOut = () => this.auth.signOut();
 
