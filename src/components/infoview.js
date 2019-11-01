@@ -20,8 +20,8 @@ const InfoView = () => {
       <p>{infoText[1]}</p>
       <p>
         {privacyText}{" "}
-        <Link to="/privacy" tabIndex="-1">
-          Here
+        <Link to="/privacy" tabIndex="-1" className="infoViewLink">
+          here
         </Link>
       </p>
     </div>

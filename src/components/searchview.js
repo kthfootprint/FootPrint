@@ -27,7 +27,7 @@ class SearchView extends Component {
       destName: "",
       route: [],
       loading: false,
-      bgBlur: false,
+      bgBlur: true,
       showHeader: true,
       flipped: 90
     };
