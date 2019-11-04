@@ -2,7 +2,9 @@
 
 Application for emission awareness and comparison of different public transport routes.
 
-[Deployed application](https://kthfootprint.herokuapp.com/)
+[Firebase](https://kthfootprint.web.app/)
+
+[Heroku](https://kthfootprint.herokuapp.com/)
 
 
 ## First time setup:
