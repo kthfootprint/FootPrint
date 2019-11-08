@@ -22,7 +22,7 @@ export class DirectionDetails extends Component {
 
     this.state = {
       saveButtonVariant: "success",
-      saveButtonText: "Save route"
+      saveButtonText: "Save"
     };
   }
   emissionBox = () => {
@@ -42,15 +42,15 @@ export class DirectionDetails extends Component {
       steps.pop();
     }
     const icon = {
-      WALKING: <FontAwesomeIcon icon={faWalking} />,
-      BUS: <FontAwesomeIcon icon={faBus} />,
-      SUBWAY: <FontAwesomeIcon icon={faSubway} />,
-      TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      HEAVY_RAIL: <FontAwesomeIcon icon={faTrain} />,
-      LONG_DISTANCE_TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      HIGH_SPEED_TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      TRAM: <FontAwesomeIcon icon={faSubway} />,
-      FERRY: <FontAwesomeIcon icon={faShip} />
+      WALKING: <FontAwesomeIcon icon={faWalking} fixedWidth />,
+      BUS: <FontAwesomeIcon icon={faBus} fixedWidth />,
+      SUBWAY: <FontAwesomeIcon icon={faSubway} fixedWidth />,
+      TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      HEAVY_RAIL: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      LONG_DISTANCE_TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      HIGH_SPEED_TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      TRAM: <FontAwesomeIcon icon={faSubway} fixedWidth />,
+      FERRY: <FontAwesomeIcon icon={faShip} fixedWidth />
     };
     let allSteps = [];
     for (var i in steps) {
@@ -105,26 +105,33 @@ export class DirectionDetails extends Component {
         <div id="slider"></div>
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
-        {this.emissionBox()}
-        <Button
-          onClick={() => {
-            this.setState({
-              saveButtonVariant: "info",
-              saveButtonText: "Saving..."
-            });
-            this.props.firebase.setSelectedRoute(this.props.route).then(() => {
+        <div id="directionBottom">
+          <Button
+            onClick={() => {
               this.setState({
-                saveButtonVariant: "secondary",
-                saveButtonText: "Route saved!"
+                saveButtonVariant: "info",
+                saveButtonText: "Saving..."
               });
-            });
-          }}
-          variant={this.state.saveButtonVariant}
-          className="saveButton"
-          disabled={this.state.saveButtonVariant === "secondary" ? true : false}
-        >
-          {this.state.saveButtonText}
-        </Button>
+              this.props.firebase
+                .setSelectedRoute(this.props.route)
+                .then(() => {
+                  this.setState({
+                    saveButtonVariant: "secondary",
+                    saveButtonText: "Saved!"
+                  });
+                });
+            }}
+            variant={this.state.saveButtonVariant}
+            className="saveButton"
+            disabled={
+              this.state.saveButtonVariant === "secondary" ? true : false
+            }
+          >
+            {this.state.saveButtonText}
+          </Button>
+          {this.emissionBox()}
+          <div id="emptySpace"></div>
+        </div>
       </div>
     );
   }
