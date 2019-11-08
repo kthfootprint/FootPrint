@@ -62,7 +62,7 @@ class SearchView extends Component {
     var destinationInput = document.getElementById("destination-input");
     let pos = position.coords.latitude + ", " + position.coords.longitude;
     this.setState({ orig: pos }, () => {
-      destinationInput.select();
+      destinationInput.setSelectionRange(0, 9999);
     });
   };
 
@@ -122,7 +122,7 @@ class SearchView extends Component {
   }
 
   inputFocus = event => {
-    event.target.select();
+    event.target.setSelectionRange(0, 9999);
     this.initAutocomplete(event.target);
   };
 
