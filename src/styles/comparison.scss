@@ -9,3 +9,14 @@
     color: red;
   }
 }
+
+.fa-times-circle {
+  align-self: flex-end;
+  margin-top: 1vh;
+}
+
+.tooltipWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10vh;
+}
