@@ -54,6 +54,7 @@
 
           .routeSteps {
             flex-grow: 1;
+            display: inline-flex;
             padding: 1em;
             border-radius: 5px;
             box-shadow: 20px 30px 25px -12px rgba(0, 0, 0, 0.5);

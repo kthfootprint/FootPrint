@@ -30,20 +30,21 @@ class SearchView extends Component {
       bgBlur: true,
       showHeader: true,
       flipped: 90,
-      location: false
+      location: ""
     };
     this.toggleHeader = this.toggleHeader.bind(this);
   }
 
   componentDidMount() {
-    this.getLocation();
-    var orig = document.getElementById("origin-input");
+    this.getLocation("origin-input");
+    /*     var orig = document.getElementById("origin-input");
     var dest = document.getElementById("destination-input");
     this.initAutocomplete(orig);
-    this.initAutocomplete(dest);
+    this.initAutocomplete(dest); */
   }
 
   initAutocomplete = inputField => {
+    google.maps.event.clearInstanceListeners(inputField);
     var geolocation = {
       lat: 59.334591,
       lng: 18.06324
@@ -64,17 +65,20 @@ class SearchView extends Component {
   };
 
   setPosition = position => {
-    var destinationInput = document.getElementById("destination-input");
+    var activeInput = document.getElementById(this.state.location);
     let pos = position.coords.latitude + ", " + position.coords.longitude;
-    this.setState({ orig: pos }, () => {
-      destinationInput.select();
-    });
+
+    activeInput === "origin-input"
+      ? this.setState({ orig: pos })
+      : this.setState({ dest: pos });
   };
 
   getLocation = () => {
-    var destinationInput = document.getElementById("destination-input");
-    this.setState({ origName: "My location" });
-    destinationInput.focus();
+    var activeInput = document.getElementById(this.state.location);
+
+    activeInput === "origin-input"
+      ? this.setState({ origName: "My location" })
+      : this.setState({ destName: "My location" });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setPosition);
@@ -128,8 +132,9 @@ class SearchView extends Component {
 
   inputFocus = event => {
     event.target.select();
-    this.setState({ location: true });
-    // this.initAutocomplete(event.target);
+    // console.log(event.target.value);
+    this.setState({ location: event.target.id });
+    this.initAutocomplete(event.target);
   };
 
   setDestination = event => {
@@ -186,17 +191,6 @@ class SearchView extends Component {
                   onBlur={() => this.setState({ location: false })}
                 />
                 <span className="label">From</span>
-                {/* <span className="label" id="location">
-                  <FontAwesomeIcon
-                    icon={faLocationArrow}
-                    onClick={this.getLocation}
-                    style={{ color: "rgb(200, 200, 200)" }}
-                  />
-                  <i
-                    onClick={this.getLocation}
-                    className="fas fa-location-arrow"
-                  ></i>
-                </span> */}
               </label>
 
               <label className="inp">
@@ -211,6 +205,13 @@ class SearchView extends Component {
                 />
                 <span className="label">To</span>
               </label>
+
+              {this.state.location !== "" && (
+                <div className="myLocation" onMouseDown={this.getLocation}>
+                  <FontAwesomeIcon icon={faCrosshairs} />
+                  <p>My location</p>
+                </div>
+              )}
             </nav>
 
             <nav id="switchRoute">
@@ -239,12 +240,6 @@ class SearchView extends Component {
                 Go!
               </button>
             </nav>
-            {this.state.location && (
-              <div className="myLocation" onClick={this.getLocation}>
-                <FontAwesomeIcon icon={faCrosshairs} />
-                <p>My location</p>
-              </div>
-            )}
           </header>
         </CSSTransition>
         <div id="main">
@@ -286,4 +281,7 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.USER]));
 
-export default compose(withAuthorization(condition), withFirebase)(SearchView);
+export default compose(
+  withAuthorization(condition),
+  withFirebase
+)(SearchView);
