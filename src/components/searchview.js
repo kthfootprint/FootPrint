@@ -11,7 +11,7 @@ import { withAuthorization } from "./Auth";
 import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
+import { faExchangeAlt, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 /* global google */
 
 import "../styles/searchview.scss";
@@ -29,13 +29,18 @@ class SearchView extends Component {
       loading: false,
       bgBlur: true,
       showHeader: true,
-      flipped: 90
+      flipped: 90,
+      location: false
     };
     this.toggleHeader = this.toggleHeader.bind(this);
   }
 
   componentDidMount() {
     this.getLocation();
+    var orig = document.getElementById("origin-input");
+    var dest = document.getElementById("destination-input");
+    this.initAutocomplete(orig);
+    this.initAutocomplete(dest);
   }
 
   initAutocomplete = inputField => {
@@ -123,7 +128,8 @@ class SearchView extends Component {
 
   inputFocus = event => {
     event.target.select();
-    this.initAutocomplete(event.target);
+    this.setState({ location: true });
+    // this.initAutocomplete(event.target);
   };
 
   setDestination = event => {
@@ -177,14 +183,20 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.origName}
                   onChange={this.inputOrig}
+                  onBlur={() => this.setState({ location: false })}
                 />
                 <span className="label">From</span>
-                <span className="label" id="location">
+                {/* <span className="label" id="location">
+                  <FontAwesomeIcon
+                    icon={faLocationArrow}
+                    onClick={this.getLocation}
+                    style={{ color: "rgb(200, 200, 200)" }}
+                  />
                   <i
                     onClick={this.getLocation}
                     className="fas fa-location-arrow"
                   ></i>
-                </span>
+                </span> */}
               </label>
 
               <label className="inp">
@@ -195,6 +207,7 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.destName}
                   onChange={this.inputDestination}
+                  onBlur={() => this.setState({ location: false })}
                 />
                 <span className="label">To</span>
               </label>
@@ -210,6 +223,7 @@ class SearchView extends Component {
                 <FontAwesomeIcon
                   icon={faExchangeAlt}
                   rotation={this.state.flipped}
+                  style={{ color: "rgb(200, 200, 200)" }}
                 />
               </button>
             </nav>
@@ -225,6 +239,12 @@ class SearchView extends Component {
                 Go!
               </button>
             </nav>
+            {this.state.location && (
+              <div className="myLocation" onClick={this.getLocation}>
+                <FontAwesomeIcon icon={faCrosshairs} />
+                <p>My location</p>
+              </div>
+            )}
           </header>
         </CSSTransition>
         <div id="main">
@@ -266,7 +286,4 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.USER]));
 
-export default compose(
-  withAuthorization(condition),
-  withFirebase
-)(SearchView);
+export default compose(withAuthorization(condition), withFirebase)(SearchView);

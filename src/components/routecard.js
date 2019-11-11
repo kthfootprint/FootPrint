@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import DirectionOverlay from "./directionoverlay";
-import Comparison from "./comparison";
 import { withFirebase } from "./Firebase";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -65,13 +64,14 @@ export class RouteCard extends Component {
   getEmissionObject = (emission, color) => {
     return (
       <div className="emission">
+        <p className="emissionHeader">Emission | </p>
         <p style={{ color: color }}>{emission} g CO2</p>
       </div>
     );
   };
 
   getRGBA(color) {
-    return color.slice(0, 3) + "a" + color.slice(3, -1) + ",0.3)";
+    return color.slice(0, 3) + "a" + color.slice(3, -1) + ")";
   }
 
   selectCard = e => {
@@ -153,7 +153,6 @@ export class RouteCard extends Component {
 
   render() {
     var calculatedEmission = 0;
-    var calculatedComparable = "";
     var emissionColorValue = 0;
     var emissionObject = "";
     var card = [];
@@ -164,7 +163,6 @@ export class RouteCard extends Component {
       calculatedEmission = this.props.firebase.calculateEmission(
         list[i].transitInfo
       );
-      calculatedComparable = this.calculateComparable(list[i].transitInfo);
       emissionColorValue = this.emissionColor(emissions, calculatedEmission);
       emissionObject = this.getEmissionObject(
         calculatedEmission,
@@ -204,16 +202,17 @@ export class RouteCard extends Component {
             className="card"
             id={i}
             onClick={this.selectCard}
-            style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
           >
-            <div className="top">
+            <div
+              className="top"
+              style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
+            >
               <div className="routeContainer">
                 <div className="travel">{travelSteps}</div>
                 <div className="rightCard">
                   <div className="time">
                     <p>{list[i].duration}</p>
                   </div>
-                  {emissionObject}
                 </div>
               </div>
             </div>
@@ -226,7 +225,7 @@ export class RouteCard extends Component {
                 ) : (
                   <p>{list[i].duration}</p>
                 )}
-                <Comparison comparableNumber={calculatedComparable} />
+                {emissionObject}
               </div>
             </div>
           </article>
