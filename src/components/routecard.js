@@ -151,6 +151,43 @@ export class RouteCard extends Component {
     this.setState({ showCard: value });
   }
 
+  getRouteSteps = route => {
+    var travelSteps = [];
+    route.transitInfo.forEach((step, index) => {
+      var routeNr = this.getRouteNr(step);
+      var routeColor = this.getRouteColor(step);
+      if (travelSteps.length < 5) {
+        travelSteps.push(
+          <div className="routeSteps" key={index}>
+            {this.getIcon(step)}
+            <p className="routeId" style={{ backgroundColor: routeColor }}>
+              {routeNr}
+            </p>
+          </div>
+        );
+      } else if (travelSteps.length === 5) {
+        travelSteps.push(
+          <div className="routeSteps" key={index}>
+            <p className="routeId">...</p>
+          </div>
+        );
+      }
+    });
+    return travelSteps;
+  };
+
+  getRouteNr = transitInfo => {
+    return transitInfo.type === "TRAM"
+      ? "Tvärbanan " + transitInfo.line
+      : transitInfo.type === "WALKING"
+      ? transitInfo.distance.text
+      : transitInfo.line;
+  };
+
+  getRouteColor = transitInfo => {
+    return transitInfo.type === "WALKING" ? null : transitInfo.lineColor;
+  };
+
   render() {
     var calculatedEmission = 0;
     var emissionColorValue = 0;
@@ -158,49 +195,32 @@ export class RouteCard extends Component {
     var card = [];
     var list = this.props.list;
     var emissions = this.emissionList(list);
-    for (var i in list) {
+
+    list.forEach((route, index) => {
       var rand = Math.random() * 100 + 50;
       calculatedEmission = this.props.firebase.calculateEmission(
-        list[i].transitInfo
+        route.transitInfo
       );
       emissionColorValue = this.emissionColor(emissions, calculatedEmission);
       emissionObject = this.getEmissionObject(
         calculatedEmission,
         emissionColorValue
       );
-      var travelSteps = [];
-      for (let t = 0; t < list[i].transitInfo.length; t++) {
-        var routeNr =
-          list[i].transitInfo[t].type === "TRAM"
-            ? "Tvärbanan " + list[i].transitInfo[t].line
-            : list[i].transitInfo[t].type === "WALKING"
-            ? list[i].transitInfo[t].distance.text
-            : list[i].transitInfo[t].line;
-        var routeColor =
-          list[i].transitInfo[t].type === "WALKING"
-            ? null
-            : list[i].transitInfo[t].lineColor;
-        travelSteps.push(
-          <div className="routeSteps" key={t}>
-            {this.getIcon(list[i].transitInfo[t])}
-            <p className="routeId" style={{ backgroundColor: routeColor }}>
-              {routeNr}
-            </p>
-          </div>
-        );
-      }
+
+      var travelSteps = this.getRouteSteps(route);
+
       card.push(
         <CSSTransition
           in={this.state.showCard}
           timeout={rand}
           classNames="fade"
           unmountOnExit
-          key={list[i].index}
+          key={route.index}
         >
           <article
-            key={list[i].index}
+            key={route.index}
             className="card"
-            id={i}
+            id={index}
             onClick={this.selectCard}
           >
             <div
@@ -211,19 +231,19 @@ export class RouteCard extends Component {
                 <div className="travel">{travelSteps}</div>
                 <div className="rightCard">
                   <div className="time">
-                    <p>{list[i].duration}</p>
+                    <p>{route.duration}</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bottom">
               <div className="timeContainer">
-                {list[i].departure !== "" ? (
+                {route.departure !== "" ? (
                   <p>
-                    {list[i].departure} - {list[i].arrival}
+                    {route.departure} - {route.arrival}
                   </p>
                 ) : (
-                  <p>{list[i].duration}</p>
+                  <p>{route.duration}</p>
                 )}
                 {emissionObject}
               </div>
@@ -231,7 +251,7 @@ export class RouteCard extends Component {
           </article>
         </CSSTransition>
       );
-    }
+    });
     return (
       <div className="routeCards" style={{ width: "100%" }}>
         {card}

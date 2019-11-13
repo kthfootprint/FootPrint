@@ -30,20 +30,17 @@ class SearchView extends Component {
       bgBlur: true,
       showHeader: true,
       flipped: 90,
-      location: ""
+      location: "origin-input"
     };
     this.toggleHeader = this.toggleHeader.bind(this);
   }
 
   componentDidMount() {
     this.getLocation("origin-input");
-    /*     var orig = document.getElementById("origin-input");
-    var dest = document.getElementById("destination-input");
-    this.initAutocomplete(orig);
-    this.initAutocomplete(dest); */
   }
 
   initAutocomplete = inputField => {
+    this.clearAutocomplete();
     google.maps.event.clearInstanceListeners(inputField);
     var geolocation = {
       lat: 59.334591,
@@ -64,19 +61,26 @@ class SearchView extends Component {
     });
   };
 
+  clearAutocomplete = () => {
+    var containers = document.getElementsByClassName("pac-container");
+    for (let item of containers) {
+      item.remove();
+    }
+  };
+
   setPosition = position => {
-    var activeInput = document.getElementById(this.state.location);
     let pos = position.coords.latitude + ", " + position.coords.longitude;
 
-    activeInput === "origin-input"
+    this.state.location === "origin-input"
       ? this.setState({ orig: pos })
       : this.setState({ dest: pos });
+    this.setState({ location: "" });
   };
 
   getLocation = () => {
     var activeInput = document.getElementById(this.state.location);
 
-    activeInput === "origin-input"
+    activeInput.id === "origin-input"
       ? this.setState({ origName: "My location" })
       : this.setState({ destName: "My location" });
 
@@ -132,7 +136,6 @@ class SearchView extends Component {
 
   inputFocus = event => {
     event.target.select();
-    // console.log(event.target.value);
     this.setState({ location: event.target.id });
     this.initAutocomplete(event.target);
   };
@@ -188,7 +191,7 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.origName}
                   onChange={this.inputOrig}
-                  onBlur={() => this.setState({ location: false })}
+                  onBlur={() => this.setState({ location: "" })}
                 />
                 <span className="label">From</span>
               </label>
@@ -201,7 +204,7 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.destName}
                   onChange={this.inputDestination}
-                  onBlur={() => this.setState({ location: false })}
+                  onBlur={() => this.setState({ location: "" })}
                 />
                 <span className="label">To</span>
               </label>
