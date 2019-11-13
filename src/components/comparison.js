@@ -10,6 +10,8 @@ import {
 import "../styles/comparison.scss";
 
 export class Comparison extends Component {
+  tooltip = React.createRef(null);
+
   render() {
     return (
       <div className="comparable">
@@ -25,20 +27,30 @@ export class Comparison extends Component {
         />
         <ReactTooltip
           id="tooltipparuuu"
+          ref={this.tooltip}
           place="left"
           type="dark"
           effect="float"
           className="tooltipWrapper"
+          clickable
         >
-          <FontAwesomeIcon icon={faTimesCircle} />
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            onClick={() => {
+              const current = this.tooltip.current;
+              current.tooltipRef = null;
+              ReactTooltip.hide();
+            }}
+          />
           <br />
           <span>
             This would be the emissions <br /> of driving a modern <br />{" "}
             diesel/petrol/hybrid car the same <br /> distance as your route.
             <br />
             <br />
-            For more information about how <br /> this has been calculated,
-            <br /> press HERE.
+            <a href="http://www.google.com">
+              More information about how this <br /> has been calculated.
+            </a>
           </span>
         </ReactTooltip>
       </div>
