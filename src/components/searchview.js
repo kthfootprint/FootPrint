@@ -135,7 +135,7 @@ class SearchView extends Component {
   }
 
   inputFocus = event => {
-    event.target.select();
+    event.target.setSelectionRange(0, 9999);
     this.setState({ location: event.target.id });
     this.initAutocomplete(event.target);
   };
