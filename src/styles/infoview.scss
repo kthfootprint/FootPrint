@@ -7,13 +7,14 @@
   min-height: 100%;
   padding: 2vw 8vw 0vh 8vw;
   overflow-y: scroll;
+  color: rgb(200, 200, 200);
 }
 
 .infoViewLink {
   font-size: 1.1em;
   font-style: bold;
   text-decoration: underline;
-  color: green !important;
+  color: rgb(163, 195, 215) !important;
 }
 
 .infoViewLink:hover {
