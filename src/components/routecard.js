@@ -32,7 +32,7 @@ export class RouteCard extends Component {
 
   calculateComparable = transit => {
     let comparableOut = 0;
-    const eCar = 101.7 / 1000;
+    const eCar = 123.4 / 1000;
     for (let i = 0; i < transit.length; i++) {
       let distance = transit[i].distance.value;
       comparableOut += distance * eCar;
