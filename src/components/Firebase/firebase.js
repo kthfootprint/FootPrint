@@ -201,7 +201,8 @@ class Firebase {
       } else if (
         transit[i].type === "SUBWAY" ||
         transit[i].type === "TRAIN" ||
-        transit[i].type === "TRAM"
+        transit[i].type === "TRAM" ||
+        transit[i].type === "HEAVY_RAIL"
       ) {
         emissionOut += distance * eSub;
       }

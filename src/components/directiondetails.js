@@ -31,7 +31,10 @@ export class DirectionDetails extends Component {
         <div className="emission" style={{ color: this.props.emissionColor }}>
           <p>Your trip emits: {this.props.emission} g CO2</p>
         </div>
-        <Comparison comparableNumber={this.props.comparable} />
+        <Comparison
+          comparableNumber={this.props.comparable}
+          toggleECV={this.props.toggleECV}
+        />
       </div>
     );
   };

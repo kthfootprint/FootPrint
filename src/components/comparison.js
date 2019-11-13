@@ -28,7 +28,7 @@ export class Comparison extends Component {
         <ReactTooltip
           id="tooltipparuuu"
           ref={this.tooltip}
-          place="left"
+          place="top"
           type="dark"
           effect="float"
           className="tooltipWrapper"
@@ -44,13 +44,14 @@ export class Comparison extends Component {
           />
           <br />
           <span>
-            This would be the emissions <br /> of driving a modern <br />{" "}
-            diesel/petrol/hybrid car the same <br /> distance as your route.
+            This would be the emissions <br /> of driving a modern <br /> petrol
+            car the same <br /> distance as your route.
             <br />
             <br />
-            <a href="http://www.google.com">
-              More information about how this <br /> has been calculated.
-            </a>
+            <div id="linkToECV" onClick={() => this.props.toggleECV()}>
+              Click here for more information about <br />
+              how this has been calculated.
+            </div>
           </span>
         </ReactTooltip>
       </div>

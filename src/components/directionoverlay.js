@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RouteMap from "./routemap";
 import DirectionDetails from "./directiondetails";
+import EmissionCalculationView from "./emissioncalculationview";
 import Swipe from "react-easy-swipe";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +10,12 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import "../styles/directionoverlay.scss";
 
 class DirectionOverlay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showECV: false
+    };
+  }
   goBack = () => {
     this.props.unmount();
   };
@@ -22,9 +29,18 @@ class DirectionOverlay extends Component {
     }
   };
 
+  toggleECV = () => {
+    this.setState({
+      showECV: !this.state.showECV
+    });
+  };
+
   render() {
     return (
       <div id="overlay">
+        {this.state.showECV ? (
+          <EmissionCalculationView toggleECV={this.toggleECV} />
+        ) : null}
         <div className="map">
           <RouteMap
             route={this.props.route}
@@ -40,6 +56,7 @@ class DirectionOverlay extends Component {
             emission={this.props.emission}
             comparable={this.props.comparable}
             emissionColor={this.props.emissionColor}
+            toggleECV={this.toggleECV}
           />
         </Swipe>
       </div>
