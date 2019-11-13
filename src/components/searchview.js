@@ -3,7 +3,6 @@ import { compose } from "recompose";
 import { withFirebase } from "./Firebase";
 import RouteCard from "./routecard";
 import Logout from "./logout";
-import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
@@ -15,6 +14,7 @@ import { faExchangeAlt, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 /* global google */
 
 import "../styles/searchview.scss";
+import CardLoader from "./cardloader";
 
 class SearchView extends Component {
   constructor(props) {
@@ -246,13 +246,7 @@ class SearchView extends Component {
           </header>
         </CSSTransition>
         <div id="main">
-          <DotLoader
-            css={{
-              marginTop: 50,
-              alignSelf: "center"
-            }}
-            loading={this.state.loading}
-          />
+          <CardLoader num={4} loading={this.state.loading} />
           {!this.state.loading &&
             (this.state.routeList.length === 0 ? (
               <InfoView />
