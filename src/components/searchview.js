@@ -36,7 +36,7 @@ class SearchView extends Component {
   }
 
   componentDidMount() {
-    this.getLocation("origin-input");
+    this.getLocation();
   }
 
   initAutocomplete = inputField => {
@@ -278,7 +278,4 @@ const condition = authUser =>
       authUser.authUser.roles &&
       !!authUser.authUser.roles[ROLES.USER]));
 
-export default compose(
-  withAuthorization(condition),
-  withFirebase
-)(SearchView);
+export default compose(withAuthorization(condition), withFirebase)(SearchView);
