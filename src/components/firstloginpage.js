@@ -127,7 +127,7 @@ class FirstLoginPage extends Component {
                       name="termsOfService"
                       onChange={this.onChange}
                       type="checkbox"
-                      label="Jag godkänner användarvillkoren."
+                      label="Jag godkänner att min anonymiserade användardata får användas för denna KTH-användarstudie, men inte i några andra syften."
                     />
 
                     <Button disabled={isInvalid} type="submit" block>
