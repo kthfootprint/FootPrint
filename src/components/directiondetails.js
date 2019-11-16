@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withFirebase } from "./Firebase";
 import Comparison from "./comparison";
 import { filterOutShortWalks } from "./RouteTools/handleRoute";
 import styled from "styled-components";
@@ -115,14 +114,13 @@ export class DirectionDetails extends Component {
                 saveButtonVariant: "info",
                 saveButtonText: "Saving..."
               });
-              this.props.firebase
-                .setSelectedRoute(this.props.route)
-                .then(() => {
-                  this.setState({
-                    saveButtonVariant: "secondary",
-                    saveButtonText: "Saved!"
-                  });
-                });
+              setTimeout(
+                this.setState({
+                  saveButtonVariant: "secondary",
+                  saveButtonText: "Saved!"
+                }),
+                500
+              );
             }}
             variant={this.state.saveButtonVariant}
             className="saveButton"
@@ -159,4 +157,4 @@ const DirectionSteps = styled.div`
   }
 `;
 
-export default withFirebase(DirectionDetails);
+export default DirectionDetails;

@@ -3,6 +3,7 @@ import RouteMap from "./routemap";
 import DirectionDetails from "./directiondetails";
 import EmissionCalculationView from "./emissioncalculationview";
 import Swipe from "react-easy-swipe";
+import { withFirebase } from "./Firebase";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +16,9 @@ class DirectionOverlay extends Component {
     this.state = {
       showECV: false
     };
+  }
+  componentDidMount() {
+    this.props.firebase.setSelectedRoute(this.props.route.legs[0]);
   }
   goBack = () => {
     this.props.unmount();
@@ -63,4 +67,4 @@ class DirectionOverlay extends Component {
     );
   }
 }
-export default DirectionOverlay;
+export default withFirebase(DirectionOverlay);
