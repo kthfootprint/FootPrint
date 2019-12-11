@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { withFirebase } from "./Firebase";
 import Comparison from "./comparison";
+import { filterOutShortWalks } from "./RouteTools/handleRoute";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -11,7 +11,8 @@ import {
   faBus,
   faSubway,
   faTrain,
-  faShip
+  faShip,
+  faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 
 export class DirectionDetails extends Component {
@@ -20,7 +21,7 @@ export class DirectionDetails extends Component {
 
     this.state = {
       saveButtonVariant: "success",
-      saveButtonText: "Save route"
+      saveButtonText: "Save"
     };
   }
   emissionBox = () => {
@@ -29,23 +30,29 @@ export class DirectionDetails extends Component {
         <div className="emission" style={{ color: this.props.emissionColor }}>
           <p>Your trip emits: {this.props.emission} g CO2</p>
         </div>
-        <Comparison comparableNumber={this.props.comparable} />
+        <Comparison
+          comparableNumber={this.props.comparable}
+          toggleECV={this.props.toggleECV}
+        />
       </div>
     );
   };
 
   render() {
-    const steps = this.props.route.steps;
+    let steps = this.props.route.steps;
+    if (filterOutShortWalks(this.props.route)) {
+      steps.pop();
+    }
     const icon = {
-      WALKING: <FontAwesomeIcon icon={faWalking} />,
-      BUS: <FontAwesomeIcon icon={faBus} />,
-      SUBWAY: <FontAwesomeIcon icon={faSubway} />,
-      TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      HEAVY_RAIL: <FontAwesomeIcon icon={faTrain} />,
-      LONG_DISTANCE_TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      HIGH_SPEED_TRAIN: <FontAwesomeIcon icon={faTrain} />,
-      TRAM: <FontAwesomeIcon icon={faSubway} />,
-      FERRY: <FontAwesomeIcon icon={faShip} />
+      WALKING: <FontAwesomeIcon icon={faWalking} fixedWidth />,
+      BUS: <FontAwesomeIcon icon={faBus} fixedWidth />,
+      SUBWAY: <FontAwesomeIcon icon={faSubway} fixedWidth />,
+      TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      HEAVY_RAIL: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      LONG_DISTANCE_TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      HIGH_SPEED_TRAIN: <FontAwesomeIcon icon={faTrain} fixedWidth />,
+      TRAM: <FontAwesomeIcon icon={faSubway} fixedWidth />,
+      FERRY: <FontAwesomeIcon icon={faShip} fixedWidth />
     };
     let allSteps = [];
     for (var i in steps) {
@@ -78,31 +85,54 @@ export class DirectionDetails extends Component {
         </div>
       );
     }
+    allSteps.push(
+      <div key="arrivalTime">
+        <div className="transitDetails">
+          <div className="stepDetailTime">
+            <Col xs={1} className="timeText">
+              {this.props.route.arrival_time.text}
+            </Col>
+            <Col xs={1}>
+              <FontAwesomeIcon icon={faThumbsUp} />
+            </Col>
+            <Col className="instructionText">
+              <p className="stepDetailInstructions">Du är framme!</p>
+            </Col>
+          </div>
+        </div>
+      </div>
+    );
     return (
       <div id="directionDetails">
         <div id="slider"></div>
         <DirectionSteps>{allSteps}</DirectionSteps>
         <hr style={{ borderWidth: "1.5px", width: "100%" }} />
-        {this.emissionBox()}
-        <Button
-          onClick={() => {
-            this.setState({
-              saveButtonVariant: "info",
-              saveButtonText: "Saving..."
-            });
-            this.props.firebase.setSelectedRoute(this.props.route).then(() => {
+        <div id="directionBottom">
+          <Button
+            onClick={() => {
               this.setState({
-                saveButtonVariant: "secondary",
-                saveButtonText: "Route saved!"
+                saveButtonVariant: "info",
+                saveButtonText: "Saving..."
               });
-            });
-          }}
-          variant={this.state.saveButtonVariant}
-          className="saveButton"
-          disabled={this.state.saveButtonVariant === "secondary" ? true : false}
-        >
-          {this.state.saveButtonText}
-        </Button>
+              setTimeout(
+                this.setState({
+                  saveButtonVariant: "secondary",
+                  saveButtonText: "Saved!"
+                }),
+                500
+              );
+            }}
+            variant={this.state.saveButtonVariant}
+            className="saveButton"
+            disabled={
+              this.state.saveButtonVariant === "secondary" ? true : false
+            }
+          >
+            {this.state.saveButtonText}
+          </Button>
+          {this.emissionBox()}
+          <div id="emptySpace"></div>
+        </div>
       </div>
     );
   }
@@ -127,4 +157,4 @@ const DirectionSteps = styled.div`
   }
 `;
 
-export default withFirebase(DirectionDetails);
+export default DirectionDetails;

@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCar, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCar,
+  faQuestionCircle,
+  faTimesCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/comparison.scss";
 
 export class Comparison extends Component {
+  tooltip = React.createRef(null);
+
   render() {
     return (
       <div className="comparable">
@@ -21,13 +27,31 @@ export class Comparison extends Component {
         />
         <ReactTooltip
           id="tooltipparuuu"
-          place="left"
+          ref={this.tooltip}
+          place="top"
           type="dark"
-          effect="solid"
+          effect="float"
+          className="tooltipWrapper"
+          clickable
         >
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            onClick={() => {
+              const current = this.tooltip.current;
+              current.tooltipRef = null;
+              ReactTooltip.hide();
+            }}
+          />
+          <br />
           <span>
-            This would be the emissions <br /> of driving a modern <br />{" "}
-            diesel/petrol/hybrid car the same <br /> distance as your route.
+            This would be the emissions <br /> of driving a modern <br /> petrol
+            car the same <br /> distance as your route.
+            <br />
+            <br />
+            <div id="linkToECV" onClick={() => this.props.toggleECV()}>
+              Click here for more information about <br />
+              how this has been calculated.
+            </div>
           </span>
         </ReactTooltip>
       </div>

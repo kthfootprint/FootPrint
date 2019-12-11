@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import DirectionOverlay from "./directionoverlay";
-import Comparison from "./comparison";
 import { withFirebase } from "./Firebase";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +32,7 @@ export class RouteCard extends Component {
 
   calculateComparable = transit => {
     let comparableOut = 0;
-    const eCar = 101.7 / 1000;
+    const eCar = 123.4 / 1000;
     for (let i = 0; i < transit.length; i++) {
       let distance = transit[i].distance.value;
       comparableOut += distance * eCar;
@@ -65,13 +64,14 @@ export class RouteCard extends Component {
   getEmissionObject = (emission, color) => {
     return (
       <div className="emission">
+        <p className="emissionHeader">Emission | </p>
         <p style={{ color: color }}>{emission} g CO2</p>
       </div>
     );
   };
 
   getRGBA(color) {
-    return color.slice(0, 3) + "a" + color.slice(3, -1) + ",0.3)";
+    return color.slice(0, 3) + "a" + color.slice(3, -1) + ")";
   }
 
   selectCard = e => {
@@ -151,88 +151,107 @@ export class RouteCard extends Component {
     this.setState({ showCard: value });
   }
 
-  render() {
-    var calculatedEmission = 0;
-    var calculatedComparable = "";
-    var emissionColorValue = 0;
-    var emissionObject = "";
-    var card = [];
-    var list = this.props.list;
-    var emissions = this.emissionList(list);
-    for (var i in list) {
-      var rand = Math.random() * 100 + 50;
-      calculatedEmission = this.props.firebase.calculateEmission(
-        list[i].transitInfo
-      );
-      calculatedComparable = this.calculateComparable(list[i].transitInfo);
-      emissionColorValue = this.emissionColor(emissions, calculatedEmission);
-      emissionObject = this.getEmissionObject(
-        calculatedEmission,
-        emissionColorValue
-      );
-      var travelSteps = [];
-      for (let t = 0; t < list[i].transitInfo.length; t++) {
-        var routeNr =
-          list[i].transitInfo[t].type === "TRAM"
-            ? "Tvärbanan " + list[i].transitInfo[t].line
-            : list[i].transitInfo[t].type === "WALKING"
-            ? list[i].transitInfo[t].distance.text
-            : list[i].transitInfo[t].line;
-        var routeColor =
-          list[i].transitInfo[t].type === "WALKING"
-            ? null
-            : list[i].transitInfo[t].lineColor;
+  getRouteSteps = route => {
+    var travelSteps = [];
+    route.transitInfo.forEach((step, index) => {
+      var routeNr = this.getRouteNr(step);
+      var routeColor = this.getRouteColor(step);
+      if (travelSteps.length < 5) {
         travelSteps.push(
-          <div className="routeSteps" key={t}>
-            {this.getIcon(list[i].transitInfo[t])}
+          <div className="routeSteps" key={index}>
+            {this.getIcon(step)}
             <p className="routeId" style={{ backgroundColor: routeColor }}>
               {routeNr}
             </p>
           </div>
         );
+      } else if (travelSteps.length === 5) {
+        travelSteps.push(
+          <div className="routeSteps" key={index}>
+            <p className="routeId">...</p>
+          </div>
+        );
       }
+    });
+    return travelSteps;
+  };
+
+  getRouteNr = transitInfo => {
+    return transitInfo.type === "TRAM"
+      ? "Tvärbanan " + transitInfo.line
+      : transitInfo.type === "WALKING"
+      ? transitInfo.distance.text
+      : transitInfo.line;
+  };
+
+  getRouteColor = transitInfo => {
+    return transitInfo.type === "WALKING" ? null : transitInfo.lineColor;
+  };
+
+  render() {
+    var calculatedEmission = 0;
+    var emissionColorValue = 0;
+    var emissionObject = "";
+    var card = [];
+    var list = this.props.list;
+    var emissions = this.emissionList(list);
+
+    list.forEach((route, index) => {
+      var rand = Math.random() * 100 + 50;
+      calculatedEmission = this.props.firebase.calculateEmission(
+        route.transitInfo
+      );
+      emissionColorValue = this.emissionColor(emissions, calculatedEmission);
+      emissionObject = this.getEmissionObject(
+        calculatedEmission,
+        emissionColorValue
+      );
+
+      var travelSteps = this.getRouteSteps(route);
+
       card.push(
         <CSSTransition
           in={this.state.showCard}
           timeout={rand}
           classNames="fade"
           unmountOnExit
-          key={list[i].index}
+          key={route.index}
         >
           <article
-            key={list[i].index}
+            key={route.index}
             className="card"
-            id={i}
+            id={index}
             onClick={this.selectCard}
-            style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
           >
-            <div className="top">
+            <div
+              className="top"
+              style={{ backgroundColor: this.getRGBA(emissionColorValue) }}
+            >
               <div className="routeContainer">
                 <div className="travel">{travelSteps}</div>
                 <div className="rightCard">
                   <div className="time">
-                    <p>{list[i].duration}</p>
+                    <p>{route.duration}</p>
                   </div>
-                  {emissionObject}
                 </div>
               </div>
             </div>
             <div className="bottom">
               <div className="timeContainer">
-                {list[i].departure !== "" ? (
+                {route.departure !== "" ? (
                   <p>
-                    {list[i].departure} - {list[i].arrival}
+                    {route.departure} - {route.arrival}
                   </p>
                 ) : (
-                  <p>{list[i].duration}</p>
+                  <p>{route.duration}</p>
                 )}
-                <Comparison comparableNumber={calculatedComparable} />
+                {emissionObject}
               </div>
             </div>
           </article>
         </CSSTransition>
       );
-    }
+    });
     return (
       <div className="routeCards" style={{ width: "100%" }}>
         {card}

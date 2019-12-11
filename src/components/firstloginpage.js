@@ -117,8 +117,9 @@ class FirstLoginPage extends Component {
                       </option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
-                      <option value="other">
-                        Other/Do not want to disclose
+                      <option value="other">Other</option>
+                      <option value="notDisclosing">
+                        Do not want to disclose
                       </option>
                     </Form.Control>
 
@@ -126,7 +127,7 @@ class FirstLoginPage extends Component {
                       name="termsOfService"
                       onChange={this.onChange}
                       type="checkbox"
-                      label="Jag godkänner användarvillkoren."
+                      label="Jag godkänner att min anonymiserade användardata får användas för denna KTH-användarstudie, men inte i några andra syften."
                     />
 
                     <Button disabled={isInvalid} type="submit" block>

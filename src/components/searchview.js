@@ -3,7 +3,6 @@ import { compose } from "recompose";
 import { withFirebase } from "./Firebase";
 import RouteCard from "./routecard";
 import Logout from "./logout";
-import DotLoader from "react-spinners/DotLoader";
 import logo from "../styles/foot.png";
 import InfoView from "./infoview";
 import handleRoute from "./RouteTools/handleRoute";
@@ -11,10 +10,11 @@ import { withAuthorization } from "./Auth";
 import * as ROLES from "../constants/roles";
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExchangeAlt } from "@fortawesome/free-solid-svg-icons";
+import { faExchangeAlt, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 /* global google */
 
 import "../styles/searchview.scss";
+import CardLoader from "./cardloader";
 
 class SearchView extends Component {
   constructor(props) {
@@ -27,9 +27,10 @@ class SearchView extends Component {
       destName: "",
       route: [],
       loading: false,
-      bgBlur: false,
+      bgBlur: true,
       showHeader: true,
-      flipped: 90
+      flipped: 90,
+      location: "origin-input"
     };
     this.toggleHeader = this.toggleHeader.bind(this);
   }
@@ -39,6 +40,8 @@ class SearchView extends Component {
   }
 
   initAutocomplete = inputField => {
+    this.clearAutocomplete();
+    google.maps.event.clearInstanceListeners(inputField);
     var geolocation = {
       lat: 59.334591,
       lng: 18.06324
@@ -58,18 +61,28 @@ class SearchView extends Component {
     });
   };
 
+  clearAutocomplete = () => {
+    var containers = document.getElementsByClassName("pac-container");
+    for (let item of containers) {
+      item.remove();
+    }
+  };
+
   setPosition = position => {
-    var destinationInput = document.getElementById("destination-input");
     let pos = position.coords.latitude + ", " + position.coords.longitude;
-    this.setState({ orig: pos }, () => {
-      destinationInput.select();
-    });
+
+    this.state.location === "origin-input"
+      ? this.setState({ orig: pos })
+      : this.setState({ dest: pos });
+    this.setState({ location: "" });
   };
 
   getLocation = () => {
-    var destinationInput = document.getElementById("destination-input");
-    this.setState({ origName: "My location" });
-    destinationInput.focus();
+    var activeInput = document.getElementById(this.state.location);
+
+    activeInput.id === "origin-input"
+      ? this.setState({ origName: "My location" })
+      : this.setState({ destName: "My location" });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setPosition);
@@ -122,7 +135,8 @@ class SearchView extends Component {
   }
 
   inputFocus = event => {
-    event.target.select();
+    event.target.setSelectionRange(0, 9999);
+    this.setState({ location: event.target.id });
     this.initAutocomplete(event.target);
   };
 
@@ -177,14 +191,9 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.origName}
                   onChange={this.inputOrig}
+                  onBlur={() => this.setState({ location: "" })}
                 />
                 <span className="label">From</span>
-                <span className="label" id="location">
-                  <i
-                    onClick={this.getLocation}
-                    className="fas fa-location-arrow"
-                  ></i>
-                </span>
               </label>
 
               <label className="inp">
@@ -195,9 +204,17 @@ class SearchView extends Component {
                   onFocus={this.inputFocus}
                   value={this.state.destName}
                   onChange={this.inputDestination}
+                  onBlur={() => this.setState({ location: "" })}
                 />
                 <span className="label">To</span>
               </label>
+
+              {this.state.location !== "" && (
+                <div className="myLocation" onMouseDown={this.getLocation}>
+                  <FontAwesomeIcon icon={faCrosshairs} />
+                  <p>My location</p>
+                </div>
+              )}
             </nav>
 
             <nav id="switchRoute">
@@ -210,6 +227,7 @@ class SearchView extends Component {
                 <FontAwesomeIcon
                   icon={faExchangeAlt}
                   rotation={this.state.flipped}
+                  style={{ color: "rgb(200, 200, 200)" }}
                 />
               </button>
             </nav>
@@ -228,13 +246,7 @@ class SearchView extends Component {
           </header>
         </CSSTransition>
         <div id="main">
-          <DotLoader
-            css={{
-              marginTop: 50,
-              alignSelf: "center"
-            }}
-            loading={this.state.loading}
-          />
+          <CardLoader num={4} loading={this.state.loading} />
           {!this.state.loading &&
             (this.state.routeList.length === 0 ? (
               <InfoView />

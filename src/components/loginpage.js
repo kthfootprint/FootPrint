@@ -14,6 +14,7 @@ import PasswordReset from "./PasswordReset";
 import footPrintPng from "../styles/foot.png";
 
 import * as ROUTES from "../constants/routes";
+import * as ROLES from "../constants/roles";
 
 import "../styles/login.scss";
 
@@ -22,8 +23,7 @@ class LoginPage extends Component {
     super(props);
 
     this.state = {
-      newUser: false,
-      loading: true
+      newUser: false
     };
   }
 
@@ -37,59 +37,57 @@ class LoginPage extends Component {
     this.setState({ forgotPassword: bool });
   };
 
-  componentDidMount() {
-    this.setState({ loading: false });
-  }
-
   render() {
     return (
-      !this.state.loading && (
-        <div className="LoginPage">
-          {this.props.firebase.auth.currentUser && (
+      <div className="LoginPage">
+        {this.props.firebase.auth.currentUser &&
+          (localStorage.getItem("authUser") &&
+          JSON.parse(localStorage.getItem("authUser")).roles[ROLES.USER] ? (
+            <Redirect to={ROUTES.LANDING} />
+          ) : (
             <Redirect
               to={`${ROUTES.FIRSTLOGIN}/${this.props.firebase.auth.currentUser.uid}`}
             />
-          )}
+          ))}
 
-          <div className="LoginPageInner">
-            <Container fluid>
-              <Row className="justify-content-center">
-                <Col xl={6} lg={8} md={10} xs={12}>
-                  <Media>
-                    <Image className="logotype" src={footPrintPng} />
-                    <Media.Body className="align-self-center mr-3">
-                      <h2>FootPrint</h2>
-                    </Media.Body>
-                  </Media>
-                </Col>
-              </Row>
+        <div className="LoginPageInner">
+          <Container fluid>
+            <Row className="justify-content-center">
+              <Col xl={6} lg={8} md={10} xs={12}>
+                <Media>
+                  <Image className="logotype" src={footPrintPng} />
+                  <Media.Body className="align-self-center mr-3">
+                    <h2>FootPrint</h2>
+                  </Media.Body>
+                </Media>
+              </Col>
+            </Row>
 
-              <Row className="content justify-content-center">
-                <Col xl={6} lg={8} md={10} xs={12}>
-                  {!this.state.newUser ? (
-                    [
-                      !this.state.forgotPassword ? (
-                        <SignIn
-                          key="signin"
-                          createNewUser={this.createNewUser}
-                          forgotPassword={this.forgotPassword}
-                        />
-                      ) : (
-                        <PasswordReset
-                          key="reset"
-                          forgotPassword={this.forgotPassword}
-                        />
-                      )
-                    ]
-                  ) : (
-                    <SignUp key="signup" createNewUser={this.createNewUser} />
-                  )}
-                </Col>
-              </Row>
-            </Container>
-          </div>
+            <Row className="content justify-content-center">
+              <Col xl={6} lg={8} md={10} xs={12}>
+                {!this.state.newUser ? (
+                  [
+                    !this.state.forgotPassword ? (
+                      <SignIn
+                        key="signin"
+                        createNewUser={this.createNewUser}
+                        forgotPassword={this.forgotPassword}
+                      />
+                    ) : (
+                      <PasswordReset
+                        key="reset"
+                        forgotPassword={this.forgotPassword}
+                      />
+                    )
+                  ]
+                ) : (
+                  <SignUp key="signup" createNewUser={this.createNewUser} />
+                )}
+              </Col>
+            </Row>
+          </Container>
         </div>
-      )
+      </div>
     );
   }
 }

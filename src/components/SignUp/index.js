@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { BeatLoader } from "react-spinners";
 
 const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
-  error: null
+  error: null,
+  loading: false
 };
 
 class SignUp extends Component {
@@ -28,13 +30,19 @@ class SignUp extends Component {
         }
       });
     else {
+      this.setState({
+        loading: true
+      });
       this.props.firebase
         .createUserWithEmailAndPassword(
           this.state.email,
           this.state.passwordOne
         )
         .catch(error => {
-          this.setState({ error });
+          this.setState({
+            error: error,
+            loading: false
+          });
         });
     }
   };
@@ -80,8 +88,16 @@ class SignUp extends Component {
             placeholder="Bekräfta lösenord"
           />
 
-          <Button disabled={isInvalid} type="submit" block>
-            Skapa konto
+          <Button
+            disabled={isInvalid || this.state.loading}
+            type="submit"
+            block
+          >
+            {this.state.loading ? (
+              <BeatLoader loading={this.state.loading} />
+            ) : (
+              "Skapa konto"
+            )}
           </Button>
 
           {this.state.error && (
