@@ -116,7 +116,7 @@ class AdminView extends Component {
                   </Card.Body>
                   <Card.Footer>
                     <p>
-                      {new Date(userData.savedAt.seconds * 1000).toLocaleString(
+                      {new Date(userData.savedAt.seconds * 1000 + 3600000).toLocaleString(
                         "en-GB",
                         { timeZone: "UTC" }
                       )}

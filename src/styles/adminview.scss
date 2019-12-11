@@ -1,5 +1,10 @@
 .adminView {
+  height: 100%;
 
+  > div {
+    height: 100%;
+    overflow: scroll;
+  }
 
   .card {
     margin-bottom: 10px;
