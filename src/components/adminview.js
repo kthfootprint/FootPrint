@@ -37,12 +37,19 @@ class AdminView extends Component {
             this.state.userRoutes.length !== 0 &&
             this.state.userRoutes.map((userData, k) => {
               const lowestEmission = Math.min(...userData.routeEmissions);
-              let durations = userData.routeOptions.map(option =>
-                option.duration.replace(" mins", "").split(" hours ")
-              );
+              let durations = userData.routeOptions.map(option => {
+                let duration = option.duration.replace(" mins", "").replace(" min", "")
+
+                if (duration.includes("hours")) return duration.split(" hours ");
+                else if (duration.includes("hour")) return duration.split(" hour ");
+                else if (duration.includes("timmar")) return duration.split(" timmar ");
+                else if (duration.includes("tim")) return duration.split(" tim ");
+
+                return duration;
+              });
               durations = durations.map(duration => {
                 if (duration.length > 1) return duration[0] * 60 + duration[1];
-                return duration[0];
+                else return duration[0];
               });
               const shortestDuration = Math.min(...durations);
               const shortestDurationIndex = durations.indexOf(

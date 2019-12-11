@@ -125,7 +125,7 @@ class Firebase {
 
   getSelectedRoutes = async () =>
     this.db
-      .collection("chosenRoutes")
+      .collection("chosenRoutes").orderBy("author")
       .get()
       .then(snapshot => {
         let userActions = [];
