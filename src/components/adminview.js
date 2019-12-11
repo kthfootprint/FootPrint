@@ -23,7 +23,16 @@ class AdminView extends Component {
 
   componentDidMount() {
     this.props.firebase.getSelectedRoutes().then(userRoutes => {
-      this.setState({ userRoutes, loading: false });
+      var p = userRoutes.map(input =>
+        this.props.firebase.getProfile(input.author).then(user => {
+          return { authorEmail: user.email, ...input }
+        })
+      )
+
+      Promise.all(p).then(userRoutesExtended => { 
+        this.setState({ userRoutes: userRoutesExtended, loading: false });
+      });
+      
     });
   }
 
@@ -128,7 +137,7 @@ class AdminView extends Component {
                         { timeZone: "UTC" }
                       )}
                     </p>
-                    <p className="author">Author: {userData.author}</p>
+                    <p className="author">Author: {userData.authorEmail}</p>
                   </Card.Footer>
                 </Card>
               );
